@@ -44,7 +44,7 @@
 			now()
 			)
 	</insert>
-	<select id="getLogininfo" parameterType="User_infoDTO" resultType="User_infoDTO">
+	<select id="getLoginInfo" parameterType="User_infoDTO" resultType="User_infoDTO">
 		SELECT USER_NO, USER_NAME, AUTH, EMAIL FROM USER_INFO WHERE EMAIL=#{email} AND PASSWORD = PASSWORD(#{password})
 	</select>
 	

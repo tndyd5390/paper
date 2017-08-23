@@ -30,14 +30,14 @@ public class UserController {
 	public String userSignIn(HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
 		log.info("userSignIn Start !!!");
 		log.info("userSignIn End !!!");
-		return "user/userSignIn";
+		return "userSignIn";
 	}
 	
 	@RequestMapping(value="userLogin")
 	public String userLogin(HttpSession session, HttpServletRequest req, HttpServletResponse resp,Model model) throws Exception{
 		log.info(this.getClass().getName() + " userLogin Start!! ");
 		log.info(this.getClass().getName() + " userLogin End!! ");
-		return "user/userLogin";
+		return "login";
 	}
 	@RequestMapping(value="userLoginProc")
 	public String userLoginProc(HttpSession session, HttpServletResponse resp, HttpServletRequest req, Model model) throws Exception{
@@ -61,7 +61,7 @@ public class UserController {
 			
 			uDTO=null;
 			log.info(this.getClass().getName() + " userLoginProc End!! ");
-			return "redirect:";
+			return "redirect:test.do";
 		}
 	}
 	@RequestMapping(value = "overlapEmail")
