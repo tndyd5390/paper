@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.persistance.mapper.UserMapper">
+	<select id="getUserList" resultType="User_infoDTO">
+		SELECT 
+			USER_NO,
+		    EMAIL,
+		    PASSWORD,
+		    USER_NAME,
+		    BELONG,
+		    AUTH,
+		    PHONE_1,
+		    PHONE_2,
+		    PHONE_3,
+		    REG_DT,
+		    REG_USER_NO,
+		    CHG_DT,
+		    CHG_USER_NO
+		FROM
+			USER_INFO;
+	</select>
+</mapper>
