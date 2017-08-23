@@ -19,4 +19,36 @@
 		FROM
 			USER_INFO;
 	</select>
+	<insert id="insertUser" parameterType="User_infoDTO">
+		INSERT INTO USER_INFO (
+			EMAIL,
+			USER_NAME,
+			PASSWORD,
+			BELONG,
+			PHONE_1,
+			PHONE_2,
+			PHONE_3,
+			AUTH
+			REG_USER_NO,
+			REG_DT
+			)VALUES(
+			#{email},
+			#{user_name},
+			PASSWORD(#{password}),
+			#{belong},
+			#{phone_1},
+			#{phone_2},
+			#{phone_3},
+			'U',
+			last_insert_id(),
+			now()
+			)
+	</insert>
+	<select id="getLogininfo" parameterType="User_infoDTO" resultType="User_infoDTO">
+		SELECT USER_NO, USER_NAME, AUTH, EMAIL FROM USER_INFO WHERE EMAIL=#{email} AND PASSWORD = PASSWORD(#{password})
+	</select>
+	
+	<select id="overlapEmail" parameterType="User_infoDTO" resultType="int">
+		SELECT COUNT(*) FROM USER_INFO WHERE EMAIL = #{email}
+	</select>	
 </mapper>

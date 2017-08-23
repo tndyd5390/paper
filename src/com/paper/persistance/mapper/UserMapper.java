@@ -7,5 +7,11 @@ import com.paper.dto.User_infoDTO;
 
 @Mapper("UserMapper")
 public interface UserMapper {
+	public User_infoDTO getLoginInfo(User_infoDTO uDTO) throws Exception;
+
 	public List<User_infoDTO> getUserList() throws Exception;
+
+	public void insertUser() throws Exception;
+
+	public int overLapEmail(User_infoDTO uDTO) throws Exception;
 }

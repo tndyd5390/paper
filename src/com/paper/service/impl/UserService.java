@@ -19,5 +19,20 @@ public class UserService implements IUserService {
 	public List<User_infoDTO> getUserList() throws Exception {
 		return userMapper.getUserList();
 	}
+
+	@Override
+	public void insertUser(User_infoDTO uDTO) throws Exception {
+		userMapper.insertUser();
+	}
+
+	@Override
+	public User_infoDTO getLoginInfo(User_infoDTO uDTO) throws Exception {
+		return userMapper.getLoginInfo(uDTO);
+	}
+
+	@Override
+	public int overlapEmail(User_infoDTO uDTO) throws Exception {
+		return userMapper.overLapEmail(uDTO);
+	}
 	
 }
