@@ -66,10 +66,8 @@ input.Sub-Txt{
 						<hr>
 					</div>
 					<div class="form-group">
-						<label class="block">논문 첨부 <a>*</a></label> <input type="text"
-							class="form-control subTxt Sub-Txt"><a
-							class="btn btn-info subBtn" href="#" title="클릭하시면 등록 화면으로 이동합니다.">파일
-							등록</a> 
+						<label class="block">논문 첨부 <a>*</a></label> <input type="file"
+							class="form-control subTxt Sub-Txt">
 						<hr>
 					</div>
 					<div class="form-group">
