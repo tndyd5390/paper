@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import = "com.paper.util.CmmUtil" %>
+<%@ page import = "com.paper.dto.Notice_infoDTO" %>
+<%@ page import = "java.util.List" %>
+<% 
+	List<Notice_infoDTO> nList = (List) request.getAttribute("nList");
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,7 +18,6 @@
 		font-size:18px;
 	}
 	a.submit-btn{
-		margin-top : 15px;
 		width:100px;
 		height: 40px;
 		font-size: 18px;
@@ -43,11 +49,15 @@
 						공고 선택 *
 					</h2>
 					<select class="form-control selectForm" placeholder="공고 제목이 들어가는 자리입니다.">
-						<option>첫번쨰 공고</option>
-						<option>두번째 공고</option>
-						<option>세번째 공고</option>					
+					<%
+						for(Notice_infoDTO nDTO : nList){
+					%>
+						<option><%=nDTO.getNotice_title() %></option>
+					<%
+						} 
+					%>
 					</select>
-					<div style="float: right">
+					<div style="float: right; margin-top:30px">
 						<button type="submit" class="btn btn-info submit-btn">제출</button>
 					</div>
 				</div>
