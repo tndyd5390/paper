@@ -139,24 +139,11 @@
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
 		<ul class="sidebar-menu">
-			<li class="active"><a class="" href="#"> <i
-					class="icon_house_alt"></i> <span>공고 리스트</span>
+			<li><a class="" href="#"> <i
+					class="icon_document_alt"></i> <span>공고 리스트</span>
 			</a></li>
 			<li><a class="" href="#"> <i
-					class="icon_document_alt"></i> <span>메뉴 관리</span>
-			</a></li>
-			<li><a class="" href="#"> <i
-					class="icon_profile"></i> <span>회원 관리</span>
-			</a></li>
-			<li><a class="" href="#"> <i class="fa fa-table"></i>
-					<span>게시판 관리</span>
-			</a></li>
-			<li><a class="" href="#"> <i
-					class="icon_piechart"></i> <span>분석 차트</span>
-
-			</a></li>
-			<li><a class="" href="#"> <i
-					class="icon_piechart"></i> <span>로그 분석</span>
+					class="icon_profile"></i> <span>회원 리스트</span>
 			</a></li>
 		</ul>
 		<!-- sidebar menu end-->

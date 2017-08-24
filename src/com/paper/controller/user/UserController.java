@@ -111,5 +111,20 @@ public class UserController {
 		return "redirect:userLogin.do";
 	}
 	
+	@RequestMapping(value="paperReg")
+	public String paperReg(HttpServletRequest req, HttpServletResponse resp, HttpSession session, Model model)throws Exception{
+	
+		return "paperReg";
+	}
+	@RequestMapping(value="paperSubmit")
+	public String paperSubmit(HttpServletRequest req, HttpServletResponse resp, HttpSession session, Model model)throws Exception{
+		
+		return "paperSubmit";
+	}
+	@RequestMapping(value="paperList")
+	public String paperList(HttpServletRequest req, HttpServletResponse resp, HttpSession session, Model model)throws Exception{
+		
+		return "paperList";
+	}
 		
 }
