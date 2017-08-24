@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import = "com.paper.util.CmmUtil"  %>
-	
-
 <% 
 	String ss_user_name = CmmUtil.nvl((String) session.getAttribute("ss_user_name"));
 	String ss_user_no = CmmUtil.nvl((String) session.getAttribute("ss_user_no"));
@@ -141,6 +139,7 @@
 		<!-- sidebar menu start-->
 		<ul class="sidebar-menu">
 		<%if(ss_user_no.equals("")||ss_user_no==null){ %>
+		
 		<%}else if(ss_user_auth.equals("U")||ss_user_auth=="auth"){%>
 			<li class="active"><a class="" href="#"> <i
 					class="icon_house_alt"></i> <span>공고 리스트</span>

@@ -23,6 +23,12 @@
 		font-size: 18px;
 	}
 </style>
+<script>
+	$(function(){
+		$('')
+	})
+
+</script>
 <title>공고 등록</title>
 </head>
 <body>
