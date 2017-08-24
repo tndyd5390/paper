@@ -4,7 +4,7 @@
 <% request.setCharacterEncoding("euc-kr"); %>
 <html>
 <head>
-<%@include file="/WEB-INF/include/head.jsp"%>
+<%@include file="/include/head.jsp"%>
 <script>
 $(document).ready(function(){
     // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
@@ -99,5 +99,6 @@ function doJoin(){
 			<div class="credits"></div>
 		</div>
 	</div>
+	<%@include file="/include/bottomJavaScript.jsp"%>
 </body>
 </html>
