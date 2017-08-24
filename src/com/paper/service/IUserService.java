@@ -12,4 +12,6 @@ public interface IUserService {
 	public User_infoDTO getLoginInfo(User_infoDTO uDTO) throws Exception;
 
 	public int overlapEmail(User_infoDTO uDTO) throws Exception;
+
+	public User_infoDTO getUserFindPw(User_infoDTO uDTO) throws Exception;
 }

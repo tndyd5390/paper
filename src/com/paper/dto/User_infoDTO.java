@@ -12,7 +12,7 @@ public class User_infoDTO {
 	private String reg_user_no;
 	private String chg_dt;
 	private String chg_user_no;
-	
+	private String temp_pw;
 	
 	public String getPhone() {
 		return phone;
@@ -79,6 +79,12 @@ public class User_infoDTO {
 	}
 	public void setChg_user_no(String chg_user_no) {
 		this.chg_user_no = chg_user_no;
+	}
+	public String getTemp_pw() {
+		return temp_pw;
+	}
+	public void setTemp_pw(String temp_pw) {
+		this.temp_pw = temp_pw;
 	}
 
 }

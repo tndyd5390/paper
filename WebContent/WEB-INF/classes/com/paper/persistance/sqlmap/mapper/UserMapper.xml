@@ -49,5 +49,18 @@
 	
 	<select id="overLapEmail" parameterType="User_infoDTO" resultType="int">
 		SELECT COUNT(*) FROM USER_INFO WHERE EMAIL = #{email}
-	</select>	
+	</select>
+	
+	<select id="userFindPw" resultType="User_infoDTO" parameterType="User_InfoDTO">
+		SELECT PASSWORD FROM USER_INFO WHERE EMAIL = #{email} AND
+		USER_NAME=#{user_name} AND PHONE=#{phone}
+	</select>
+	
+	<update id="updateTempPw" parameterType="User_infoDTO">
+		UPDATE USER_INFO SET
+		PASSWORD=PASSWORD(#{temp_pw}) WHERE USER_NAME=#{user_name} AND
+		EMAIL=#{email} AND PHONE = #{phone}
+	</update>
+	
+		
 </mapper>

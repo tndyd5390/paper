@@ -35,5 +35,28 @@ public class UserService implements IUserService {
 	public int overlapEmail(User_infoDTO uDTO) throws Exception {
 		return userMapper.overLapEmail(uDTO);
 	}
+
+	@Override
+	public User_infoDTO getUserFindPw(User_infoDTO uDTO) throws Exception {
+		User_infoDTO userDTO = null;
+		userDTO = userMapper.userFindPw(uDTO);
+		if(userDTO != null){
+			long temp_Pw = (long)(Math.random()*9000000000l) + 1000000000l;
+			String temp_password = Long.toHexString(temp_Pw);
+			
+			User_infoDTO tempdto = new User_infoDTO();
+			tempdto.setUser_name(uDTO.getUser_name());
+			tempdto.setEmail(uDTO.getEmail());
+			tempdto.setPhone(uDTO.getPhone());
+			tempdto.setTemp_pw(temp_password);
+			
+			userMapper.updateTempPw(tempdto);
+			
+			userDTO.setPassword(temp_password);
+			return userDTO;
+		}else{
+			return null;
+		}
+	}
 	
 }

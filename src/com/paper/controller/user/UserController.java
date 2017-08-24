@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.paper.dto.User_infoDTO;
 import com.paper.service.IUserService;
 import com.paper.util.CmmUtil;
+import com.paper.util.Email;
 import com.paper.util.EmailSender;
 
 @Controller
@@ -102,4 +103,53 @@ public class UserController {
 		log.info(this.getClass().getName() + " userSignInProc End! ");
 		return "redirect:userLogin.do";
 	}
+
+	@RequestMapping(value="userFindInfo")
+	public String userFindInfo (HttpServletRequest req, HttpServletResponse resp) throws Exception{
+		log.info(this.getClass().getName() + " userFindInfo start");
+		
+		log.info(this.getClass().getName() + " userFindInfo end");
+		return "userFindInfo";
+	}
+		
+	@RequestMapping(value="userFindPw")
+	public String adminUserFindInPw (HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
+		log.info(this.getClass().getName() + " adminUserInfo start");
+
+		Email sandEmail = new Email();
+		
+		String email = CmmUtil.nvl(req.getParameter("email"));
+		String user_name = CmmUtil.nvl(req.getParameter("user_name"));
+		String phone = CmmUtil.nvl(req.getParameter("phone"));
+		
+		log.info("email = " + email);
+		log.info("user_name = " + user_name);
+		log.info("phone = " + phone);
+				
+		User_infoDTO uDTO = new User_infoDTO();
+		uDTO.setEmail(email);
+		uDTO.setUser_name(user_name);
+		uDTO.setPhone(phone);
+		uDTO = userService.getUserFindPw(uDTO);
+		
+		if(uDTO == null){
+			return "userFindInfo.do";
+		}
+		else{
+			log.info("password = " + uDTO.getPassword());
+			sandEmail.setSubject("임시 비밀번호 알림 메일입니다.");
+			sandEmail.setReciver(email);
+			sandEmail.setContent("임시 비밀번호는 " + uDTO.getPassword() + "입니다.");
+			
+			emailSender.SendEmail(sandEmail);
+			
+			uDTO = null;
+			
+		}
+		
+		log.info(this.getClass().getName() + " adminUserInfo end");
+		return "redirect:userLogin.do";
+	}
+
+	
 }

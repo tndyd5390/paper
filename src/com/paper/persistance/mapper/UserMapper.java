@@ -16,4 +16,8 @@ public interface UserMapper {
 	public int overLapEmail(User_infoDTO uDTO) throws Exception;
 
 	public void updateRegUser(User_infoDTO uDTO) throws Exception;
+
+	public User_infoDTO userFindPw(User_infoDTO uDTO) throws Exception;
+
+	public void updateTempPw(User_infoDTO tempdto) throws Exception;
 }
