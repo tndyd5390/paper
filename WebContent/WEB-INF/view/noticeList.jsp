@@ -52,7 +52,7 @@
 					<%
 						for(Notice_infoDTO nDTO : nList){
 					%>
-						<option><%=nDTO.getNotice_title() %></option>
+						<option><%=nDTO.getNotice_title() %> / 접수시작 : <%=nDTO.getReception_date() %> / 마감 <%=nDTO.getEnd_date() %></option>
 					<%
 						} 
 					%>
