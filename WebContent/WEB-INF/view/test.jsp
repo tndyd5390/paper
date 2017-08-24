@@ -18,6 +18,6 @@
   	out.println(uDTO.getUser_name());
   	out.println(uDTO.getEmail());
   }
-%>
+%>asdfasdf
 </body>
 </html>
