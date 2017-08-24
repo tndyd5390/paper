@@ -11,7 +11,9 @@ public interface UserMapper {
 
 	public List<User_infoDTO> getUserList() throws Exception;
 
-	public void insertUser() throws Exception;
+	public void insertUser(User_infoDTO uDTO) throws Exception;
 
 	public int overLapEmail(User_infoDTO uDTO) throws Exception;
+
+	public void updateRegUser(User_infoDTO uDTO) throws Exception;
 }

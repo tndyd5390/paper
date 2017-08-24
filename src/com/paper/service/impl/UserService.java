@@ -22,7 +22,8 @@ public class UserService implements IUserService {
 
 	@Override
 	public void insertUser(User_infoDTO uDTO) throws Exception {
-		userMapper.insertUser();
+		userMapper.insertUser(uDTO);
+		userMapper.updateRegUser(uDTO);
 	}
 
 	@Override

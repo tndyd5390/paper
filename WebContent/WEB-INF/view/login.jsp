@@ -64,7 +64,7 @@ function getCookie(cookieName) {
 </script>
 <script>
 function doJoin(){
-	location.href = "userSignIn.do";	
+	location.href = "userJoin.do";	
 }
 
 </script>
