@@ -6,6 +6,7 @@
 <% 
 	String ss_user_name = CmmUtil.nvl((String) session.getAttribute("ss_user_name"));
 	String ss_user_no = CmmUtil.nvl((String) session.getAttribute("ss_user_no"));
+	String ss_user_auth = CmmUtil.nvl((String) session.getAttribute("ss_user_auth"));
 %>
 <script type="text/javascript">
 	function logOut(){
@@ -139,12 +140,19 @@
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
 		<ul class="sidebar-menu">
-			<li><a class="" href="#"> <i
-					class="icon_document_alt"></i> <span>공고 리스트</span>
+		<%if(ss_user_no.equals("")||ss_user_no==null){ %>
+		<%}else if(ss_user_auth.equals("U")||ss_user_auth=="auth"){%>
+			<li class="active"><a class="" href="#"> <i
+					class="icon_house_alt"></i> <span>공고 리스트</span>
+			</a></li>
+		<%}else{ %>
+				<li class="active"><a class="" href="#"> <i
+					class="icon_house_alt"></i> <span>공고 리스트</span>
 			</a></li>
 			<li><a class="" href="#"> <i
 					class="icon_profile"></i> <span>회원 리스트</span>
 			</a></li>
+		<%} %>
 		</ul>
 		<!-- sidebar menu end-->
 	</div>

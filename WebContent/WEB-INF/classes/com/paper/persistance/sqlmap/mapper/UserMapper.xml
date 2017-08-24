@@ -9,9 +9,7 @@
 		    USER_NAME,
 		    BELONG,
 		    AUTH,
-		    PHONE_1,
-		    PHONE_2,
-		    PHONE_3,
+		    PHONE,
 		    REG_DT,
 		    REG_USER_NO,
 		    CHG_DT,
@@ -25,10 +23,8 @@
 			USER_NAME,
 			PASSWORD,
 			BELONG,
-			PHONE_1,
-			PHONE_2,
-			PHONE_3,
-			AUTH
+			PHONE,
+			AUTH,
 			REG_USER_NO,
 			REG_DT
 			)VALUES(
@@ -36,19 +32,35 @@
 			#{user_name},
 			PASSWORD(#{password}),
 			#{belong},
-			#{phone_1},
-			#{phone_2},
-			#{phone_3},
+			#{phone},
 			'U',
-			last_insert_id(),
+			LAST_INSERT_ID(),
 			now()
 			)
 	</insert>
+	<update id="updateRegUser" parameterType="User_infoDTO">
+		UPDATE USER_INFO SET REG_USER_NO =
+		(SELECT * FROM (SELECT USER_NO FROM USER_INFO WHERE EMAIL=#{email}) AS s) WHERE EMAIL = #{email}
+	</update>
+	
 	<select id="getLoginInfo" parameterType="User_infoDTO" resultType="User_infoDTO">
 		SELECT USER_NO, USER_NAME, AUTH, EMAIL FROM USER_INFO WHERE EMAIL=#{email} AND PASSWORD = PASSWORD(#{password})
 	</select>
 	
-	<select id="overlapEmail" parameterType="User_infoDTO" resultType="int">
+	<select id="overLapEmail" parameterType="User_infoDTO" resultType="int">
 		SELECT COUNT(*) FROM USER_INFO WHERE EMAIL = #{email}
-	</select>	
+	</select>
+	
+	<select id="userFindPw" resultType="User_infoDTO" parameterType="User_InfoDTO">
+		SELECT PASSWORD FROM USER_INFO WHERE EMAIL = #{email} AND
+		USER_NAME=#{user_name} AND PHONE=#{phone}
+	</select>
+	
+	<update id="updateTempPw" parameterType="User_infoDTO">
+		UPDATE USER_INFO SET
+		PASSWORD=PASSWORD(#{temp_pw}) WHERE USER_NAME=#{user_name} AND
+		EMAIL=#{email} AND PHONE = #{phone}
+	</update>
+	
+		
 </mapper>

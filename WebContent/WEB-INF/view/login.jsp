@@ -64,7 +64,7 @@ function getCookie(cookieName) {
 </script>
 <script>
 function doJoin(){
-	location.href = "userSignIn.do";	
+	location.href = "userJoin.do";	
 }
 
 </script>
@@ -88,7 +88,7 @@ function doJoin(){
 				</div>
 				<label class="checkbox"> <input type="checkbox" id="idSaveCheck"
 					value="remember-me"> 아이디기억하기 <span class="pull-right">
-						<a href="#"> 아이디/비밀번호찾기</a>
+						<a href="userFindInfo.do"> 비밀번호찾기</a>
 				</span>
 				</label>
 				<button class="btn btn-primary btn-lg btn-block" type="submit">로그인</button>
