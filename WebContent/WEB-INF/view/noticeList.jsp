@@ -25,7 +25,28 @@
 </style>
 <script>
 	$(function(){
-		$('')
+		$('#Select-Notice').click(function(){
+			var nNo = $('#Select-Notice option:selected').attr('id');
+			if(nNo != "mainSelect"){
+			$.ajax({
+				url : "selectNotice.do",
+				method : "post",
+				data : {
+					'nNo' : nNo
+				},
+				dataType : "json",
+				success : function(data) {
+					var contents ="";
+					$.each(data,function(key,value) {
+					 	contents += value
+					})
+					console.log(data);
+					$('#append-contents').html(contents);
+				}
+			})
+			}
+		})
+		
 	})
 
 </script>
@@ -54,17 +75,21 @@
 					<h2>
 						공고 선택 *
 					</h2>
-					<select class="form-control selectForm" placeholder="공고 제목이 들어가는 자리입니다.">
+					<select id="Select-Notice" class="form-control selectForm" placeholder="공고 제목이 들어가는 자리입니다.">
+						<option id="mainSelect">-------선택하세요-------</option>
 					<%
 						for(Notice_infoDTO nDTO : nList){
 					%>
-						<option><%=nDTO.getNotice_title() %> / 접수시작 : <%=nDTO.getReception_date() %> / 마감 <%=nDTO.getEnd_date() %></option>
+						<option id="<%=nDTO.getNotice_no()%>"><%=nDTO.getNotice_title() %> / 접수시작 : <%=nDTO.getReception_date() %> / 마감 <%=nDTO.getEnd_date() %></option>
 					<%
 						} 
 					%>
 					</select>
 					<div style="float: right; margin-top:30px">
 						<button type="submit" class="btn btn-info submit-btn">제출</button>
+					</div>
+					<div id="append-contents">
+					
 					</div>
 				</div>
 				</section>
