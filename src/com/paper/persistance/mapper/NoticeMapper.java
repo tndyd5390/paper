@@ -10,4 +10,5 @@ public interface NoticeMapper {
 
 	public List<Notice_infoDTO> getNoticeList();
 	
+	public Notice_infoDTO selectNotice(Notice_infoDTO nDTO);
 }

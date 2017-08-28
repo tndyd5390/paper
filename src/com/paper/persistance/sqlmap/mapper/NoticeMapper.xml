@@ -11,4 +11,15 @@
 			DATE_FORMAT(END_DATE,'%Y-%m-%d') AS END_DATE
 		FROM NOTICE_INFO
 	</select>
+	
+	<select id="selectNotice" resultType="Notice_infoDTO" parameterType="Notice_infoDTO">
+		SELECT 
+			NOTICE_NO,
+			NOTICE_TITLE,
+			DATE_FORMAT(EXHIBITION_DATE,'%Y-%m-%d') AS EXHIBITION_DATE,
+			DATE_FORMAT(RECEPTION_DATE, '%Y-%m-%d') AS RECEPTION_DATE,
+			DATE_FORMAT(END_DATE,'%Y-%m-%d') AS END_DATE
+		FROM NOTICE_INFO
+		WHERE NOTICE_NO = #{notice_no}
+	</select>
 </mapper>

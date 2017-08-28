@@ -6,33 +6,16 @@
 <%@include file="/include/head.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-label{
-	font-size:20px;
-	font-weight: bold;
-}
-
-input.subTxt {
-	width: 93%;
-	display: inline;
-}
-
-a.subBtn {
-	margin-left: 10px;
-	margin-right: 10px;
-	margin-bottom:5px;
-}
-
-label.block {
-	display: block;
-}
-
-input.Sub-Txt{
-	margin-bottom:5px;
-}
-.btn-right{
-	float: right;
-}
-
+	select.selectForm{
+		height:40px;
+		font-size:18px;
+	}
+	a.submit-btn{
+		margin-top : 15px;
+		width:100px;
+		height: 40px;
+		font-size: 18px;
+	}
 </style>
 
 <script>
