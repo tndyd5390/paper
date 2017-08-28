@@ -63,7 +63,7 @@ public class UserController {
 			
 			uDTO=null;
 			log.info(this.getClass().getName() + " userLoginProc End!! ");
-			return "redirect:test.do";
+			return "redirect:noticeList.do";
 		}
 	}
 	@RequestMapping(value = "overlapEmail")
