@@ -13,4 +13,6 @@ public interface NoticeMapper {
 	public Notice_infoDTO selectNotice(Notice_infoDTO nDTO) throws Exception;
 
 	public void insertNotice(Notice_infoDTO nDTO) throws Exception;
+
+	public int deleteAdminAllCheck(Notice_infoDTO nDTO) throws Exception;
 }
