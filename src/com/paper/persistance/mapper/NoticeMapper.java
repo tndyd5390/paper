@@ -8,7 +8,9 @@ import com.paper.dto.Notice_infoDTO;
 @Mapper("NoticeMapper")
 public interface NoticeMapper {
 
-	public List<Notice_infoDTO> getNoticeList();
+	public List<Notice_infoDTO> getNoticeList() throws Exception;
 	
-	public Notice_infoDTO selectNotice(Notice_infoDTO nDTO);
+	public Notice_infoDTO selectNotice(Notice_infoDTO nDTO) throws Exception;
+
+	public void insertNotice(Notice_infoDTO nDTO) throws Exception;
 }

@@ -27,6 +27,7 @@
 	$(function(){
 		$('#Select-Notice').click(function(){
 			var nNo = $('#Select-Notice option:selected').attr('id');
+			console.log(nNo);
 			if(nNo != "mainSelect"){
 			$.ajax({
 				url : "selectNotice.do",
@@ -87,13 +88,13 @@
 					<%
 						for(Notice_infoDTO nDTO : nList){
 					%>
-						<option value="<%=nDTO.getNotice_no()%>"><%=nDTO.getNotice_title() %> / 접수시작 : <%=nDTO.getReception_date() %> / 마감 <%=nDTO.getEnd_date() %></option>
+						<option id="<%=nDTO.getNotice_no()%>" value="<%=nDTO.getNotice_no()%>"><%=nDTO.getNotice_title() %> / 접수시작 : <%=nDTO.getReception_date() %> / 마감 <%=nDTO.getEnd_date() %></option>
 					<%
 						} 
 					%>
 					</select>
 					<div style="float: right; margin-top:30px">
-						<button type="submit" class="btn btn-info submit-btn">제출</button>
+						<button type="submit" class="btn btn-info submit-btn btn-right">제출</button>
 					</div>
 					<div id="append-contents">
 					

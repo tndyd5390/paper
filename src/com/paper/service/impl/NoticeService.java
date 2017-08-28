@@ -25,4 +25,9 @@ public class NoticeService implements INoticeService{
 		return noticeMapper.selectNotice(nDTO);
 	}
 
+	@Override
+	public void insertNotice(Notice_infoDTO nDTO) throws Exception {
+		noticeMapper.insertNotice(nDTO);
+	}
+
 }
