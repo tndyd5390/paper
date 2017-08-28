@@ -59,6 +59,7 @@ public class UserController {
 			session.setAttribute("ss_user_no", uDTO.getUser_no());
 			session.setAttribute("ss_user_name", uDTO.getUser_name());
 			session.setAttribute("ss_user_auth", uDTO.getAuth());
+			session.setAttribute("ss_user_belong", uDTO.getBelong());
 			
 			uDTO=null;
 			log.info(this.getClass().getName() + " userLoginProc End!! ");
