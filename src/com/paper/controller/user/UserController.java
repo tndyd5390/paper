@@ -104,6 +104,22 @@ public class UserController {
 		log.info(this.getClass().getName() + " userSignInProc End! ");
 		return "redirect:userLogin.do";
 	}
+	
+	@RequestMapping(value="paperReg")
+	public String paperReg(HttpServletRequest req, HttpServletResponse resp, HttpSession session, Model model)throws Exception{
+	
+		return "paperReg";
+	}
+	@RequestMapping(value="paperSubmit")
+	public String paperSubmit(HttpServletRequest req, HttpServletResponse resp, HttpSession session, Model model)throws Exception{
+		
+		return "paperSubmit";
+	}
+	@RequestMapping(value="paperList")
+	public String paperList(HttpServletRequest req, HttpServletResponse resp, HttpSession session, Model model)throws Exception{
+		
+		return "paperList";
+	}
 
 	@RequestMapping(value="userFindInfo")
 	public String userFindInfo (HttpServletRequest req, HttpServletResponse resp) throws Exception{

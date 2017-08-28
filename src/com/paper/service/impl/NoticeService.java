@@ -19,5 +19,10 @@ public class NoticeService implements INoticeService{
 	public List<Notice_infoDTO> getNoticeList() throws Exception {
 		return noticeMapper.getNoticeList();
 	}
+	
+	@Override
+	public Notice_infoDTO selectNotice(Notice_infoDTO nDTO) throws Exception{
+		return noticeMapper.selectNotice(nDTO);
+	}
 
 }
