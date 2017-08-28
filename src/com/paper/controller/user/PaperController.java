@@ -28,6 +28,8 @@ public class PaperController {
 		
 		String nNo = CmmUtil.nvl(req.getParameter("noticeNo"));
 		
+		log.info(this.getClass() + " nNo = "+ nNo);
+		
 		model.addAttribute("nNo",nNo);
 		
 		nNo = null;
