@@ -45,8 +45,8 @@
 					 	contents +=	"접수시작일 : " + value.reception_date +"<br>";
 					 	contents +=	"접수종료일 : " + value.end_date+"<br>";
 					 	contents +=	"개최일 : " + value.exhibition_date;
-					 	
-					 	
+					
+					
 					})
 					$('#append-contents').html(contents);
 				}
