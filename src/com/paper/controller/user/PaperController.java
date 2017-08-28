@@ -26,11 +26,11 @@ public class PaperController {
 	public String userPaperReg(HttpServletRequest req, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass().getName() + " userPaperReg Start!!");
 		
-	//	String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		String nNo = CmmUtil.nvl(req.getParameter("noticeNo"));
 		
-	//	model.addAttribute("nNo",nNo);
+		model.addAttribute("nNo",nNo);
 		
-	//	nNo = null;
+		nNo = null;
 		log.info(this.getClass().getName() + " userPaperReg End!!");
 		return "paperReg";
 	}
@@ -39,12 +39,14 @@ public class PaperController {
 	public String paperRegProc(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
 		log.info(this.getClass().getName()+ " paperRegProc Start!!");
 		
+		String nNo = req.getParameter("nNo");
 		String paperKor = req.getParameter("korName");
 		String paperEng = req.getParameter("engName");
 		String writerNames[] = req.getParameterValues("name");
 		String writerEmails[] = req.getParameterValues("email");
 		String writerBelongs[] = req.getParameterValues("belong");
 		
+		log.info(nNo);
 		log.info(paperKor);
 		log.info(paperEng);
 		

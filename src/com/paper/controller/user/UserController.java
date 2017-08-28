@@ -105,22 +105,6 @@ public class UserController {
 		return "redirect:userLogin.do";
 	}
 	
-	@RequestMapping(value="paperReg")
-	public String paperReg(HttpServletRequest req, HttpServletResponse resp, HttpSession session, Model model)throws Exception{
-	
-		return "paperReg";
-	}
-	@RequestMapping(value="paperSubmit")
-	public String paperSubmit(HttpServletRequest req, HttpServletResponse resp, HttpSession session, Model model)throws Exception{
-		
-		return "paperSubmit";
-	}
-	@RequestMapping(value="paperList")
-	public String paperList(HttpServletRequest req, HttpServletResponse resp, HttpSession session, Model model)throws Exception{
-		
-		return "paperList";
-	}
-
 	@RequestMapping(value="userFindInfo")
 	public String userFindInfo (HttpServletRequest req, HttpServletResponse resp) throws Exception{
 		log.info(this.getClass().getName() + " userFindInfo start");
@@ -154,9 +138,9 @@ public class UserController {
 		}
 		else{
 			log.info("password = " + uDTO.getPassword());
-			sandEmail.setSubject("임시 비밀번호 알림 메일입니다.");
+			sandEmail.setSubject("�엫�떆 鍮꾨�踰덊샇 �븣由� 硫붿씪�엯�땲�떎.");
 			sandEmail.setReciver(email);
-			sandEmail.setContent("임시 비밀번호는 " + uDTO.getPassword() + "입니다.");
+			sandEmail.setContent("�엫�떆 鍮꾨�踰덊샇�뒗 " + uDTO.getPassword() + "�엯�땲�떎.");
 			
 			emailSender.SendEmail(sandEmail);
 			

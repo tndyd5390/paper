@@ -37,10 +37,17 @@
 				dataType : "json",
 				success : function(data) {
 					var contents ="";
-					$.each(data,function(key,value) {
-					 	contents += value
+					var arr = new Array();
+					arr.push(data);
+					$.each(arr,function(key,value) {
+						contents += "<br>";
+					 	contents += value.notice_title + "<br>";
+					 	contents +=	"접수시작일 : " + value.reception_date +"<br>";
+					 	contents +=	"접수종료일 : " + value.end_date+"<br>";
+					 	contents +=	"개최일 : " + value.exhibition_date;
+					 	
+					 	
 					})
-					console.log(data);
 					$('#append-contents').html(contents);
 				}
 			})
@@ -54,7 +61,7 @@
 </head>
 <body>
 	<%@include file="/include/naviBarAndasideBar.jsp"%>
-	<form name="f" action="#" method="post">
+	<form name="f" action="paperReg.do" method="post">
 		<section id="main-content"> <section class="wrapper">
 		<div class="row">
 			<div class="col-lg-12">
@@ -75,12 +82,12 @@
 					<h2>
 						공고 선택 *
 					</h2>
-					<select id="Select-Notice" class="form-control selectForm" placeholder="공고 제목이 들어가는 자리입니다.">
+					<select id="Select-Notice" class="form-control selectForm" placeholder="공고 제목이 들어가는 자리입니다." name="noticeNo">
 						<option id="mainSelect">-------선택하세요-------</option>
 					<%
 						for(Notice_infoDTO nDTO : nList){
 					%>
-						<option id="<%=nDTO.getNotice_no()%>"><%=nDTO.getNotice_title() %> / 접수시작 : <%=nDTO.getReception_date() %> / 마감 <%=nDTO.getEnd_date() %></option>
+						<option value="<%=nDTO.getNotice_no()%>"><%=nDTO.getNotice_title() %> / 접수시작 : <%=nDTO.getReception_date() %> / 마감 <%=nDTO.getEnd_date() %></option>
 					<%
 						} 
 					%>
