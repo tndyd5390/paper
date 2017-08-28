@@ -17,11 +17,48 @@
 		font-size: 18px;
 	}
 </style>
+
+<script>
+
+
+var writerCount = 1;
+function writerAdd(){
+	writerCount++;
+	var writerForm = "";
+	writerForm += "<div class='form-group' id='form"+writerCount+"'>";
+	writerForm += "<label>저자정보 <a>*</a></label>";
+	writerForm += "<input type='text' placeholder='이름 입력' class='form-control Sub-Txt' name='name'>";
+	writerForm += "<input type='text' placeholder='이메일 입력' class='form-control Sub-Txt' name='email'>";
+	writerForm += "<input type='text' placeholder='소속 입력' class='form-control Sub-Txt'name='belong'>";
+	writerForm += "<a class='btn btn-default' onclick='writerDel("+writerCount+")'>제거</a>";
+	writerForm += "<hr>";
+	writerForm += "</div>";
+	
+	$('#writerGroup').append(writerForm);
+}
+function writerDel(count){
+	writerCount--;	
+	$('#form'+count).remove();
+}
+function doSubmit(f){
+	
+	if(confirm("제출하시겠습니까?")){
+		$('#writerSize').val(writerCount);
+		f.submit();
+		
+		return true;
+	}else{
+		return false;
+	}
+	
+}
+
+</script>
 <title>공고 등록</title>
 </head>
 <body>
 	<%@include file="/include/naviBarAndasideBar.jsp"%>
-	<form class="form">
+	<form class="form" action="paperRegProc.do" method="post" name="f" onsubmit='return doSubmit(this)'>
 		<section id="main-content"> <section class="wrapper">
 		<div class="row">
 			<div class="col-lg-12">
@@ -41,49 +78,35 @@
 				공고 제출 </header>
 				<div class="panel-body">
 					<div class="form-group">
-						<label>한글 제목 <a>*</a></label> <input type="text" class="form-control Sub-Txt">
+						<label>한글 제목 <a>*</a></label> <input type="text" class="form-control Sub-Txt" name="korName">
 						<hr>
 					</div>
 					<div class="form-group">
-						<label>영문 제목 <a>*</a> </label> <input type="text" class="form-control Sub-Txt">
+						<label>영문 제목 <a>*</a> </label> <input type="text" class="form-control Sub-Txt" name="engName">
 						<hr>
 					</div>
 					<div class="form-group">
-						<label class="block">논문 첨부 <a>*</a></label> <input type="text"
-							class="form-control subTxt Sub-Txt"><a
-							class="btn btn-info subBtn" href="#" title="클릭하시면 등록 화면으로 이동합니다.">파일
-							등록</a> 
+						<label class="block">논문 첨부 <a>*</a></label> <input type="file"
+							class="form-control subTxt Sub-Txt" name="paper">
 						<hr>
 					</div>
-					<div class="form-group">
-						<label>저자 정보 <a>*</a></label> 
-						<input type="text" placeholder="이름 입력" class="form-control Sub-Txt">
-						<input type="text" placeholder="이메일 입력" class="form-control Sub-Txt">
-						<input type="text" placeholder="소속 입력" class="form-control Sub-Txt">
-						<hr>
-					</div>
-					<div class="form-group">
-						<label>저자 정보 <a>*</a></label> 
-						<input type="text" placeholder="이름 입력" class="form-control Sub-Txt">
-						<input type="text" placeholder="이메일 입력" class="form-control Sub-Txt">
-						<input type="text" placeholder="소속 입력" class="form-control Sub-Txt">
-						<hr>
-					</div>
-					<div class="form-group">
-						<label>저자 정보 <a>*</a></label> 
-						<input type="text" placeholder="이름 입력" class="form-control Sub-Txt">
-						<input type="text" placeholder="이메일 입력" class="form-control Sub-Txt">
-						<input type="text" placeholder="소속 입력" class="form-control Sub-Txt">
-						<hr>
+					<div id="writerGroup">
+						<div class="form-group" id="form1">
+							<label>저자 정보 <a>*</a></label> 
+							<input type="text" placeholder="이름 입력" class="form-control Sub-Txt" name="name">
+							<input type="text" placeholder="이메일 입력" class="form-control Sub-Txt" name="email">
+							<input type="text" placeholder="소속 입력" class="form-control Sub-Txt" name="belong">
+							<hr>
+						</div>
 					</div>
 					<div class="form-group btn-right">
-						<a class="btn btn-primary">추가</a>
-						<a class="btn btn-default">취소</a>
+						<a class="btn btn-primary" onclick="writerAdd()">추가</a>
 					</div>
 					</div>
 				</div>
+				<input type="hidden" name="writerSize" id="writerSize">
 			</div>
-					<a class="btn btn-primary btn-right">제출 하기</a>
+			<input type="submit" class="btn btn-primary btn-right" value="제출 하기" >
 		</section>
 		</section>
 		</section>
