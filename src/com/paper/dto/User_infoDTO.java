@@ -7,13 +7,19 @@ public class User_infoDTO {
 	private String user_name;
 	private String belong;
 	private String auth;
-	private String phone_1;
-	private String phone_2;
-	private String phone_3;
+	private String phone;
 	private String reg_dt;
 	private String reg_user_no;
 	private String chg_dt;
 	private String chg_user_no;
+	private String temp_pw;
+	
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	public String getUser_no() {
 		return user_no;
 	}
@@ -50,24 +56,6 @@ public class User_infoDTO {
 	public void setAuth(String auth) {
 		this.auth = auth;
 	}
-	public String getPhone_1() {
-		return phone_1;
-	}
-	public void setPhone_1(String phone_1) {
-		this.phone_1 = phone_1;
-	}
-	public String getPhone_2() {
-		return phone_2;
-	}
-	public void setPhone_2(String phone_2) {
-		this.phone_2 = phone_2;
-	}
-	public String getPhone_3() {
-		return phone_3;
-	}
-	public void setPhone_3(String phone_3) {
-		this.phone_3 = phone_3;
-	}
 	public String getReg_dt() {
 		return reg_dt;
 	}
@@ -92,4 +80,11 @@ public class User_infoDTO {
 	public void setChg_user_no(String chg_user_no) {
 		this.chg_user_no = chg_user_no;
 	}
+	public String getTemp_pw() {
+		return temp_pw;
+	}
+	public void setTemp_pw(String temp_pw) {
+		this.temp_pw = temp_pw;
+	}
+
 }

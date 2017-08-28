@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.paper.dto.User_infoDTO;
 import com.paper.service.IUserService;
 import com.paper.util.CmmUtil;
+import com.paper.util.Email;
 import com.paper.util.EmailSender;
 
 @Controller
@@ -26,11 +27,11 @@ public class UserController {
 	@Autowired
 	private EmailSender emailSender;
 
-	@RequestMapping(value="userSignIn")
+	@RequestMapping(value="userJoin")
 	public String userSignIn(HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
 		log.info("userSignIn Start !!!");
 		log.info("userSignIn End !!!");
-		return "userSignIn";
+		return "join";
 	}
 	
 	@RequestMapping(value="userLogin")
@@ -58,10 +59,11 @@ public class UserController {
 			session.setAttribute("ss_user_no", uDTO.getUser_no());
 			session.setAttribute("ss_user_name", uDTO.getUser_name());
 			session.setAttribute("ss_user_auth", uDTO.getAuth());
+			session.setAttribute("ss_user_belong", uDTO.getBelong());
 			
 			uDTO=null;
 			log.info(this.getClass().getName() + " userLoginProc End!! ");
-			return "redirect:test.do";
+			return "redirect:noticeList.do";
 		}
 	}
 	@RequestMapping(value = "overlapEmail")
@@ -69,6 +71,7 @@ public class UserController {
 			throws Exception {
 		log.info(this.getClass().getName() + " [ajax] overlapEmail start");
 		String email = CmmUtil.nvl(req.getParameter("email"));
+		System.out.println(email);
 		User_infoDTO uDTO = new User_infoDTO();
 		uDTO.setEmail(email);
 		int check = userService.overlapEmail(uDTO);
@@ -79,7 +82,7 @@ public class UserController {
 		log.info(this.getClass().getName() + " [ajax] overlapEmail end");
 	}
 
-	@RequestMapping(value="userSignInProc")
+	@RequestMapping(value="userJoinProc")
 	public String userSignInProc(HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
 		log.info(this.getClass().getName() + " userSignInProc Start!! ");
 		
@@ -87,29 +90,67 @@ public class UserController {
 		String password = CmmUtil.nvl(req.getParameter("password"));
 		String user_name = CmmUtil.nvl(req.getParameter("user_name"));
 		String belong = CmmUtil.nvl(req.getParameter("belong"));
-		String phone1 = CmmUtil.nvl(req.getParameter("phone1"));
-		String phone2 = CmmUtil.nvl(req.getParameter("phone2"));
-		String phone3 = CmmUtil.nvl(req.getParameter("phone3"));
+		String phone = CmmUtil.nvl(req.getParameter("phone"));
 		
 		User_infoDTO uDTO = new User_infoDTO();
-		
 		uDTO.setEmail(email);
 		uDTO.setPassword(password);
 		uDTO.setUser_name(user_name);
 		uDTO.setBelong(belong);
-		uDTO.setPhone_1(phone1);
-		uDTO.setPhone_2(phone2);
-		uDTO.setPhone_3(phone3);
-		
+		uDTO.setPhone(phone);
 		userService.insertUser(uDTO);
-		if(uDTO == null){
-			uDTO = new User_infoDTO();
-		}
 		
 		uDTO = null;
 		log.info(this.getClass().getName() + " userSignInProc End! ");
 		return "redirect:userLogin.do";
 	}
 	
+	@RequestMapping(value="userFindInfo")
+	public String userFindInfo (HttpServletRequest req, HttpServletResponse resp) throws Exception{
+		log.info(this.getClass().getName() + " userFindInfo start");
 		
+		log.info(this.getClass().getName() + " userFindInfo end");
+		return "userFindInfo";
+	}
+		
+	@RequestMapping(value="userFindPw")
+	public String adminUserFindInPw (HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
+		log.info(this.getClass().getName() + " adminUserInfo start");
+
+		Email sandEmail = new Email();
+		
+		String email = CmmUtil.nvl(req.getParameter("email"));
+		String user_name = CmmUtil.nvl(req.getParameter("user_name"));
+		String phone = CmmUtil.nvl(req.getParameter("phone"));
+		
+		log.info("email = " + email);
+		log.info("user_name = " + user_name);
+		log.info("phone = " + phone);
+				
+		User_infoDTO uDTO = new User_infoDTO();
+		uDTO.setEmail(email);
+		uDTO.setUser_name(user_name);
+		uDTO.setPhone(phone);
+		uDTO = userService.getUserFindPw(uDTO);
+		
+		if(uDTO == null){
+			return "userFindInfo.do";
+		}
+		else{
+			log.info("password = " + uDTO.getPassword());
+			sandEmail.setSubject("�엫�떆 鍮꾨�踰덊샇 �븣由� 硫붿씪�엯�땲�떎.");
+			sandEmail.setReciver(email);
+			sandEmail.setContent("�엫�떆 鍮꾨�踰덊샇�뒗 " + uDTO.getPassword() + "�엯�땲�떎.");
+			
+			emailSender.SendEmail(sandEmail);
+			
+			uDTO = null;
+			
+		}
+		
+		log.info(this.getClass().getName() + " adminUserInfo end");
+		return "redirect:userLogin.do";
+	}
+
+	
 }
