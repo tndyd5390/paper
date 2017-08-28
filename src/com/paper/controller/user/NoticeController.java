@@ -28,7 +28,7 @@ public class NoticeController {
 	private INoticeService noticeService;
 	
 	@RequestMapping(value="noticeList")
-	public String noticeList(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
+	public String noticeList(HttpServletRequest req, HttpServletResponse resp, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass().getName() + " noticeList Start!! ");
 		
 		List<Notice_infoDTO> nList = noticeService.getNoticeList();
@@ -56,4 +56,59 @@ public class NoticeController {
 		
 		return nDTO;
 	}
+	
+	@RequestMapping(value="adminNoticeList")
+	public String adminNoticeList(HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
+		log.info(this.getClass().getName() + " adminNoticeList Start!!");
+		
+		List<Notice_infoDTO> nList = noticeService.getNoticeList();
+		
+		model.addAttribute("nList", nList);
+		nList = null;
+		
+		log.info(this.getClass().getName() + " adminNoticeList End!!");
+		return "admin/adminNoticeList";
+	}
+	
+	@RequestMapping(value="adminNoticeReg")
+	public String adminNoticeReg(HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
+		log.info(this.getClass().getName() + " adminNoticeReg Start!!");
+		
+		
+		
+		log.info(this.getClass().getName() + " adminNoticeReg End!!");
+		return "admin/adminNoticeReg";
+	}
+	@RequestMapping(value="noticeRegProc")
+	public String noticeRegProc (HttpServletRequest req, HttpServletResponse resp, Model model, HttpSession session) throws Exception{
+		log.info(this.getClass().getName() + " noticeRegProc Start!!");
+		
+		String noticeTitle = CmmUtil.nvl(req.getParameter("title"));
+		String receptionDate = CmmUtil.nvl(req.getParameter("reception_date"));
+		String endDate = CmmUtil.nvl(req.getParameter("end_date"));
+		String exhibitionDate = CmmUtil.nvl(req.getParameter("exhibition_date"));
+	//	String userNo = CmmUtil.nvl((String) session.getAttribute("ss_user_no"));
+		
+		Notice_infoDTO nDTO = new Notice_infoDTO();
+		
+		nDTO.setNotice_title(noticeTitle);
+		nDTO.setReception_date(receptionDate);
+		nDTO.setEnd_date(endDate);
+		nDTO.setExhibition_date(exhibitionDate);
+	//	nDTO.setReg_user_no(userNo);
+		
+		log.info(this.getClass()+ " title = " + noticeTitle);
+		log.info(this.getClass()+ " receptionDate = " + receptionDate);
+		log.info(this.getClass()+ " endDate = " + endDate);
+		log.info(this.getClass()+ " exhibitionDate = " + exhibitionDate);
+	//	log.info(this.getClass()+ " regUserNo = " + userNo);
+		
+		noticeService.insertNotice(nDTO);
+		
+		nDTO = null;
+		
+		log.info(this.getClass().getName() + " noticeRegProc End!!");
+		return "redirect:adminNoticeList.do";
+	}
+	
 }

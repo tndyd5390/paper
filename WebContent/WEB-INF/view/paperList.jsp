@@ -23,8 +23,13 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<section class="panel"> <header class="panel-heading">
-				공고 등록 </header>
+				공고 리스트 </header>
 				<div class="panel-body">
+					   <section class="panel">
+                          <header class="panel-heading">
+                              Striped Table
+                          </header>
+                      </section>
 				</div>
 				</section>
 			</div>

@@ -10,6 +10,7 @@
 			DATE_FORMAT(RECEPTION_DATE, '%Y-%m-%d') AS RECEPTION_DATE,
 			DATE_FORMAT(END_DATE,'%Y-%m-%d') AS END_DATE
 		FROM NOTICE_INFO
+		ORDER BY NOTICE_NO DESC
 	</select>
 	
 	<select id="selectNotice" resultType="Notice_infoDTO" parameterType="Notice_infoDTO">
@@ -22,4 +23,22 @@
 		FROM NOTICE_INFO
 		WHERE NOTICE_NO = #{notice_no}
 	</select>
+	
+	<insert id="insertNotice" parameterType="Notice_infoDTO">
+		INSERT INTO NOTICE_INFO (
+			NOTICE_TITLE,
+			RECEPTION_DATE,
+			END_DATE,			
+			EXHIBITION_DATE,
+			REG_USER_NO,
+			REG_DT
+		)VALUES(
+			#{notice_title},
+			#{reception_date},
+			#{end_date},
+			#{exhibition_date},
+			'1',
+			NOW()
+		)
+	</insert>
 </mapper>
