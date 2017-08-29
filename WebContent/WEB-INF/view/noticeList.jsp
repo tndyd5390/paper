@@ -45,13 +45,14 @@
 					 	contents += value.notice_title + "<br>";
 					 	contents +=	"접수시작일 : " + value.reception_date +"<br>";
 					 	contents +=	"접수종료일 : " + value.end_date+"<br>";
-					 	contents +=	"개최일 : " + value.exhibition_date;
-					 	
+					 	contents +=	"개최일 : " + value.exhibition_date+"<br>";
 					 	
 					})
 					$('#append-contents').html(contents);
 				}
 			})
+			}else{
+				$('#append-contents').html("");
 			}
 		})
 		
@@ -78,7 +79,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<section class="panel"> <header class="panel-heading">
-				공고 등록 </header>
+				공고 </header>
 				<div class="panel-body">
 					<h2>
 						공고 선택 *
@@ -88,7 +89,7 @@
 					<%
 						for(Notice_infoDTO nDTO : nList){
 					%>
-						<option id="<%=nDTO.getNotice_no()%>" value="<%=nDTO.getNotice_no()%>"><%=nDTO.getNotice_title() %> / 접수시작 : <%=nDTO.getReception_date() %> / 마감 <%=nDTO.getEnd_date() %></option>
+						<option id="<%=nDTO.getNotice_no()%>" value="<%=nDTO.getNotice_no()%>"><%=nDTO.getNotice_title() %> </option>
 					<%
 						} 
 					%>

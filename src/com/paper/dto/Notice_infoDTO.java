@@ -12,6 +12,8 @@ public class Notice_infoDTO {
 	private String reg_user_no;
 	private String chg_dt;
 	private String chg_user_no;
+	private String stat;
+	
 	public String getNotice_no() {
 		return notice_no;
 	}
@@ -77,5 +79,11 @@ public class Notice_infoDTO {
 	}
 	public void setChg_user_no(String chg_user_no) {
 		this.chg_user_no = chg_user_no;
+	}
+	public String getStat() {
+		return stat;
+	}
+	public void setStat(String stat) {
+		this.stat = stat;
 	}
 }
