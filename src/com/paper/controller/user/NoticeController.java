@@ -128,5 +128,12 @@ public class NoticeController {
 		del_check = null;
 		return "admin/noticeAlert";
 	}
+	@RequestMapping(value="adminNoticeDetail")
+	public String adminNoticeDetail(HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
+		log.info(this.getClass().getName() + " adminNoticeDetail End!!");
+		
+		log.info(this.getClass().getName() + " adminNoticeDetail End!!");
+		return "admin/adminNoticeDetail";
+	}
 	
 }
