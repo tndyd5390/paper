@@ -69,14 +69,12 @@
 				<table class="table table-striped">
                               <thead>
                               <tr>
-<<<<<<< HEAD
                                   <th><input type="checkbox" name="allCheck" onclick="check();"></th>
                                   <th>번호</th>
                                   <th>제목</th>
                                   <th>접수시작일</th>
                                   <th>접수마감일</th>
                                   <th>개최일</th>
-=======
                                   <th><center><input type="checkbox" name="allCheck"></center></th>
                                   <th><center>번호</center></th>
                                   <th><center>제목</center></th>
@@ -84,20 +82,17 @@
                                   <th><center>접수마감일</center></th>
                                   <th><center>개최일</center></th>
                                   <th><center>상태</center></th>
->>>>>>> refs/remotes/origin/test
                               </tr>
                               </thead>
                               <tbody>
                               <%for(Notice_infoDTO nDTO : nList){ %>                            
                               <tr>
-<<<<<<< HEAD
                               	  <td><input type="checkbox" name="del_check" value="<%=nDTO.getNotice_no()%>"></td>
                                   <td><%=nDTO.getNotice_no() %></td>
                                   <td><%=nDTO.getNotice_title() %></td>
                                   <td><%=nDTO.getReception_date() %></td>
                                   <td><%=nDTO.getEnd_date() %></td>
                                   <td><%=nDTO.getExhibition_date() %></td>
-=======
                               	  <td align="center"><input type="checkbox" name="<%=nDTO.getNotice_no()%>"></td>
                                   <td align="center"><%=nDTO.getNotice_no() %></td>
                                   <td align="center"><%=nDTO.getNotice_title() %></td>
@@ -105,7 +100,6 @@
                                   <td align="center"><%=nDTO.getEnd_date() %></td>
                                   <td align="center"><%=nDTO.getExhibition_date() %></td>
                                   <td align="center"><%=nDTO.getStat() %></td>
->>>>>>> refs/remotes/origin/test
                               </tr>
                               <%} %>
                               </tbody>
