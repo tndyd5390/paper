@@ -20,4 +20,8 @@ public interface UserMapper {
 	public User_infoDTO userFindPw(User_infoDTO uDTO) throws Exception;
 
 	public void updateTempPw(User_infoDTO tempdto) throws Exception;
+
+	public int deleteUserAllChecked(User_infoDTO uDTO) throws Exception;
+
+	public List<User_infoDTO> userSearch(User_infoDTO uDTO) throws Exception;
 }

@@ -22,8 +22,8 @@
 		</div>
 	</div>
 
-	<!--logo start--> <a href="orderList.do" class="logo">sora<span
-		class="lite">cupbob</span></a> <!--logo end-->
+	<!--logo start--> <a href="noticeList.do" class="logo">논<span
+		class="lite">문</span></a> <!--logo end-->
 
 	<div class="nav search-row" id="top_menu">
 		<!--  search form start -->
@@ -140,15 +140,15 @@
 		<ul class="sidebar-menu">
 		<%if(ss_user_no.equals("")||ss_user_no==null){ %>
 		
-		<%}else if(ss_user_auth.equals("U")||ss_user_auth=="auth"){%>
-			<li class="active"><a class="" href="#"> <i
+		<%}else if(ss_user_auth.equals("U")||ss_user_auth=="U"){%>
+			<li class="active"><a class="" href="noticeList.do"> <i
 					class="icon_house_alt"></i> <span>공고 리스트</span>
 			</a></li>
 		<%}else{ %>
-				<li class="active"><a class="" href="#"> <i
+				<li class="active"><a class="" href="adminNoticeList.do"> <i
 					class="icon_house_alt"></i> <span>공고 리스트</span>
 			</a></li>
-			<li><a class="" href="#"> <i
+			<li><a class="" href="adminUserList.do"> <i
 					class="icon_profile"></i> <span>회원 리스트</span>
 			</a></li>
 		<%} %>

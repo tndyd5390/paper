@@ -31,7 +31,7 @@ public class NoticeController {
 	public String noticeList(HttpServletRequest req, HttpServletResponse resp, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass().getName() + " noticeList Start!! ");
 		
-		List<Notice_infoDTO> nList = noticeService.getNoticeList();
+		List<Notice_infoDTO> nList = noticeService.getNowNoticeList();
 		
 		
 		model.addAttribute("nList", nList);
@@ -87,7 +87,7 @@ public class NoticeController {
 		String receptionDate = CmmUtil.nvl(req.getParameter("reception_date"));
 		String endDate = CmmUtil.nvl(req.getParameter("end_date"));
 		String exhibitionDate = CmmUtil.nvl(req.getParameter("exhibition_date"));
-	//	String userNo = CmmUtil.nvl((String) session.getAttribute("ss_user_no"));
+		String userNo = CmmUtil.nvl((String) session.getAttribute("ss_user_no"));
 		
 		Notice_infoDTO nDTO = new Notice_infoDTO();
 		
@@ -95,7 +95,7 @@ public class NoticeController {
 		nDTO.setReception_date(receptionDate);
 		nDTO.setEnd_date(endDate);
 		nDTO.setExhibition_date(exhibitionDate);
-	//	nDTO.setReg_user_no(userNo);
+		nDTO.setReg_user_no(userNo);
 		
 		log.info(this.getClass()+ " title = " + noticeTitle);
 		log.info(this.getClass()+ " receptionDate = " + receptionDate);
