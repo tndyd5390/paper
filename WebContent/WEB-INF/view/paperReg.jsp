@@ -48,8 +48,6 @@ function doSubmit(f){
 	
 	if(confirm("제출하시겠습니까?")){
 		$('#writerSize').val(writerCount);
-		f.submit();
-		
 		return true;
 	}else{
 		return false;
@@ -62,7 +60,7 @@ function doSubmit(f){
 </head>
 <body>
 	<%@include file="/include/naviBarAndasideBar.jsp"%>
-	<form class="form" action="paperRegProc.do" method="post" name="f" onsubmit='return doSubmit(this)'>
+	<form class="form" action="paperRegProc.do" method="post" name="f" onsubmit='return doSubmit(this)' enctype="multipart/form-data">
 		<section id="main-content"> <section class="wrapper">
 		<div class="row">
 			<div class="col-lg-12">
@@ -91,7 +89,7 @@ function doSubmit(f){
 					</div>
 					<div class="form-group">
 						<label class="block">논문 첨부 <a>*</a></label> <input type="file"
-							class="form-control subTxt Sub-Txt" name="paper">
+							class="form-control subTxt Sub-Txt" name="paper" id="paper">
 						<hr>
 					</div>
 					<div id="writerGroup">
