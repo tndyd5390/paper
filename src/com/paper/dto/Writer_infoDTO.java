@@ -10,6 +10,14 @@ public class Writer_infoDTO {
 	private String reg_user_no;
 	private String chg_dt;
 	private String chg_user_no;
+	private String notice_no;
+	
+	public String getNotice_no() {
+		return notice_no;
+	}
+	public void setNotice_no(String notice_no) {
+		this.notice_no = notice_no;
+	}
 	public String getWriter_no() {
 		return writer_no;
 	}

@@ -19,6 +19,14 @@ public class CmmUtil {
 	public static String nvl(String str){
 		return nvl(str,"");
 	}
+	
+	public static String[] nvlArr(String[] strs){
+		for(int i = 0; i< strs.length; i++){
+			strs[i] = nvl(strs[i]);
+		}
+		return strs;
+	}
+	
 	public static String nvlInt(String str){
 		return nvl(str, "0");
 	}
