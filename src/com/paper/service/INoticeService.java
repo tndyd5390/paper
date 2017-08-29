@@ -13,4 +13,5 @@ public interface INoticeService {
 	public void insertNotice(Notice_infoDTO nDTO) throws Exception;
 
 	public boolean deleteAdminAllCheck(Notice_infoDTO nDTO) throws Exception;
+	public List<Notice_infoDTO> getNowNoticeList() throws Exception;
 }
