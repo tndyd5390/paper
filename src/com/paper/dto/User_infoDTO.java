@@ -13,6 +13,7 @@ public class User_infoDTO {
 	private String chg_dt;
 	private String chg_user_no;
 	private String temp_pw;
+	private String allCheck[];
 	
 	public String getPhone() {
 		return phone;
@@ -85,6 +86,12 @@ public class User_infoDTO {
 	}
 	public void setTemp_pw(String temp_pw) {
 		this.temp_pw = temp_pw;
+	}
+	public String[] getAllCheck() {
+		return allCheck;
+	}
+	public void setAllCheck(String allCheck[]) {
+		this.allCheck = allCheck;
 	}
 
 }

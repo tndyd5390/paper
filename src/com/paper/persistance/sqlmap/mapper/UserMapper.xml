@@ -10,12 +10,13 @@
 		    BELONG,
 		    AUTH,
 		    PHONE,
-		    REG_DT,
+		    DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT,
 		    REG_USER_NO,
 		    CHG_DT,
 		    CHG_USER_NO
 		FROM
-			USER_INFO;
+			USER_INFO
+		ORDER BY USER_NO DESC
 	</select>
 	<insert id="insertUser" parameterType="User_infoDTO">
 		INSERT INTO USER_INFO (
@@ -62,5 +63,27 @@
 		EMAIL=#{email} AND PHONE = #{phone}
 	</update>
 	
-		
+	<delete id="deleteUserAllChecked" parameterType="User_infoDTO">
+		DELETE FROM USER_INFO WHERE USER_NO IN
+		<foreach item="user_no" index="index" collection="allCheck"
+			open="(" separator="," close=")">#{user_no}</foreach>
+	</delete>
+	
+	<select id="userSearch" resultType="User_infoDTO" parameterType="User_InfoDTO">
+		SELECT 
+			USER_NO,
+		    EMAIL,
+		    PASSWORD,
+		    USER_NAME,
+		    BELONG,
+		    AUTH,
+		    PHONE,
+		    DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT,
+		    REG_USER_NO,
+		    CHG_DT,
+		    CHG_USER_NO
+		FROM USER_INFO WHERE EMAIL LIKE CONCAT('%', #{email}, '%') OR
+		USER_NAME LIKE CONCAT('%', #{user_name}, '%')
+	</select>
+	
 </mapper>

@@ -1,5 +1,8 @@
 package com.paper.controller.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.paper.dto.User_infoDTO;
 import com.paper.service.IUserService;
@@ -61,9 +66,17 @@ public class UserController {
 			session.setAttribute("ss_user_auth", uDTO.getAuth());
 			session.setAttribute("ss_user_belong", uDTO.getBelong());
 			
+			if(uDTO.getAuth().equals("A")){
+				uDTO = null;
+				
+				log.info(this.getClass().getName() + " adminLoginProc End!! ");
+				return "redirect:adminNoticeList.do";
+			}else{
+			
 			uDTO=null;
 			log.info(this.getClass().getName() + " userLoginProc End!! ");
 			return "redirect:noticeList.do";
+			}
 		}
 	}
 	@RequestMapping(value = "overlapEmail")
@@ -151,6 +164,80 @@ public class UserController {
 		log.info(this.getClass().getName() + " adminUserInfo end");
 		return "redirect:userLogin.do";
 	}
-
+	@RequestMapping(value="logout")
+	public String logout(HttpSession session) throws Exception{
+		log.info(this.getClass().getName() + " logout Start!!");
+		session.setAttribute("ss_user_no", "");
+		session.setAttribute("ss_user_name", "");
+		session.setAttribute("ss_user_auth", "");
+		session.setAttribute("ss_user_belong", "");
+		
+		log.info(this.getClass().getName() + " logout End!!");
+	return "redirect:userLogin.do";
+	}
 	
+	@RequestMapping(value="adminUserList")
+	public String adminUserList(HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
+		log.info(this.getClass().getName() + " adminUserList Start!!");
+		
+		List<User_infoDTO> uList = userService.getUserList();
+		
+		model.addAttribute("uList", uList);
+		
+		uList = null;
+		log.info(this.getClass().getName() + " adminUserList End!!");
+		return "admin/adminUserList";
+	}
+	
+	@RequestMapping(value="adminUserCheckedDelete")
+	public String adminUserCheckedDelete(HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
+		log.info(this.getClass() + " Start !!");
+		
+		String[] del_check = req.getParameterValues("del_check");
+		log.info("del_check" + del_check.length);
+		User_infoDTO uDTO = new User_infoDTO();
+		uDTO.setAllCheck(del_check);
+		if(userService.deleteUserAllChecked(uDTO)){
+			model.addAttribute("msg","선택 삭제가 완료되었습니다");
+			
+		}else {
+			model.addAttribute("msg","삭제 실패되었습니다.");
+		}
+		model.addAttribute("url","adminUserList.do");
+		uDTO = null;
+		del_check = null;
+		
+		log.info(this.getClass() + " End !!");
+		
+		return "admin/userAlert";
+	}
+	@RequestMapping(value="userSearch")
+	public @ResponseBody List<User_infoDTO> userSearch(@RequestParam(value = "word") String word) throws Exception{
+		log.info(this.getClass().getName()+ " userSearch start");
+		
+		if(word.length() == 0){
+			List<User_infoDTO> userList = userService.getUserList();
+			if (userList == null) {
+				userList = new ArrayList<User_infoDTO>();
+			}
+			log.info(this.getClass().getName()+ " userSearch end");
+			return userList;
+		}else{
+			User_infoDTO uDTO = new User_infoDTO();
+			uDTO.setEmail(word);
+			uDTO.setUser_name(word);
+			System.out.println(word);
+			
+			List<User_infoDTO> userList = userService.userSearch(uDTO);
+
+			if (userList == null) {
+				userList = new ArrayList<User_infoDTO>();
+			}
+			
+			log.info(this.getClass().getName()+ " userSearch end");
+			
+			return userList;
+		}
+	}
+
 }

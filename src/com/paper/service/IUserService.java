@@ -14,4 +14,8 @@ public interface IUserService {
 	public int overlapEmail(User_infoDTO uDTO) throws Exception;
 
 	public User_infoDTO getUserFindPw(User_infoDTO uDTO) throws Exception;
+	
+	public boolean deleteUserAllChecked(User_infoDTO uDTO) throws Exception;
+
+	public List<User_infoDTO> userSearch(User_infoDTO uDTO) throws Exception;
 }

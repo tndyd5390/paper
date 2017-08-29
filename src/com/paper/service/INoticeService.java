@@ -11,4 +11,6 @@ public interface INoticeService {
 	public Notice_infoDTO selectNotice(Notice_infoDTO nDTO) throws Exception;
 
 	public void insertNotice(Notice_infoDTO nDTO) throws Exception;
+
+	public List<Notice_infoDTO> getNowNoticeList() throws Exception;
 }

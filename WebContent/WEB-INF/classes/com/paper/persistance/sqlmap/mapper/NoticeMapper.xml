@@ -3,15 +3,33 @@
 <mapper namespace="com.paper.persistance.mapper.NoticeMapper">
 
 	<select id="getNoticeList" resultType="Notice_infoDTO">
-		SELECT 
-			NOTICE_NO,
-			NOTICE_TITLE,
-			DATE_FORMAT(EXHIBITION_DATE,'%Y-%m-%d') AS EXHIBITION_DATE,
-			DATE_FORMAT(RECEPTION_DATE, '%Y-%m-%d') AS RECEPTION_DATE,
-			DATE_FORMAT(END_DATE,'%Y-%m-%d') AS END_DATE
-		FROM NOTICE_INFO
-		ORDER BY NOTICE_NO DESC
+		<![CDATA[
+			SELECT 
+				NOTICE_NO,
+				NOTICE_TITLE,
+				DATE_FORMAT(EXHIBITION_DATE,'%Y-%m-%d') AS EXHIBITION_DATE,
+				DATE_FORMAT(RECEPTION_DATE, '%Y-%m-%d') AS RECEPTION_DATE,
+				DATE_FORMAT(END_DATE,'%Y-%m-%d') AS END_DATE,
+				IF(RECEPTION_DATE<=NOW() AND NOW()<=END_DATE, "접수중", IF(NOW()<RECEPTION_DATE, "접수전", "접수종료")) AS STAT
+			FROM NOTICE_INFO
+			ORDER BY NOTICE_NO DESC
+		]]> 
 	</select>
+	
+	<select id="getNowNoticeList" resultType="Notice_infoDTO">
+		<![CDATA[
+			SELECT 
+				NOTICE_NO,
+				NOTICE_TITLE,
+				DATE_FORMAT(EXHIBITION_DATE,'%Y-%m-%d') AS EXHIBITION_DATE,
+				DATE_FORMAT(RECEPTION_DATE, '%Y-%m-%d') AS RECEPTION_DATE,
+				DATE_FORMAT(END_DATE,'%Y-%m-%d') AS END_DATE
+			FROM NOTICE_INFO
+			WHERE RECEPTION_DATE <= NOW() AND NOW() <= END_DATE
+			ORDER BY NOTICE_NO DESC
+		]]> 
+	</select>
+	
 	
 	<select id="selectNotice" resultType="Notice_infoDTO" parameterType="Notice_infoDTO">
 		SELECT 
@@ -37,7 +55,7 @@
 			#{reception_date},
 			#{end_date},
 			#{exhibition_date},
-			'1',
+			#{reg_user_no},
 			NOW()
 		)
 	</insert>

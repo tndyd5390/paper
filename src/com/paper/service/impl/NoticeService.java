@@ -30,4 +30,9 @@ public class NoticeService implements INoticeService{
 		noticeMapper.insertNotice(nDTO);
 	}
 
+	@Override
+	public List<Notice_infoDTO> getNowNoticeList() throws Exception {
+		return noticeMapper.getNowNoticeList();
+	}
+
 }
