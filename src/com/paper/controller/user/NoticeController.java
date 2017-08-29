@@ -82,7 +82,7 @@ public class NoticeController {
 	@RequestMapping(value="noticeRegProc")
 	public String noticeRegProc (HttpServletRequest req, HttpServletResponse resp, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass().getName() + " noticeRegProc Start!!");
-		
+		log.info(CmmUtil.nvl((String) session.getAttribute("ss_user_no")));
 		String noticeTitle = CmmUtil.nvl(req.getParameter("title"));
 		String receptionDate = CmmUtil.nvl(req.getParameter("reception_date"));
 		String endDate = CmmUtil.nvl(req.getParameter("end_date"));
@@ -117,7 +117,6 @@ public class NoticeController {
 		log.info(this.getClass() + (del_check + ""));
 		Notice_infoDTO nDTO = new Notice_infoDTO();
 		nDTO.setAllCheck(del_check);
-		log.info(nDTO.getAllCheck());
 		if(noticeService.deleteAdminAllCheck(nDTO)){
 			model.addAttribute("msg", "삭제되었습니다.");
 		}else{
