@@ -20,7 +20,7 @@
 				cbox[i].checked = f.allCheck.checked;
 			}
 		} else {
-			cbox.checked = f.all.checked;
+			cbox.checked = f.allCheck.checked;
 		}
 	}
 	function userdel_check(){
@@ -69,13 +69,7 @@
 				<table class="table table-striped">
                               <thead>
                               <tr>
-                                  <th><input type="checkbox" name="allCheck" onclick="check();"></th>
-                                  <th>번호</th>
-                                  <th>제목</th>
-                                  <th>접수시작일</th>
-                                  <th>접수마감일</th>
-                                  <th>개최일</th>
-                                  <th><center><input type="checkbox" name="allCheck"></center></th>
+                                  <th><center><input type="checkbox" name="allCheck" onclick="check();"></center></th>
                                   <th><center>번호</center></th>
                                   <th><center>제목</center></th>
                                   <th><center>접수시작일</center></th>
@@ -87,13 +81,7 @@
                               <tbody>
                               <%for(Notice_infoDTO nDTO : nList){ %>                            
                               <tr>
-                              	  <td><input type="checkbox" name="del_check" value="<%=nDTO.getNotice_no()%>"></td>
-                                  <td><%=nDTO.getNotice_no() %></td>
-                                  <td><%=nDTO.getNotice_title() %></td>
-                                  <td><%=nDTO.getReception_date() %></td>
-                                  <td><%=nDTO.getEnd_date() %></td>
-                                  <td><%=nDTO.getExhibition_date() %></td>
-                              	  <td align="center"><input type="checkbox" name="<%=nDTO.getNotice_no()%>"></td>
+                              	  <td align="center"><input type="checkbox" name="del_check" value="<%=nDTO.getNotice_no()%>"></td>
                                   <td align="center"><%=nDTO.getNotice_no() %></td>
                                   <td align="center"><%=nDTO.getNotice_title() %></td>
                                   <td align="center"><%=nDTO.getReception_date() %></td>
@@ -112,7 +100,6 @@
 		</div>
 		</form>
 		</section> </section>
-
 <%@include file="/include/bottomJavaScript.jsp"%>
 </body>
 </html>

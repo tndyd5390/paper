@@ -117,6 +117,7 @@ public class NoticeController {
 		log.info(this.getClass() + (del_check + ""));
 		Notice_infoDTO nDTO = new Notice_infoDTO();
 		nDTO.setAllCheck(del_check);
+		log.info(nDTO.getAllCheck());
 		if(noticeService.deleteAdminAllCheck(nDTO)){
 			model.addAttribute("msg", "삭제되었습니다.");
 		}else{
