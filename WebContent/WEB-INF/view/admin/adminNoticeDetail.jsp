@@ -25,8 +25,8 @@ $(function(){
 				contents += "<div class='text' style='height:150px;'>";
 				contents += "<p class='attribution'>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
 				contents += "<div>";
-				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_kor+ +"</p>";
-				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_eng+ +"</p>";
+				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_kor+"</p>";
+				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_eng+"</p>";
 				contents += "<div style='display : inline; float:right';>";
 				contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
 				contents += "</div>";
