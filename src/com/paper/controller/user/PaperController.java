@@ -187,6 +187,11 @@ public class PaperController {
 		log.info(this.getClass().getName() + " mergeDocxProc Start!!");
 		String nNo = req.getParameter("nNo");
 		String fileNames[] = req.getParameterValues("fileName");
+		int count = 0;
+		for(String test : fileNames){
+			count ++;
+			System.out.println(count+"  :  "+test);
+		}
 		String outPath = "C:\\www\\"+nNo+".docx";
 		MergeUtil.mergeDocx(MergeUtil.inputFiles(fileNames), new FileOutputStream(new File(outPath)));
 		

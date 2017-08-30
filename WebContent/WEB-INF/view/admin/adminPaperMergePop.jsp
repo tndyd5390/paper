@@ -51,7 +51,8 @@
 						<i class="fa fa-flag-o red"></i><strong>논문 병합</strong>
 					</h2>
 				</div>
-				<form name="f" action="mergeDocxProc.do?nNo=<%=pList.get(0).getNotice_no()%>">
+				<form name="f" action="mergeDocxProc.do" method="post">
+				<input type="hidden" name="nNo" value="<%=pList.get(0).getNotice_no()%>">
 				<div class="panel-body">
 					<ul class="chats" id="paperList">
 						<%
@@ -62,6 +63,7 @@
 								<div class="chat-meta"><%=pDTO.getPaper_kor() %></div>
 								<%=pDTO.getUser_name() %>
 								<div class="clearfix"><b><%=pDTO.getPaper_type() %></b></div>
+								<input type="hidden" name="fileName" value="<%=pDTO.getFile_path()%><%=pDTO.getFile_name()%>">
 							</div>
 						</li>
 						<%
