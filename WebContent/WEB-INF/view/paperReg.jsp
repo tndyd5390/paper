@@ -88,6 +88,12 @@ function doSubmit(f){
 						<hr>
 					</div>
 					<div class="form-group">
+						<label>발표 형식 <a>*</a> </label>
+						<br>
+						<label class="radio-inline"><input type="radio" name="pType" value="O">구두발표</label>
+						<label class="radio-inline"><input type="radio" name="pType" value="P">포스터발표</label>
+					</div>
+					<div class="form-group">
 						<label class="block">논문 첨부 <a>*</a></label> <input type="file"
 							class="form-control subTxt Sub-Txt" name="paper" id="paper">
 						<hr>

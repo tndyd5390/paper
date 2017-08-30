@@ -11,6 +11,9 @@
 <script>
 
 $(function(){
+    $( "#paperList" ).sortable();
+    $( "#paperList" ).disableSelection();
+
 	$.ajax({
 		url:"paperList.do",
 		method:"post",
@@ -20,12 +23,14 @@ $(function(){
 			console.log(data)
 			var contents = "";
 			$.each(data, function(key,value){
-				contents += "<div class='act-time'>";
+				contents += "<li>";
+				contents += "<div class='act-time' style='background-color:white;'>";
 				contents += "<div class='activity-body act-in'>";
 				contents += "<div class='text' style='height:150px;'>";
 				contents += "<p class='attribution'>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
 				contents += "<div>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_kor+"</p>";
+				contents += "<input type='hidden' name='test' value='"+value.paper_kor+"'>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_eng+"</p>";
 				contents += "<div style='display : inline; float:right';>";
 				contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
@@ -35,17 +40,22 @@ $(function(){
 				contents += "<div style='float: right;'>";
 				contents += "<select class='form-control' style='width:300px; display:inline;'>";
 				contents += "<option>"+value.paper_ad+"</option>";
-				contents += "<option>"+"합격"+"</option>"
+				contents += "<option>"+"합격"+"</option>";
 				contents += "<option>"+"불합격"+"</option>";
-				contents += "</select>"
+				contents += "</select>";
 				contents += "<button class='btn btn-primary' style='display:inline; width:90px'>확인</button>";
 				contents += "</div>";
 				contents += "</br>";
 				contents += "</div>";
 				contents += "</div>";
-				
+				contents += "</li>";
 			})
+			console.log(data.length);
+			if(data.length==0){
+				$('#paperList').html("<h3>접수된 논문이 없습니다.</h3>");
+			}else{
 			$('#paperList').html(contents);
+			}
 		}
 		
 	})
@@ -127,10 +137,13 @@ $(function(){
 					</div>
 				</div>
 	<!----------------------------------------------------- 접수 내역 종료 ----------------------------------------------->
-	<div id="paperList">
-		
-	</div>
+	<form action="noticeProc.do" method="post">
 	
+	<ul id="paperList"  style="	list-style: none;margin:0px; padding:0px;">
+	
+	</ul>
+		<button type="submit">테스트</button>	
+	</form>
 					<div align="right">
 						<button class="btn btn-primary" style="display: inline; width: 90px;">합격</button>
 						<button class="btn btn-danger" style="display: inline; width: 90px;">불합격</button>

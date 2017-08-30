@@ -61,7 +61,9 @@ public class PaperController {
 		log.info(this.getClass() + " paperKor : " + paperKor);
 		String paperEng = CmmUtil.nvl(req.getParameter("engName"));
 		log.info(this.getClass() + " paperEng : " + paperEng);
-
+		String pType = CmmUtil.nvl(req.getParameter("pType"));
+		log.info(this.getClass() + " pType : " + pType);
+		
 		String writerNames[] = CmmUtil.nvlArr(req.getParameterValues("name"));
 		for(String writerName : writerNames){
 			log.info(this.getClass() + " writerName : " + writerName);
@@ -78,8 +80,6 @@ public class PaperController {
 		}
 		
 		String userNo = CmmUtil.nvl((String)session.getAttribute("ss_user_no"));
-		
-		
 		String reFileName = "";
 		String  fileOrgName = CmmUtil.nvl(file.getOriginalFilename());
 		log.info(this.getClass() + " fileOrgName : " + fileOrgName);
@@ -96,6 +96,7 @@ public class PaperController {
 		pDTO.setNotice_no(nNo);
 		pDTO.setPaper_kor(paperKor);
 		pDTO.setPaper_eng(paperEng);
+		pDTO.setPaper_type(pType);
 		pDTO.setUser_no(userNo);
 		pDTO.setFile_org_name(fileOrgName);
 		pDTO.setFile_path(savePath);

@@ -8,6 +8,7 @@
 			PAPER_KOR,
 			PAPER_ENG,
 			USER_NO,
+			PAPER_TYPE,
 			FILE_ORG_NAME,
 			FILE_NAME,
 			FILE_PATH,
@@ -21,6 +22,7 @@
 			#{paper_kor},
 			#{paper_eng},
 			#{user_no},
+			#{paper_type},
 			#{file_org_name},
 			#{file_name},
 			#{file_path},
@@ -56,7 +58,7 @@
 	
 	<select id="getPaperList" parameterType="Paper_infoDTO" resultType="Paper_infoDTO">
 		SELECT 
-			P.NOTICE_NO, P.PAPER_NO, P.PAPER_KOR, P.PAPER_ENG,
+			P.NOTICE_NO, P.PAPER_NO, P.PAPER_KOR, P.PAPER_ENG, P.PAPER_TYPE,
 			U.USER_NAME, C.CODE_CONTENTS AS PAPER_AD, P.FILE_NAME, P.FILE_PATH, FORMAT(P.REG_DT,'%Y%m%d') AS REG_DT
 			FROM PAPER_INFO P, USER_INFO U, CODE_INFO C
 			WHERE P.USER_NO = U.USER_NO AND P.PAPER_AD = C.CODE_NO AND P.NOTICE_NO = #{notice_no}
