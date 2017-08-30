@@ -22,10 +22,25 @@ $(function(){
 			$.each(data, function(key,value){
 				contents += "<div class='act-time'>";
 				contents += "<div class='activity-body act-in'>";
+				contents += "<div class='text' style='height:150px;'>";
 				contents += "<p class='attribution'>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
-				contents += "<p class='attribution' style=''>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
-				
-				
+				contents += "<div>";
+				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_kor+ +"</p>";
+				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_eng+ +"</p>";
+				contents += "<div style='display : inline; float:right';>";
+				contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
+				contents += "</div>";
+				contents += "</div>";
+				contents += "</br>";
+				contents += "<div style='float: right;'>"
+				contents += "<select class='form-control' style='width:300px; display:inline;'>"
+				contents += "<option>"+value.paper_ad+"</option>"
+				contents += "<option>"+"합격"+"</option>"
+				contents += "<option>"+"불합격"+"</option>"
+				contents += "</select>"
+				contents += "<button class='btn btn-primary style='display:inline; width:90px'>확인</button>"
+				contents += "</div>"
+				contents += "</br>"
 				contents += "</div>"
 				contents += "</div>"
 				
