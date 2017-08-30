@@ -142,4 +142,15 @@ public class NoticeController {
 		log.info(this.getClass().getName() + " adminNoticeDetail End!!");
 		return "admin/adminNoticeDetail";
 	}
+	
+	@RequestMapping(value="adminNoticePop")
+	public String adminNoticePop(HttpServletRequest request,HttpServletResponse response,HttpSession session,Model model){
+		log.info(this.getClass().getName() + "adminNoticePop Start");
+
+		
+		log.info(this.getClass().getName() + "adminNoticePop End");
+		return "admin/adminNoticePop";
+	}
+	
+	
 }
