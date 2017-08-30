@@ -134,5 +134,20 @@ public class PaperController {
 		log.info(this.getClass().getName() + " paperList End!!");
 		return pList;
 	}
-
+	
+	@RequestMapping(value="paperAdUpdate")
+	public @ResponseBody List<Paper_infoDTO> paperAdUpdate(@RequestParam(value="nNo") String nNo, @RequestParam(value="pNo") String pNo, @RequestParam(value="pAd") String pAd)throws Exception{
+		log.info(this.getClass().getName() + " paperAdUpdate Start!!");
+		
+		Paper_infoDTO pDTO = new Paper_infoDTO();
+		pDTO.setPaper_no(pNo);
+		pDTO.setNotice_no(nNo);
+		pDTO.setPaper_ad(pAd);
+		List<Paper_infoDTO> pList = paperService.getUpdatePaperList(pDTO);
+		
+		pDTO = null;
+		log.info(this.getClass().getName() + " paperAdUpdate End!!");
+		return pList;
+	}
+	
 }

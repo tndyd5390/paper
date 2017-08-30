@@ -9,10 +9,13 @@
 <head>
 <%@include file="/include/head.jsp"%>
 <script>
-
+var ad = "";
+function adFunc(a){
+	ad = a;
+}
 $(function(){
-    $( "#paperList" ).sortable();
-    $( "#paperList" ).disableSelection();
+   // $( "#paperList" ).sortable();
+   // $( "#paperList" ).disableSelection();
 
 	$.ajax({
 		url:"paperList.do",
@@ -20,7 +23,6 @@ $(function(){
 		dataType:"json",
 		data: {'nNo' : <%=CmmUtil.nvl(nDTO.getNotice_no())%>},
 		success:function(data){
-			console.log(data)
 			var contents = "";
 			$.each(data, function(key,value){
 				contents += "<li>";
@@ -30,7 +32,6 @@ $(function(){
 				contents += "<p class='attribution'>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
 				contents += "<div>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_kor+"</p>";
-				contents += "<input type='hidden' name='test' value='"+value.paper_kor+"'>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_eng+"</p>";
 				contents += "<div style='display : inline; float:right';>";
 				contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
@@ -38,19 +39,19 @@ $(function(){
 				contents += "</div>";
 				contents += "</br>";
 				contents += "<div style='float: right;'>";
-				contents += "<select class='form-control' style='width:300px; display:inline;'>";
-				contents += "<option>"+value.paper_ad+"</option>";
-				contents += "<option>"+"합격"+"</option>";
-				contents += "<option>"+"불합격"+"</option>";
+				contents += "<select class='form-control' style='width: 300px; display: inline;' id='paperAd"+value.paper_no+"' onchange='adFunc(this.value);'>";
+				contents += "<option value='N'>"+"심사중"+"</option>";
+				contents += "<option value='A'>"+"합격"+"</option>";
+				contents += "<option value='D'>"+"불합격"+"</option>";
 				contents += "</select>";
-				contents += "<button class='btn btn-primary' style='display:inline; width:90px'>확인</button>";
+				contents += "<button class='btn btn-primary' style='display:inline; width:90px' onclick='updateAd("+value.paper_no+","+<%=CmmUtil.nvl(nDTO.getNotice_no())%>+")'>확인</button>";
+				contents += "</div>";
 				contents += "</div>";
 				contents += "</br>";
 				contents += "</div>";
 				contents += "</div>";
 				contents += "</li>";
 			})
-			console.log(data.length);
 			if(data.length==0){
 				$('#paperList').html("<h3>접수된 논문이 없습니다.</h3>");
 			}else{
@@ -60,6 +61,52 @@ $(function(){
 		
 	})
 })
+function updateAd(pNo, nNo){
+	$.ajax({
+		url : "paperAdUpdate.do",
+		method : "post",
+		dataType : "JSON",
+		data : {'nNo' : nNo,
+				'pNo' : pNo,
+				'pAd' : ad},
+				success:function(data){
+					var contents = "";
+					$.each(data, function(key,value){
+						contents += "<li>";
+						contents += "<div class='act-time' style='background-color:white;'>";
+						contents += "<div class='activity-body act-in'>";
+						contents += "<div class='text' style='height:150px;'>";
+						contents += "<p class='attribution'>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
+						contents += "<div>";
+						contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_kor+"</p>";
+						contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_eng+"</p>";
+						contents += "<div style='display : inline; float:right';>";
+						contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
+						contents += "</div>";
+						contents += "</div>";
+						contents += "</br>";
+						contents += "<div style='float: right;'>";
+						contents += "<select class='form-control' style='width: 300px; display: inline;' id='paperAd"+value.paper_no+"' onchange='adFunc(this.value);'>";
+						contents += "<option value='N'>"+"심사중"+"</option>";
+						contents += "<option value='A'>"+"합격"+"</option>";
+						contents += "<option value='D'>"+"불합격"+"</option>";
+						contents += "</select>";
+						contents += "<button class='btn btn-primary' style='display:inline; width:90px' onclick='updateAd("+value.paper_no+","+<%=CmmUtil.nvl(nDTO.getNotice_no())%>+")'>확인</button>";
+						contents += "</div>";
+						contents += "</div>";
+						contents += "</br>";
+						contents += "</div>";
+						contents += "</div>";
+						contents += "</li>";
+					})
+					if(data.length==0){
+						$('#paperList').html("<h3>접수된 논문이 없습니다.</h3>");
+					}else{
+					$('#paperList').html(contents);
+					}
+				}	
+	})
+}
 
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -137,13 +184,9 @@ $(function(){
 					</div>
 				</div>
 	<!----------------------------------------------------- 접수 내역 종료 ----------------------------------------------->
-	<form action="noticeProc.do" method="post">
-	
 	<ul id="paperList"  style="	list-style: none;margin:0px; padding:0px;">
 	
 	</ul>
-		<button type="submit">테스트</button>	
-	</form>
 					<div align="right">
 						<button class="btn btn-primary" style="display: inline; width: 90px;">합격</button>
 						<button class="btn btn-danger" style="display: inline; width: 90px;">불합격</button>

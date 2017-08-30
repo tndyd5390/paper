@@ -36,4 +36,11 @@ public class PaperService implements IPaperService{
 	public List<Paper_infoDTO> getPaperList(Paper_infoDTO pDTO) throws Exception {
 		return paperMapper.getPaperList(pDTO);
 	}
+
+	@Override
+	public List<Paper_infoDTO> getUpdatePaperList(Paper_infoDTO pDTO) throws Exception {
+			paperMapper.updatePaperAd(pDTO);
+		
+		return paperMapper.getPaperList(pDTO);
+	}
 }
