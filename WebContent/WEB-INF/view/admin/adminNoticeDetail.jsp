@@ -14,8 +14,8 @@ function adFunc(a){
 	ad = a;
 }
 $(function(){
-   // $( "#paperList" ).sortable();
-   // $( "#paperList" ).disableSelection();
+  //  $( "#paperList" ).sortable();
+  //  $( "#paperList" ).disableSelection();
 
 	$.ajax({
 		url:"paperList.do",
@@ -32,14 +32,17 @@ $(function(){
 				contents += "<p class='attribution'>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
 				contents += "<div>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_kor+"</p>";
+				contents += "<br>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_eng+"</p>";
+				contents += "<br>";
+				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_type+"</p>";
 				contents += "<div style='display : inline; float:right';>";
 				contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
 				contents += "</div>";
 				contents += "</div>";
 				contents += "</br>";
 				contents += "<div style='float: right;'>";
-				contents += "<select class='form-control' style='width: 300px; display: inline;' id='paperAd"+value.paper_no+"' onchange='adFunc(this.value);'>";
+				contents += "<select class='form-control' style='width: 300px; display: inline;' id='paperAd' onchange='adFunc(this.value);'>";
 				contents += "<option value='N'>"+"심사중"+"</option>";
 				contents += "<option value='A'>"+"합격"+"</option>";
 				contents += "<option value='D'>"+"불합격"+"</option>";
@@ -79,7 +82,10 @@ function updateAd(pNo, nNo){
 						contents += "<p class='attribution'>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
 						contents += "<div>";
 						contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_kor+"</p>";
+						contents += "<br>";
 						contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_eng+"</p>";
+						contents += "<br>";
+						contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_type+"</p>";
 						contents += "<div style='display : inline; float:right';>";
 						contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
 						contents += "</div>";
@@ -167,6 +173,11 @@ function updateAd(pNo, nNo){
 								<p class="attribution" style="display: inline; font-size: 15px;">
 									Venture start-up item competition against 4th industrial revolution<!-- 영문 제목 -->
 								</p>
+								<br>
+								<p class="attribution" style="display: inline; font-size: 15px;">
+									구두발표<!-- 영문 제목 -->
+								</p>
+								
 								<div style="display: inline; float: right;">
 									<button class="btn btn-primary" style="width: 90px;">다운로드</button>
 								</div>

@@ -150,4 +150,34 @@ public class PaperController {
 		return pList;
 	}
 	
+	@RequestMapping(value="acceptList")
+	public String acceptList(HttpServletRequest req, Model model) throws Exception{
+		log.info(this.getClass().getName() + " acceptList Start!!");
+		
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		Paper_infoDTO pDTO = new Paper_infoDTO();
+		pDTO.setNotice_no(nNo);
+		List<Paper_infoDTO> pList = paperService.getAcceptList(pDTO);
+		
+		model.addAttribute("pList", pList);
+		pList = null;
+		pDTO = null;
+		log.info(this.getClass().getName() + " acceptList End!!");
+		return "";
+	}
+	@RequestMapping(value="dropList")
+	public String dropList(HttpServletRequest req, Model model) throws Exception{
+		log.info(this.getClass().getName() + " acceptList Start!!");
+		
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		Paper_infoDTO pDTO = new Paper_infoDTO();
+		pDTO.setNotice_no(nNo);
+		List<Paper_infoDTO> pList = paperService.getDropList(pDTO);
+		
+		model.addAttribute("pList", pList);
+		pList = null;
+		pDTO = null;
+		log.info(this.getClass().getName() + " acceptList End!!");
+		return "";
+	}
 }
