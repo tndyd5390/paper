@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -122,12 +121,15 @@ public class PaperController {
 		return "redirect:paperReg.do";
 	}
 	@RequestMapping(value="paperList")
-	public @ResponseBody List<Paper_infoDTO> paperList(@RequestParam(value="nNo") String nNo) throws Exception{
+	public @ResponseBody List<Paper_infoDTO> paperList(@RequestParam(value="nNo") String nNo, @RequestParam(value="pAd") String pAd) throws Exception{
 		log.info(this.getClass().getName() + " paperList Start!!");
 
 		log.info(this.getClass().getName() + " nNo : " + nNo);
+		log.info(this.getClass().getName() + " pAd : " + pAd);
+
 		Paper_infoDTO pDTO = new Paper_infoDTO();
 		pDTO.setNotice_no(nNo);
+		pDTO.setPaper_adV(pAd);
 		List<Paper_infoDTO> pList = paperService.getPaperList(pDTO);
 		
 		
@@ -137,54 +139,31 @@ public class PaperController {
 	}
 	
 	@RequestMapping(value="paperAdUpdate")
-	public @ResponseBody List<Paper_infoDTO> paperAdUpdate(@RequestParam(value="nNo") String nNo, @RequestParam(value="pNo") String pNo, @RequestParam(value="pAd") String pAd)throws Exception{
+	public @ResponseBody List<Paper_infoDTO> paperAdUpdate(@RequestParam(value="nNo") String nNo, @RequestParam(value="pNo") String pNo, @RequestParam(value="pAd") String pAd, @RequestParam(value="pAdV") String pAdV)throws Exception{
 		log.info(this.getClass().getName() + " paperAdUpdate Start!!");
 		
 		log.info(this.getClass().getName() + " nNo : " + nNo);
 		log.info(this.getClass().getName() + " pNo : " + pNo);
 		log.info(this.getClass().getName() + " pAd : " + pAd);
+		log.info(this.getClass().getName() + " pAdV : " + pAdV);
 
 		Paper_infoDTO pDTO = new Paper_infoDTO();
 		pDTO.setPaper_no(pNo);
 		pDTO.setNotice_no(nNo);
 		pDTO.setPaper_ad(pAd);
+		pDTO.setPaper_adV(pAdV);
 		List<Paper_infoDTO> pList = paperService.getUpdatePaperList(pDTO);
 		
 		pDTO = null;
 		log.info(this.getClass().getName() + " paperAdUpdate End!!");
 		return pList;
 	}
+	@RequestMapping(value="mergeDockPage")
+	public String mergeDockPage(HttpServletRequest req, Model model){
+		log.info(this.getClass().getName() + " mergeDockPage Start!!");
+		
+		log.info(this.getClass().getName() + " mergeDockPage End!!");
+		return "";
+	}
 	
-	@RequestMapping(value="acceptList")
-	public String acceptList(HttpServletRequest req, Model model) throws Exception{
-		log.info(this.getClass().getName() + " acceptList Start!!");
-		
-		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
-		log.info(this.getClass().getName() + " nNo : " + nNo);
-		Paper_infoDTO pDTO = new Paper_infoDTO();
-		pDTO.setNotice_no(nNo);
-		List<Paper_infoDTO> pList = paperService.getAcceptList(pDTO);
-		
-		model.addAttribute("pList", pList);
-		pList = null;
-		pDTO = null;
-		log.info(this.getClass().getName() + " acceptList End!!");
-		return "";
-	}
-	@RequestMapping(value="dropList")
-	public String dropList(HttpServletRequest req, Model model) throws Exception{
-		log.info(this.getClass().getName() + " acceptList Start!!");
-		
-		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
-		log.info(this.getClass().getName() + " nNo : " + nNo);
-		Paper_infoDTO pDTO = new Paper_infoDTO();
-		pDTO.setNotice_no(nNo);
-		List<Paper_infoDTO> pList = paperService.getDropList(pDTO);
-		
-		model.addAttribute("pList", pList);
-		pList = null;
-		pDTO = null;
-		log.info(this.getClass().getName() + " acceptList End!!");
-		return "";
-	}
 }

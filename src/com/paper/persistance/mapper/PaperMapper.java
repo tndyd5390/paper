@@ -16,7 +16,4 @@ public interface PaperMapper {
 
 	public void updatePaperAd(Paper_infoDTO pDTO) throws Exception;
 
-	public List<Paper_infoDTO> getAcceptList(Paper_infoDTO pDTO) throws Exception;
-
-	public List<Paper_infoDTO> getDropList(Paper_infoDTO pDTO) throws Exception;
 }

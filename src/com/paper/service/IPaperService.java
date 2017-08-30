@@ -12,7 +12,5 @@ public interface IPaperService {
 
 	public List<Paper_infoDTO> getUpdatePaperList(Paper_infoDTO pDTO) throws Exception;
 
-	public List<Paper_infoDTO> getAcceptList(Paper_infoDTO pDTO) throws Exception;
 
-	public List<Paper_infoDTO> getDropList(Paper_infoDTO pDTO) throws Exception;
 }
