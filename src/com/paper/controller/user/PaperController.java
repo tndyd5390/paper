@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,43 +51,51 @@ public class PaperController {
 		return "paperReg";
 	}
 	
-	@RequestMapping(value="paperRegProc")
+	@RequestMapping(value="paperRegProc", method=RequestMethod.POST)
 	public String paperRegProc(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session, @RequestParam("paper") MultipartFile file) throws Exception{
 		log.info(this.getClass().getName()+ " .paperRegProc Start!!");
 		
-		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		String returnUrl = "";//최종적으로 반환할 페이지 리다이렉트 할것인지 얼럿창 갈것인지
+		String msg = "";//얼럿창을 간다면 얼럿 메세지
+		String url = "";//얼럿 후 이동할 페이지
+		
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));//공고 번호
 		log.info(this.getClass() + " nNo : " + nNo);
-		String paperKor = CmmUtil.nvl(req.getParameter("korName"));
+		String paperKor = CmmUtil.nvl(req.getParameter("korName"));//논문 한글 이름
 		log.info(this.getClass() + " paperKor : " + paperKor);
-		String paperEng = CmmUtil.nvl(req.getParameter("engName"));
+		String paperEng = CmmUtil.nvl(req.getParameter("engName"));//논문 영어 이름
 		log.info(this.getClass() + " paperEng : " + paperEng);
-		String pType = CmmUtil.nvl(req.getParameter("pType"));
+		String pType = CmmUtil.nvl(req.getParameter("pType"));//구두발표인지 포스터 발포인지
 		log.info(this.getClass() + " pType : " + pType);
 		
-		String writerNames[] = CmmUtil.nvlArr(req.getParameterValues("name"));
+		String writerNames[] = CmmUtil.nvlArr(req.getParameterValues("name"));//저자들의 이름
 		for(String writerName : writerNames){
 			log.info(this.getClass() + " writerName : " + writerName);
 		}
 		
-		String writerEmails[] = CmmUtil.nvlArr(req.getParameterValues("email"));
+		String writerEmails[] = CmmUtil.nvlArr(req.getParameterValues("email"));//저자들의 이메일
 		for(String writerEmail : writerEmails){
 			log.info(this.getClass() + " writerEmail : " + writerEmail);
 		}
 		
-		String writerBelongs[] = CmmUtil.nvlArr(req.getParameterValues("belong"));
+		String writerBelongs[] = CmmUtil.nvlArr(req.getParameterValues("belong"));//저자들의 소속
 		for(String writerBelong : writerBelongs){
 			log.info(this.getClass() + " writerBelong : " + writerBelong);
 		}
 		
-		String userNo = CmmUtil.nvl((String)session.getAttribute("ss_user_no"));
-		String reFileName = "";
-		String  fileOrgName = CmmUtil.nvl(file.getOriginalFilename());
+		String userNo = CmmUtil.nvl((String)session.getAttribute("ss_user_no"));//등록자 번호
+		String reFileName = "";//파일 이름을 시간으로 바꿀 변수
+		String  fileOrgName = CmmUtil.nvl(CmmUtil.fileNameCheck(file.getOriginalFilename()));//파일 이름을 가져와서 시큐어 검사 및 널처리
 		log.info(this.getClass() + " fileOrgName : " + fileOrgName);
 		
-		String extended = fileOrgName.substring(fileOrgName.indexOf("."), fileOrgName.length());
-		/**
-		 *  파일 확장자 체크해서 다른곳으로 보내는 로직 작성하기
-		 */
+		String extended = fileOrgName.substring(fileOrgName.indexOf("."), fileOrgName.length());//파일 확장자 추출
+		log.info(this.getClass() + " extended : " + extended);
+		if(!extended.equals(".docx")){
+			model.addAttribute("msg", ".docx파일만 업로드 가능 합니다.");
+			model.addAttribute("url", "noticeList.do");
+			return "alert";
+		}
+		
 		String now = new SimpleDateFormat("yyyyMMddhmsS").format(new Date());
 		Paper_infoDTO pDTO = new Paper_infoDTO();
 		reFileName = savePath + now + extended;
@@ -104,7 +113,8 @@ public class PaperController {
 		pDTO.setReg_user_no(userNo);
 		
 		List<Writer_infoDTO> wList = new ArrayList<>();
-		if(writerNames.length == writerEmails.length && writerEmails.length == writerBelongs.length && writerNames.length == writerBelongs.length){
+		if(writerNames.length == writerEmails.length && writerEmails.length == writerBelongs.length 
+				&& writerNames.length == writerBelongs.length){
 			for(int i = 0; i< writerNames.length;i++){
 				Writer_infoDTO wDTO = new Writer_infoDTO();
 				wDTO.setNotice_no(nNo);
@@ -117,8 +127,17 @@ public class PaperController {
 		}
 		boolean result = false;
 		result = paperService.insertPaperInfoAndWriter(pDTO, wList);
+		if(result){
+			msg = "등록 성공했습니다.";
+			url = "noticeList.do";
+			returnUrl  = "alert";
+		}else{
+			msg = "등록 실패 했습니다.";
+			url = "paperReg.do?nNo=" + nNo;
+			returnUrl = "alert";
+		}
 		log.info(this.getClass().getName()+ " .paperRegProc End!!");
-		return "redirect:paperReg.do";
+		return "alert";
 	}
 	@RequestMapping(value="paperList")
 	public @ResponseBody List<Paper_infoDTO> paperList(@RequestParam(value="nNo") String nNo, @RequestParam(value="pAd") String pAd) throws Exception{

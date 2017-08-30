@@ -4,7 +4,6 @@
 <%
 	String nNo = (String) request.getAttribute("nNo");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@include file="/include/head.jsp"%>
@@ -23,38 +22,65 @@
 </style>
 
 <script>
-
-
-var writerCount = 1;
-function writerAdd(){
-	writerCount++;
-	var writerForm = "";
-	writerForm += "<div class='form-group' id='form"+writerCount+"'>";
-	writerForm += "<label>저자정보 <a>*</a></label>";
-	writerForm += "<input type='text' placeholder='이름 입력' class='form-control Sub-Txt' name='name'>";
-	writerForm += "<input type='text' placeholder='이메일 입력' class='form-control Sub-Txt' name='email'>";
-	writerForm += "<input type='text' placeholder='소속 입력' class='form-control Sub-Txt'name='belong'>";
-	writerForm += "<a class='btn btn-default' onclick='writerDel("+writerCount+")'>제거</a>";
-	writerForm += "<hr>";
-	writerForm += "</div>";
-	
-	$('#writerGroup').append(writerForm);
-}
-function writerDel(count){
-	writerCount--;	
-	$('#form'+count).remove();
-}
-function doSubmit(f){
-	
-	if(confirm("제출하시겠습니까?")){
-		$('#writerSize').val(writerCount);
-		return true;
-	}else{
-		return false;
+	var writerCount = 1;
+	function writerAdd(){
+		writerCount++;
+		var writerForm = "";
+		writerForm += "<div class='form-group' id='form"+writerCount+"'>";
+		writerForm += "<label>저자정보 <a>*</a></label>";
+		writerForm += "<input type='text' placeholder='이름 입력' class='form-control Sub-Txt' name='name'>";
+		writerForm += "<input type='text' placeholder='이메일 입력' class='form-control Sub-Txt' name='email'>";
+		writerForm += "<input type='text' placeholder='소속 입력' class='form-control Sub-Txt'name='belong'>";
+		writerForm += "<a class='btn btn-default' onclick='writerDel("+writerCount+")'>제거</a>";
+		writerForm += "<hr>";
+		writerForm += "</div>";
+		
+		$('#writerGroup').append(writerForm);
+	}
+	function writerDel(count){
+		writerCount--;	
+		$('#form'+count).remove();
+	}
+	function doSubmit(f){
+		if(confirm("제출하시겠습니까?")){
+			$('#writerSize').val(writerCount);
+			if(checkRadio()){
+				alert("'구두발표' 또는 '포스터 발표'를 선택해 주세요");
+				return false;
+			}
+			if(checkExtended()){
+				alert(".docx 파일만 업로드 가능합니다.");
+				f.paper.focus();
+				return false;
+			}
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 	
-}
-
+	function checkExtended(){
+		var fileName = document.getElementById('paper').value;
+		var extended = fileName.slice(fileName.indexOf(".")+1).toLowerCase();
+		console.log(extended);
+		var result = false;
+		if(extended != "docx"){
+			result = true;
+		}
+		return result;
+	}
+	
+	function checkRadio(){
+		var r = document.getElementsByName('pType');
+		var result = true;
+		for(var i = 0; i< r.length;i++){
+			if(r[i].checked){
+				result = false;
+			}
+		}
+		return result;
+	}
 </script>
 <title>공고 등록</title>
 </head>
@@ -80,11 +106,11 @@ function doSubmit(f){
 				공고 제출 </header>
 				<div class="panel-body">
 					<div class="form-group">
-						<label>한글 제목 <a>*</a></label> <input type="text" class="form-control Sub-Txt" name="korName">
+						<label>한글 제목 <a>*</a></label> <input type="text" class="form-control Sub-Txt" name="korName" required="required">
 						<hr>
 					</div>
 					<div class="form-group">
-						<label>영문 제목 <a>*</a> </label> <input type="text" class="form-control Sub-Txt" name="engName">
+						<label>영문 제목 <a>*</a> </label> <input type="text" class="form-control Sub-Txt" name="engName" required="required">
 						<hr>
 					</div>
 					<div class="form-group">
@@ -95,15 +121,15 @@ function doSubmit(f){
 					</div>
 					<div class="form-group">
 						<label class="block">논문 첨부 <a>*</a></label> <input type="file"
-							class="form-control subTxt Sub-Txt" name="paper" id="paper">
+							class="form-control subTxt Sub-Txt" name="paper" id="paper" required="required">
 						<hr>
 					</div>
 					<div id="writerGroup">
 						<div class="form-group" id="form1">
 							<label>저자 정보 <a>*</a></label> 
-							<input type="text" placeholder="이름 입력" class="form-control Sub-Txt" name="name">
-							<input type="text" placeholder="이메일 입력" class="form-control Sub-Txt" name="email">
-							<input type="text" placeholder="소속 입력" class="form-control Sub-Txt" name="belong">
+							<input type="text" placeholder="이름 입력" class="form-control Sub-Txt" name="name" required="required">
+							<input type="text" placeholder="이메일 입력" class="form-control Sub-Txt" name="email" required="required">
+							<input type="text" placeholder="소속 입력" class="form-control Sub-Txt" name="belong" required="required">
 							<hr>
 						</div>
 					</div>
