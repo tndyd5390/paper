@@ -15,8 +15,6 @@ function adFunc(a){
 	ad = a;
 }
 $(function(){
-  //  $( "#paperList" ).sortable();
-  //  $( "#paperList" ).disableSelection();
   	ad="S";
  	nothingList();
 })
@@ -71,7 +69,7 @@ function paperList(n){
 				}
 			}else{
 			if(n=="A"){
-				contents += "<button class='btn btn-primary'>병합</button>"
+				contents += "<button class='btn btn-primary' onclick='mergeDocxPage();'>병합</button>"
 			}
 			$('#paperList').html(contents);
 			}
@@ -151,7 +149,7 @@ function updateAd(pNo, nNo){
 							}
 					}else{
 						if(n=="A"){
-							contents += "<button class='btn btn-primary' onclick='';>병합</button>"
+							contents += "<button class='btn btn-primary' onclick='mergeDocxPage();'>병합</button>"
 						}
 					$('#paperList').html(contents);
 					}
@@ -161,7 +159,9 @@ function updateAd(pNo, nNo){
 }
 }
 function mergeDocxPage(){
-	
+	var popUrl ="mergeDocxPage.do?nNo="+<%=nDTO.getNotice_no()%>+"&adV="+n;
+	var popOption = "width=370,height=500, resizeble=yes, status=no;";
+	window.open(popUrl,"",popOption);
 }
 
 </script>

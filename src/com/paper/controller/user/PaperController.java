@@ -1,7 +1,10 @@
 package com.paper.controller.user;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,10 +24,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.paper.dto.Notice_infoDTO;
 import com.paper.dto.Paper_infoDTO;
 import com.paper.dto.Writer_infoDTO;
 import com.paper.service.IPaperService;
 import com.paper.util.CmmUtil;
+import com.paper.util.MergeUtil;
 
 
 @Controller
@@ -177,14 +182,45 @@ public class PaperController {
 		log.info(this.getClass().getName() + " paperAdUpdate End!!");
 		return pList;
 	}
-	@RequestMapping(value="mergeDockPage")
-	public String mergeDockPage(HttpServletRequest req, Model model){
-		log.info(this.getClass().getName() + " mergeDockPage Start!!");
+	@RequestMapping(value="mergeDocxPage")
+	public String mergeDockPage(HttpServletRequest req, Model model) throws Exception{
+		log.info(this.getClass().getName() + " mergeDocxPage Start!!");
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		String adV = CmmUtil.nvl(req.getParameter("adV"));
+		log.info(this.getClass().getName() + " nNo = "+nNo);
+		log.info(this.getClass().getName() + " adV = "+adV);
+		Paper_infoDTO pDTO = new Paper_infoDTO();
+		pDTO.setNotice_no(nNo);
+		pDTO.setPaper_adV(adV);
 		
+		List<Paper_infoDTO> pList = paperService.getPaperList(pDTO);
 		
-		
-		log.info(this.getClass().getName() + " mergeDockPage End!!");
-		return "";
+		model.addAttribute("pList", pList);
+		pList=null;
+		log.info(this.getClass().getName() + " mergeDocxPage End!!");
+		return "admin/adminPaperMergePop";
 	}
 	
+	@RequestMapping(value="mergeDocxProc")
+	public String mergeDockProc(HttpServletRequest req) throws Exception{
+		log.info(this.getClass().getName() + " mergeDocxProc Start!!");
+		String nNo = req.getParameter("nNo");
+		String fileNames[] = req.getParameterValues("fileName");
+		int count = 0;
+		for(String test : fileNames){
+			count ++;
+			System.out.println(count+"  :  "+test);
+		}
+		String outPath = "C:\\www\\"+nNo+".docx";
+		MergeUtil.mergeDocx(MergeUtil.inputFiles(fileNames), new FileOutputStream(new File(outPath)));
+		
+		
+		Notice_infoDTO nDTO = new Notice_infoDTO();
+		nDTO.setNotice_no(nNo);
+		nDTO.setFile_name(nNo);
+		nDTO.setFile_path(outPath);
+		
+		log.info(this.getClass().getName() + " mergeDocxProc End!!");
+		return "";
+	}
 }
