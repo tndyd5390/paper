@@ -132,7 +132,7 @@ public class NoticeController {
 		log.info(this.getClass().getName() + " adminNoticeDetail End!!");
 		
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
-		System.out.println(nNo);
+		log.info(this.getClass().getName() + " nNo : " + nNo);
 		Notice_infoDTO nDTO = new Notice_infoDTO();
 		nDTO.setNotice_no(nNo);
 		nDTO = noticeService.getNoticeDetail(nDTO);

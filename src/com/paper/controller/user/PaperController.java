@@ -124,7 +124,8 @@ public class PaperController {
 	@RequestMapping(value="paperList")
 	public @ResponseBody List<Paper_infoDTO> paperList(@RequestParam(value="nNo") String nNo) throws Exception{
 		log.info(this.getClass().getName() + " paperList Start!!");
-		
+
+		log.info(this.getClass().getName() + " nNo : " + nNo);
 		Paper_infoDTO pDTO = new Paper_infoDTO();
 		pDTO.setNotice_no(nNo);
 		List<Paper_infoDTO> pList = paperService.getPaperList(pDTO);
@@ -139,6 +140,10 @@ public class PaperController {
 	public @ResponseBody List<Paper_infoDTO> paperAdUpdate(@RequestParam(value="nNo") String nNo, @RequestParam(value="pNo") String pNo, @RequestParam(value="pAd") String pAd)throws Exception{
 		log.info(this.getClass().getName() + " paperAdUpdate Start!!");
 		
+		log.info(this.getClass().getName() + " nNo : " + nNo);
+		log.info(this.getClass().getName() + " pNo : " + pNo);
+		log.info(this.getClass().getName() + " pAd : " + pAd);
+
 		Paper_infoDTO pDTO = new Paper_infoDTO();
 		pDTO.setPaper_no(pNo);
 		pDTO.setNotice_no(nNo);
@@ -155,6 +160,7 @@ public class PaperController {
 		log.info(this.getClass().getName() + " acceptList Start!!");
 		
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		log.info(this.getClass().getName() + " nNo : " + nNo);
 		Paper_infoDTO pDTO = new Paper_infoDTO();
 		pDTO.setNotice_no(nNo);
 		List<Paper_infoDTO> pList = paperService.getAcceptList(pDTO);
@@ -170,6 +176,7 @@ public class PaperController {
 		log.info(this.getClass().getName() + " acceptList Start!!");
 		
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		log.info(this.getClass().getName() + " nNo : " + nNo);
 		Paper_infoDTO pDTO = new Paper_infoDTO();
 		pDTO.setNotice_no(nNo);
 		List<Paper_infoDTO> pList = paperService.getDropList(pDTO);
