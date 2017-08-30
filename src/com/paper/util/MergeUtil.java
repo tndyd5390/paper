@@ -1,5 +1,7 @@
 package com.paper.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
@@ -22,7 +24,16 @@ public class MergeUtil {
     private static long chunk = 0;
     private static final String CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
     private static ObjectFactory factory;
-
+    
+    public static FileInputStream[] inputFiles(String[] files) throws Exception{
+    	FileInputStream[] fileInputs = new FileInputStream[files.length];
+    	for(int i=0;i<files.length;i++){
+    		fileInputs[i] = new FileInputStream(new File(files[i]));
+    	}
+    	
+    	return fileInputs;
+    }
+    
     public static void mergeDocx(FileInputStream s1[], FileOutputStream os) throws Exception {
        System.out.println(s1.length);
        if(s1.length>2){
@@ -42,8 +53,9 @@ public class MergeUtil {
              return;
        }else{
            WordprocessingMLPackage target = WordprocessingMLPackage.load(s1[0]);
+           factory = Context.getWmlObjectFactory();
+           addPageBreak(target);
             insertDocx(target.getMainDocumentPart(), IOUtils.toByteArray(s1[1]));
-          addPageBreak(target);
             SaveToZipFile saver = new SaveToZipFile(target);
             saver.save(os);   
        }
