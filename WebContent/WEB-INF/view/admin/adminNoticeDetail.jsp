@@ -149,6 +149,7 @@
 							<br />
 							<div style="float: right;">
 								<select class="form-control" style="width: 300px; display: inline;">
+									<option>심사중</option>
 									<option>합격</option>
 									<option>불합격</option>
 								</select>
