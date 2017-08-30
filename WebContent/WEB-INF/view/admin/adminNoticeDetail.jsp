@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.paper.dto.Notice_infoDTO" %>
+<%
+	Notice_infoDTO nDTO = (Notice_infoDTO) request.getAttribute("nDTO");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -32,11 +36,11 @@
 						<tbody>
 							<tr>
 								<th width="10%"><center>제목</center></th>
-								<th width="50%"><center>2017년 6월 논문 학술 대회</center></th>
+								<th width="50%"><center><%=nDTO.getNotice_title() %></center></th>
 								<th width="10%"><center>접수일</center></th>
-								<th width="10%"><center>2017.08.23</center></th>
+								<th width="10%"><center><%=nDTO.getReception_date() %></center></th>
 								<th width="10%"><center>종료일</center></th>
-								<th width="10%"><center>2017.09.21</center></th>
+								<th width="10%"><center><%=nDTO.getEnd_date() %></center></th>
 							</tr>
 						</tbody>
 					</table>

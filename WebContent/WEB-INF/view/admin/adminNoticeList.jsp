@@ -83,7 +83,7 @@
                               <tr>
                               	  <td align="center"><input type="checkbox" name="del_check" value="<%=nDTO.getNotice_no()%>"></td>
                                   <td align="center"><%=nDTO.getNotice_no() %></td>
-                                  <td align="center"><%=nDTO.getNotice_title() %></td>
+                                  <td align="center"><a href="adminNoticeDetail.do?nNo=<%=nDTO.getNotice_no()%>"><%=nDTO.getNotice_title() %></a></td>
                                   <td align="center"><%=nDTO.getReception_date() %></td>
                                   <td align="center"><%=nDTO.getEnd_date() %></td>
                                   <td align="center"><%=nDTO.getExhibition_date() %></td>

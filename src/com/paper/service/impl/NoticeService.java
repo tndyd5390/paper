@@ -45,4 +45,10 @@ public class NoticeService implements INoticeService{
 		return noticeMapper.getNowNoticeList();
 	}
 
+	@Override
+	public Notice_infoDTO getNoticeDetail(Notice_infoDTO nDTO) throws Exception {
+		return noticeMapper.getNoticeDetail(nDTO);
+	}
+
+
 }

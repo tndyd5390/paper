@@ -118,9 +118,9 @@ public class NoticeController {
 		Notice_infoDTO nDTO = new Notice_infoDTO();
 		nDTO.setAllCheck(del_check);
 		if(noticeService.deleteAdminAllCheck(nDTO)){
-			model.addAttribute("msg", "삭제되었습니다.");
+			model.addAttribute("msg", "�궘�젣�릺�뿀�뒿�땲�떎.");
 		}else{
-			model.addAttribute("msg", "삭제 실패");
+			model.addAttribute("msg", "�궘�젣 �떎�뙣");
 		}
 		model.addAttribute("url", "adminNoticeList.do");
 		nDTO = null;
@@ -131,6 +131,14 @@ public class NoticeController {
 	public String adminNoticeDetail(HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
 		log.info(this.getClass().getName() + " adminNoticeDetail End!!");
 		
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		System.out.println(nNo);
+		Notice_infoDTO nDTO = new Notice_infoDTO();
+		nDTO.setNotice_no(nNo);
+		nDTO = noticeService.getNoticeDetail(nDTO);
+		model.addAttribute("nDTO", nDTO);
+		
+		nDTO = null;
 		log.info(this.getClass().getName() + " adminNoticeDetail End!!");
 		return "admin/adminNoticeDetail";
 	}

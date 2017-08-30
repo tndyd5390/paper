@@ -67,4 +67,13 @@
 		<foreach item="notice_no" index="index" collection="allCheck"
 			open="(" separator="," close=")">#{notice_no}</foreach>
 	</delete>
+	<select id="getNoticeDetail" parameterType="Notice_infoDTO" resultType="Notice_infoDTO">
+		SELECT 
+			NOTICE_TITLE,
+			DATE_FORMAT(EXHIBITION_DATE,'%Y-%m-%d') AS EXHIBITION_DATE,
+			DATE_FORMAT(RECEPTION_DATE, '%Y-%m-%d') AS RECEPTION_DATE,
+			DATE_FORMAT(END_DATE,'%Y-%m-%d') AS END_DATE
+		FROM NOTICE_INFO
+		WHERE NOTICE_NO = #{notice_no}
+	</select>
 </mapper>
