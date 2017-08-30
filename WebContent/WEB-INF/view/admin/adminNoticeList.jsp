@@ -92,8 +92,10 @@
                               <%} %>
                               </tbody>
                           </table>
+                          	<div align="right">
 							<a class="btn btn-primary btn-right" href="adminNoticeReg.do">등록</a>
 							<input type="button" class="btn btn-danger btn-right" value="삭제" onclick="userdel_check()">
+							</div>
 				</div>
 				</section>
 			</div>

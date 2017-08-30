@@ -9,19 +9,24 @@
 <head>
 <%@include file="/include/head.jsp"%>
 <script>
-var ad = "";
+var ad = "S";
+var n = "N";
 function adFunc(a){
 	ad = a;
 }
 $(function(){
   //  $( "#paperList" ).sortable();
   //  $( "#paperList" ).disableSelection();
-
+  	ad="S";
+ 	nothingList();
+})
+function paperList(n){
 	$.ajax({
 		url:"paperList.do",
 		method:"post",
 		dataType:"json",
-		data: {'nNo' : <%=CmmUtil.nvl(nDTO.getNotice_no())%>},
+		data: {'nNo' : <%=CmmUtil.nvl(nDTO.getNotice_no())%>,
+				'pAd' : n},
 		success:function(data){
 			var contents = "";
 			$.each(data, function(key,value){
@@ -42,7 +47,8 @@ $(function(){
 				contents += "</div>";
 				contents += "</br>";
 				contents += "<div style='float: right;'>";
-				contents += "<select class='form-control' style='width: 300px; display: inline;' id='paperAd' onchange='adFunc(this.value);'>";
+				contents += "<select class='form-control' style='width: 300px; display: inline;' id='paperAd' onclick='adFunc(this.value);'>";
+				contents += "<option value='S' selected>"+"선택하세요"+"</option>";
 				contents += "<option value='N'>"+"심사중"+"</option>";
 				contents += "<option value='A'>"+"합격"+"</option>";
 				contents += "<option value='D'>"+"불합격"+"</option>";
@@ -56,22 +62,51 @@ $(function(){
 				contents += "</li>";
 			})
 			if(data.length==0){
-				$('#paperList').html("<h3>접수된 논문이 없습니다.</h3>");
+				if(n=="N"){
+				$('#paperList').html("<h3>심사중인 논문이 없습니다.</h3>");
+				}else if(n=="A"){
+				$('#paperList').html("<h3>합격된 논문이 없습니다.</h3>");
+				}else{
+				$('#paperList').html("<h3>불합격된 논문이 없습니다.</h3>");
+				}
 			}else{
+			if(n=="A"){
+				contents += "<button class='btn btn-primary'>병합</button>"
+			}
 			$('#paperList').html(contents);
 			}
 		}
 		
 	})
-})
+}
+function nothingList(){
+	n = "N";
+	paperList(n);
+}
+function dropList(){
+	n = "D";
+	paperList(n);
+}
+function acceptList(){
+	n = "A";
+	paperList(n);
+}
+
 function updateAd(pNo, nNo){
+	if(ad=="S"){
+		alert("상태를 선택하세요");
+		paperList(n);
+		return false;
+	}else{
 	$.ajax({
 		url : "paperAdUpdate.do",
 		method : "post",
 		dataType : "JSON",
 		data : {'nNo' : nNo,
 				'pNo' : pNo,
-				'pAd' : ad},
+				'pAd' : ad,
+				'pAdV' : n
+				},
 				success:function(data){
 					var contents = "";
 					$.each(data, function(key,value){
@@ -92,7 +127,8 @@ function updateAd(pNo, nNo){
 						contents += "</div>";
 						contents += "</br>";
 						contents += "<div style='float: right;'>";
-						contents += "<select class='form-control' style='width: 300px; display: inline;' id='paperAd"+value.paper_no+"' onchange='adFunc(this.value);'>";
+						contents += "<select class='form-control' style='width: 300px; display: inline;' onclick='adFunc(this.value);'>";
+						contents += "<option value='S' selected>"+"선택하세요"+"</option>";
 						contents += "<option value='N'>"+"심사중"+"</option>";
 						contents += "<option value='A'>"+"합격"+"</option>";
 						contents += "<option value='D'>"+"불합격"+"</option>";
@@ -106,12 +142,26 @@ function updateAd(pNo, nNo){
 						contents += "</li>";
 					})
 					if(data.length==0){
-						$('#paperList').html("<h3>접수된 논문이 없습니다.</h3>");
+						if(n=="N"){
+							$('#paperList').html("<h3>심사중인 논문이 없습니다.</h3>");
+							}else if(n=="A"){
+							$('#paperList').html("<h3>합격된 논문이 없습니다.</h3>");
+							}else{
+							$('#paperList').html("<h3>불합격된 논문이 없습니다.</h3>");
+							}
 					}else{
+						if(n=="A"){
+							contents += "<button class='btn btn-primary' onclick='';>병합</button>"
+						}
 					$('#paperList').html(contents);
 					}
 				}	
+		
 	})
+}
+}
+function mergeDocxPage(){
+	
 }
 
 </script>
@@ -155,27 +205,29 @@ function updateAd(pNo, nNo){
 				<div class="act-time">
 					<div class="activity-body act-in">
 						<ul class="nav nav-tabs">
-							<li class="active"><a data-toggle="tab">등록현황 </a></li>
+							<li class="active"><a data-toggle="tab" onclick="nothingList();">심사중 논문 </a></li>
+							<li><a data-toggle="tab" onclick="dropList();">불합격 논문 </a></li>
+							<li><a data-toggle="tab" onclick="acceptList();">합격 논문 </a></li>
 						</ul>
 					</div>
 				</div>
 	<!----------------------------------------------------- 접수 내역 시작 ----------------------------------------------->
-				<div class="act-time">
+			<!-- 	<div class="act-time">
 					<div class="activity-body act-in">
 						<div class="text" style="height: 150px;">
 							<p class="attribution">
-								<a href="#">문주현<!-- 접수자 이름 --></a> 2017.08.21 18:00:00<!-- 접수 날자 -->
+								<a href="#">문주현접수자 이름</a> 2017.08.21 18:00:00접수 날자
 							</p>
 							<p class="attribution" style="display: inline; font-size: 15px;">
-								4차산업혁명 대비 벤처창업아이템 경진대회<!-- 한글 제목 -->
+								4차산업혁명 대비 벤처창업아이템 경진대회한글 제목
 							</p>
 							<div>
 								<p class="attribution" style="display: inline; font-size: 15px;">
-									Venture start-up item competition against 4th industrial revolution<!-- 영문 제목 -->
+									Venture start-up item competition against 4th industrial revolution영문 제목
 								</p>
 								<br>
 								<p class="attribution" style="display: inline; font-size: 15px;">
-									구두발표<!-- 영문 제목 -->
+									구두발표영문 제목
 								</p>
 								
 								<div style="display: inline; float: right;">
@@ -193,15 +245,11 @@ function updateAd(pNo, nNo){
 						</div>
 						<br/>
 					</div>
-				</div>
+				</div> -->
 	<!----------------------------------------------------- 접수 내역 종료 ----------------------------------------------->
 	<ul id="paperList"  style="	list-style: none;margin:0px; padding:0px;">
-	
+
 	</ul>
-					<div align="right">
-						<button class="btn btn-primary" style="display: inline; width: 90px;">합격</button>
-						<button class="btn btn-danger" style="display: inline; width: 90px;">불합격</button>
-					</div>
 				</div>
 			</div>
 			</section>

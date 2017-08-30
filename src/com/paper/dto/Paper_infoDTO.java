@@ -12,6 +12,7 @@ public class Paper_infoDTO {
 	private String file_path;
 	private String notice_no;
 	private String paper_ad;
+	private String paper_adV;
 	private String reg_dt;
 	private String reg_user_no;
 	private String chg_dt;
@@ -114,5 +115,13 @@ public class Paper_infoDTO {
 
 	public void setPaper_type(String paper_type) {
 		this.paper_type = paper_type;
+	}
+
+	public String getPaper_adV() {
+		return paper_adV;
+	}
+
+	public void setPaper_adV(String paper_adV) {
+		this.paper_adV = paper_adV;
 	}
 }
