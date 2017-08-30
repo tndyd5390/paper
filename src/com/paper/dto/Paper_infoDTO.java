@@ -5,6 +5,7 @@ public class Paper_infoDTO {
 	private String paper_kor;
 	private String paper_eng;
 	private String user_no;
+	private String user_name;
 	private String file_org_name;
 	private String file_name;
 	private String file_path;
@@ -96,5 +97,13 @@ public class Paper_infoDTO {
 	}
 	public void setCht_user_no(String cht_user_no) {
 		this.cht_user_no = cht_user_no;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 }

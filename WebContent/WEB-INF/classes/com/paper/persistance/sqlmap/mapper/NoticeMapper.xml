@@ -69,6 +69,7 @@
 	</delete>
 	<select id="getNoticeDetail" parameterType="Notice_infoDTO" resultType="Notice_infoDTO">
 		SELECT 
+			NOTICE_NO,
 			NOTICE_TITLE,
 			DATE_FORMAT(EXHIBITION_DATE,'%Y-%m-%d') AS EXHIBITION_DATE,
 			DATE_FORMAT(RECEPTION_DATE, '%Y-%m-%d') AS RECEPTION_DATE,

@@ -15,8 +15,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.paper.dto.Paper_infoDTO;
@@ -118,4 +120,18 @@ public class PaperController {
 		log.info(this.getClass().getName()+ " .paperRegProc End!!");
 		return "redirect:paperReg.do";
 	}
+	@RequestMapping(value="paperList")
+	public @ResponseBody List<Paper_infoDTO> paperList(@RequestParam(value="nNo") String nNo) throws Exception{
+		log.info(this.getClass().getName() + " paperList Start!!");
+		
+		Paper_infoDTO pDTO = new Paper_infoDTO();
+		pDTO.setNotice_no(nNo);
+		List<Paper_infoDTO> pList = paperService.getPaperList(pDTO);
+		
+		
+		pDTO = null;
+		log.info(this.getClass().getName() + " paperList End!!");
+		return pList;
+	}
+
 }

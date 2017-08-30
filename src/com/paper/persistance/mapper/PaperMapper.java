@@ -10,4 +10,5 @@ import com.paper.dto.Writer_infoDTO;
 public interface PaperMapper {
 	public int insertPaperInfo(Paper_infoDTO pDTO) throws Exception;
 	public int insertWriterInfo(List<Writer_infoDTO> wList) throws Exception;
+	public List<Paper_infoDTO> getPaperList(Paper_infoDTO pDTO) throws Exception;
 }

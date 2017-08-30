@@ -53,4 +53,12 @@
 		)
 		</foreach>
 	</insert>
+	
+	<select id="getPaperList" parameterType="Paper_infoDTO" resultType="Paper_infoDTO">
+		SELECT 
+			P.NOTICE_NO, P.PAPER_NO, P.PAPER_KOR, P.PAPER_ENG,
+			U.USER_NAME, C.CODE_CONTENTS, P.FILE_NAME, P.FILE_PATH, FORMAT(P.REG_DT,'%Y%m%d') AS REG_DT
+			FROM PAPER_INFO P, USER_INFO U, CODE_INFO C
+			WHERE P.USER_NO = U.USER_NO AND P.PAPER_AD = C.CODE_NO AND P.NOTICE_NO = #{notice_no}
+	</select>
 </mapper>

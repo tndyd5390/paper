@@ -8,6 +8,34 @@
 <html>
 <head>
 <%@include file="/include/head.jsp"%>
+<script>
+
+$(function(){
+	$.ajax({
+		url:"paperList.do",
+		method:"post",
+		dataType:"json",
+		data: {'nNo' : <%=CmmUtil.nvl(nDTO.getNotice_no())%>},
+		success:function(data){
+			console.log(data)
+			var contents = "";
+			$.each(data, function(key,value){
+				contents += "<div class='act-time'>";
+				contents += "<div class='activity-body act-in'>";
+				contents += "<p class='attribution'>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
+				contents += "<p class='attribution' style=''>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
+				
+				
+				contents += "</div>"
+				contents += "</div>"
+				
+			})
+		}
+		
+	})
+})
+
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공고 상세</title>
 </head>
@@ -83,87 +111,10 @@
 					</div>
 				</div>
 	<!----------------------------------------------------- 접수 내역 종료 ----------------------------------------------->
-				<div class="act-time">
-					<div class="activity-body act-in">
-						<div class="text" style="height: 150px;">
-							<p class="attribution">
-								<a href="#">문주현<!-- 접수자 이름 --></a> 2017.08.21 18:00:00<!-- 접수 날자 -->
-							</p>
-							<p class="attribution" style="display: inline; font-size: 15px;">
-								4차산업혁명 대비 벤처창업아이템 경진대회<!-- 한글 제목 -->
-							</p>
-							<div>
-								<p class="attribution" style="display: inline; font-size: 15px;">
-									Venture start-up item competition against 4th industrial revolution<!-- 영문 제목 -->
-								</p>
-								<div style="display: inline; float: right;">
-									<button class="btn btn-primary" style="width: 90px;">다운로드</button>
-								</div>
-							</div>
-							<br />
-							<div style="float: right;">
-								<select class="form-control" style="width: 300px; display: inline;">
-									<option>합격</option>
-									<option>불합격</option>
-								</select>
-								<button class="btn btn-primary" style="display: inline; width: 90px;">확인</button>
-							</div>
-						</div>
-						<br/>
-						
-						<div class="text" style="height: 150px;">
-							<p class="attribution">
-								<a href="#">문주현<!-- 접수자 이름 --></a> 2017.08.21 18:00:00<!-- 접수 날자 -->
-							</p>
-							<p class="attribution" style="display: inline; font-size: 15px;">
-								4차산업혁명 대비 벤처창업아이템 경진대회<!-- 한글 제목 -->
-							</p>
-							<div>
-								<p class="attribution" style="display: inline; font-size: 15px;">
-									Venture start-up item competition against 4th industrial revolution<!-- 영문 제목 -->
-								</p>
-								<div style="display: inline; float: right;">
-									<button class="btn btn-primary" style="width: 90px;">다운로드</button>
-								</div>
-							</div>
-							<br />
-							<div style="float: right;">
-								<select class="form-control" style="width: 300px; display: inline;">
-									<option>합격</option>
-									<option>불합격</option>
-								</select>
-								<button class="btn btn-primary" style="display: inline; width: 90px;">확인</button>
-							</div>
-						</div>
-						<br/>
-						
-						<div class="text" style="height: 150px;">
-							<p class="attribution">
-								<a href="#">문주현<!-- 접수자 이름 --></a> 2017.08.21 18:00:00<!-- 접수 날자 -->
-							</p>
-							<p class="attribution" style="display: inline; font-size: 15px;">
-								4차산업혁명 대비 벤처창업아이템 경진대회<!-- 한글 제목 -->
-							</p>
-							<div>
-								<p class="attribution" style="display: inline; font-size: 15px;">
-									Venture start-up item competition against 4th industrial revolution<!-- 영문 제목 -->
-								</p>
-								<div style="display: inline; float: right;">
-									<button class="btn btn-primary" style="width: 90px;">다운로드</button>
-								</div>
-							</div>
-							<br />
-							<div style="float: right;">
-								<select class="form-control" style="width: 300px; display: inline;">
-									<option>심사중</option>
-									<option>합격</option>
-									<option>불합격</option>
-								</select>
-								<button class="btn btn-primary" style="display: inline; width: 90px;">확인</button>
-							</div>
-						</div>
-						<br/>
-						
+	<div id="paperList">
+		
+	</div>
+	
 					<div align="right">
 						<button class="btn btn-primary" style="display: inline; width: 90px;">합격</button>
 						<button class="btn btn-danger" style="display: inline; width: 90px;">불합격</button>
