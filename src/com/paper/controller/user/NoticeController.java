@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -69,7 +70,6 @@ public class NoticeController {
 		log.info(this.getClass().getName() + " adminNoticeList End!!");
 		return "admin/adminNoticeList";
 	}
-	
 	@RequestMapping(value="adminNoticeReg")
 	public String adminNoticeReg(HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
 		log.info(this.getClass().getName() + " adminNoticeReg Start!!");
@@ -82,7 +82,7 @@ public class NoticeController {
 	@RequestMapping(value="noticeRegProc")
 	public String noticeRegProc (HttpServletRequest req, HttpServletResponse resp, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass().getName() + " noticeRegProc Start!!");
-		
+		log.info(CmmUtil.nvl((String) session.getAttribute("ss_user_no")));
 		String noticeTitle = CmmUtil.nvl(req.getParameter("title"));
 		String receptionDate = CmmUtil.nvl(req.getParameter("reception_date"));
 		String endDate = CmmUtil.nvl(req.getParameter("end_date"));
@@ -109,6 +109,30 @@ public class NoticeController {
 		
 		log.info(this.getClass().getName() + " noticeRegProc End!!");
 		return "redirect:adminNoticeList.do";
+	}
+	
+	@RequestMapping(value="adminNoticeCheckedDelete", method = RequestMethod.POST)
+	public String adminBoardCheckedDelete(HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
+		String[] del_check = req.getParameterValues("del_check");
+		log.info(this.getClass() + (del_check + ""));
+		Notice_infoDTO nDTO = new Notice_infoDTO();
+		nDTO.setAllCheck(del_check);
+		if(noticeService.deleteAdminAllCheck(nDTO)){
+			model.addAttribute("msg", "삭제되었습니다.");
+		}else{
+			model.addAttribute("msg", "삭제 실패");
+		}
+		model.addAttribute("url", "adminNoticeList.do");
+		nDTO = null;
+		del_check = null;
+		return "admin/noticeAlert";
+	}
+	@RequestMapping(value="adminNoticeDetail")
+	public String adminNoticeDetail(HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
+		log.info(this.getClass().getName() + " adminNoticeDetail End!!");
+		
+		log.info(this.getClass().getName() + " adminNoticeDetail End!!");
+		return "admin/adminNoticeDetail";
 	}
 	
 }

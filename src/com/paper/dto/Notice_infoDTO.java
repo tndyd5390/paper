@@ -12,6 +12,7 @@ public class Notice_infoDTO {
 	private String reg_user_no;
 	private String chg_dt;
 	private String chg_user_no;
+	private String[] allCheck;
 	private String stat;
 	
 	public String getNotice_no() {
@@ -79,6 +80,12 @@ public class Notice_infoDTO {
 	}
 	public void setChg_user_no(String chg_user_no) {
 		this.chg_user_no = chg_user_no;
+	}
+	public String[] getAllCheck() {
+		return allCheck;
+	}
+	public void setAllCheck(String[] allCheck) {
+		this.allCheck = allCheck;
 	}
 	public String getStat() {
 		return stat;

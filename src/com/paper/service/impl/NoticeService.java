@@ -29,6 +29,16 @@ public class NoticeService implements INoticeService{
 	public void insertNotice(Notice_infoDTO nDTO) throws Exception {
 		noticeMapper.insertNotice(nDTO);
 	}
+	
+	@Override
+	public boolean deleteAdminAllCheck(Notice_infoDTO nDTO) throws Exception{
+		int result = noticeMapper.deleteAdminAllCheck(nDTO);
+		if(result != 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 	@Override
 	public List<Notice_infoDTO> getNowNoticeList() throws Exception {

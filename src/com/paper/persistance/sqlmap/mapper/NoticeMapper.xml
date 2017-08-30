@@ -62,4 +62,9 @@
 			NOW()
 		)
 	</insert>
+	<delete id="deleteAdminAllCheck" parameterType="Notice_infoDTO">
+		DELETE FROM NOTICE_INFO WHERE NOTICE_NO IN
+		<foreach item="notice_no" index="index" collection="allCheck"
+			open="(" separator="," close=")">#{notice_no}</foreach>
+	</delete>
 </mapper>

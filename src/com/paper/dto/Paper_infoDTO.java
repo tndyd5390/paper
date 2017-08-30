@@ -5,8 +5,8 @@ public class Paper_infoDTO {
 	private String paper_kor;
 	private String paper_eng;
 	private String user_no;
-	private String file_name1;
-	private String file_name2;
+	private String file_org_name;
+	private String file_name;
 	private String file_path;
 	private String notice_no;
 	private String paper_ad;
@@ -14,6 +14,23 @@ public class Paper_infoDTO {
 	private String reg_user_no;
 	private String chg_dt;
 	private String cht_user_no;
+	
+	public String getFile_org_name() {
+		return file_org_name;
+	}
+
+	public void setFile_org_name(String file_org_name) {
+		this.file_org_name = file_org_name;
+	}
+
+	public String getFile_name() {
+		return file_name;
+	}
+
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
+	}
+
 	public String getPaper_no() {
 		return paper_no;
 	}
@@ -37,18 +54,6 @@ public class Paper_infoDTO {
 	}
 	public void setUser_no(String user_no) {
 		this.user_no = user_no;
-	}
-	public String getFile_name1() {
-		return file_name1;
-	}
-	public void setFile_name1(String file_name1) {
-		this.file_name1 = file_name1;
-	}
-	public String getFile_name2() {
-		return file_name2;
-	}
-	public void setFile_name2(String file_name2) {
-		this.file_name2 = file_name2;
 	}
 	public String getFile_path() {
 		return file_path;

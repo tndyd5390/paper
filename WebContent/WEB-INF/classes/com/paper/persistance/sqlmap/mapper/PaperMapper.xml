@@ -1,5 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.paper.persistance.mapper.PapperMapper">
-
+<mapper namespace="com.paper.persistance.mapper.PaperMapper">
+	<insert id="insertPaperInfo" parameterType="Paper_infoDTO">
+		INSERT INTO PAPER_INFO
+		(
+			NOTICE_NO,
+			PAPER_KOR,
+			PAPER_ENG,
+			USER_NO,
+			FILE_ORG_NAME,
+			FILE_NAME,
+			FILE_PATH,
+			PAPER_AD,
+			REG_USER_NO,
+			REG_DT
+		)
+		VALUES
+		(
+			CONVERT(#{notice_no}, UNSIGNED),
+			#{paper_kor},
+			#{paper_eng},
+			#{user_no},
+			#{file_org_name},
+			#{file_name},
+			#{file_path},
+			#{paper_ad},
+			#{user_no},
+			NOW()
+		)
+	</insert>
+	<insert id="insertWriterInfo" parameterType="list">
+		INSERT INTO WRITER_INFO
+		(
+			NOTICE_NO,
+			PAPER_NO,
+			WRITER_NAME,
+			WRITER_EMAIL,
+			WRITER_BELONG,
+			REG_USER_NO,
+			REG_DT
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.notice_no},
+			(SELECT PAPER_NO FROM PAPER_INFO WHERE USER_NO = #{item.reg_user_no} ORDER BY REG_DT DESC LIMIT 1),
+			#{item.writer_name},
+			#{item.writer_email},
+			#{item.writer_belong},
+			#{item.reg_user_no},
+			NOW()
+		)
+		</foreach>
+	</insert>
 </mapper>
