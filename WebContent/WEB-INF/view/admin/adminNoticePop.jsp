@@ -12,38 +12,6 @@
 <%@include file="/include/head.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
-	function check(){
-		var f = document.getElementById("f");
-		var cbox = f.del_check;
-		if(cbox.length){
-			for(var i = 0; i< cbox.length;i++){
-				cbox[i].checked = f.allCheck.checked;
-			}
-		} else {
-			cbox.checked = f.allCheck.checked;
-		}
-	}
-	function userdel_check(){
-		var checked=false;
-		var check = document.getElementsByName("del_check");
-		var f = document.getElementById("f");
-		
-		if(check.length){
-			for(var i = 0; i< check.length; i++){
-				if(check[i].checked){
-					checked = true;
-					break;
-				}				
-			}
-		}
-		if(checked){
-			if(confirm("선택한 것을 삭제하시겠습니까?")){
-				f.submit();
-			}
-		}else{
-			alert("선택된 것이 없습니다.");
-		}
-	}
 </script>
 <title>공고 리스트</title>
 </head>
@@ -66,32 +34,6 @@
 				<section class="panel"> <header class="panel-heading">
 				공고 등록 </header>
 				<div class="panel-body">                          
-				<table class="table table-striped">
-                              <thead>
-                              <tr>
-                                  <th><center><input type="checkbox" name="allCheck" onclick="check();"></center></th>
-                                  <th><center>번호</center></th>
-                                  <th><center>제목</center></th>
-                                  <th><center>접수시작일</center></th>
-                                  <th><center>접수마감일</center></th>
-                                  <th><center>개최일</center></th>
-                                  <th><center>상태</center></th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <%for(Notice_infoDTO nDTO : nList){ %>                            
-                              <tr>
-                              	  <td align="center"><input type="checkbox" name="del_check" value="<%=nDTO.getNotice_no()%>"></td>
-                                  <td align="center"><%=nDTO.getNotice_no() %></td>
-                                  <td align="center"><a href="adminNoticeDetail.do?nNo=<%=nDTO.getNotice_no()%>"><%=nDTO.getNotice_title() %></a></td>
-                                  <td align="center"><%=nDTO.getReception_date() %></td>
-                                  <td align="center"><%=nDTO.getEnd_date() %></td>
-                                  <td align="center"><%=nDTO.getExhibition_date() %></td>
-                                  <td align="center"><%=nDTO.getStat() %></td>
-                              </tr>
-                              <%} %>
-                              </tbody>
-                          </table>
 							<a class="btn btn-primary btn-right" href="adminNoticeReg.do">등록</a>
 							<input type="button" class="btn btn-danger btn-right" value="삭제" onclick="userdel_check()">
 				</div>
