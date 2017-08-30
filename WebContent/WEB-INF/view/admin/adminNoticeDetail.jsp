@@ -32,17 +32,17 @@ $(function(){
 				contents += "</div>";
 				contents += "</div>";
 				contents += "</br>";
-				contents += "<div style='float: right;'>"
-				contents += "<select class='form-control' style='width:300px; display:inline;'>"
-				contents += "<option>"+value.paper_ad+"</option>"
+				contents += "<div style='float: right;'>";
+				contents += "<select class='form-control' style='width:300px; display:inline;'>";
+				contents += "<option>"+value.paper_ad+"</option>";
 				contents += "<option>"+"합격"+"</option>"
-				contents += "<option>"+"불합격"+"</option>"
+				contents += "<option>"+"불합격"+"</option>";
 				contents += "</select>"
-				contents += "<button class='btn btn-primary style='display:inline; width:90px'>확인</button>"
-				contents += "</div>"
-				contents += "</br>"
-				contents += "</div>"
-				contents += "</div>"
+				contents += "<button class='btn btn-primary style='display:inline; width:90px'>확인</button>";
+				contents += "</div>";
+				contents += "</br>";
+				contents += "</div>";
+				contents += "</div>";
 				
 			})
 		}
