@@ -82,4 +82,9 @@ public class CmmUtil {
 		}
 		return addComma(Integer.parseInt(value));
 	}
+	
+	public static String fileNameCheck(String fileName){
+		fileName = fileName.replaceAll("\\.\\.", "").replaceAll("/", "").replaceAll("\\\\", "");
+		return fileName;
+	}
 }
