@@ -56,7 +56,12 @@ function doSubmit(f){
 					<%if(nDTO.getFile_name().equals("")){%>
 						<strong>병합된 파일이 없습니다.</strong>
 					<% }else{%>
-					경로 : <%=nDTO.getFile_path()%><%=nDTO.getFile_name()%>
+					<form action="download.do" method="post">
+						<input type="hidden" name="path" value="<%=CmmUtil.nvl(nDTO.getFile_path())%>">
+						<input type="hidden" name="fileName" value="<%=CmmUtil.nvl(nDTO.getFile_name())%>">
+						<input type="hidden" name="fileOrgName" value="<%=CmmUtil.nvl(nDTO.getNotice_title()) %>">
+						<input type="submit" class="btn btn-info btn-merge" value="다운로드">
+					</form>
 					<%}%>
 					
 					<div class="widget-foot">
