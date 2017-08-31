@@ -230,4 +230,12 @@ public class PaperController {
 		log.info(this.getClass().getName() + " mergeDocxProc End!!");
 		return "admin/userAlert";
 	}
+	
+	@RequestMapping(value="filetest")
+	public String fileTest(HttpServletRequest req, HttpServletResponse resp, Model model, HttpSession session) throws Exception{
+		log.info(this.getClass() + ".filetest start!!!");
+		
+		log.info(this.getClass() + ".filetest end!!!");
+		return "fileDownloadTest";
+	}
 }
