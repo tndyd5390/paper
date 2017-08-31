@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.persistance.mapper.UserMapper">
+	<select id="getUserList" resultType="User_infoDTO">
+		SELECT 
+			USER_NO,
+		    EMAIL,
+		    PASSWORD,
+		    USER_NAME,
+		    BELONG,
+		    AUTH,
+		    PHONE,
+		    DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT,
+		    REG_USER_NO,
+		    CHG_DT,
+		    CHG_USER_NO
+		FROM
+			USER_INFO
+		ORDER BY USER_NO DESC
+	</select>
+	<insert id="insertUser" parameterType="User_infoDTO">
+		INSERT INTO USER_INFO (
+			EMAIL,
+			USER_NAME,
+			PASSWORD,
+			BELONG,
+			PHONE,
+			AUTH,
+			REG_USER_NO,
+			REG_DT
+			)VALUES(
+			#{email},
+			#{user_name},
+			PASSWORD(#{password}),
+			#{belong},
+			#{phone},
+			'U',
+			LAST_INSERT_ID(),
+			now()
+			)
+	</insert>
+	<update id="updateRegUser" parameterType="User_infoDTO">
+		UPDATE USER_INFO SET REG_USER_NO =
+		(SELECT * FROM (SELECT USER_NO FROM USER_INFO WHERE EMAIL=#{email}) AS s) WHERE EMAIL = #{email}
+	</update>
+	
+	<select id="getLoginInfo" parameterType="User_infoDTO" resultType="User_infoDTO">
+		SELECT USER_NO, USER_NAME, AUTH, EMAIL, BELONG FROM USER_INFO WHERE EMAIL=#{email} AND PASSWORD = PASSWORD(#{password})
+	</select>
+	
+	<select id="overLapEmail" parameterType="User_infoDTO" resultType="int">
+		SELECT COUNT(*) FROM USER_INFO WHERE EMAIL = #{email}
+	</select>
+	
+	<select id="userFindPw" resultType="User_infoDTO" parameterType="User_InfoDTO">
+		SELECT PASSWORD FROM USER_INFO WHERE EMAIL = #{email} AND
+		USER_NAME=#{user_name} AND PHONE=#{phone}
+	</select>
+	
+	<update id="updateTempPw" parameterType="User_infoDTO">
+		UPDATE USER_INFO SET
+		PASSWORD=PASSWORD(#{temp_pw}) WHERE USER_NAME=#{user_name} AND
+		EMAIL=#{email} AND PHONE = #{phone}
+	</update>
+	
+	<delete id="deleteUserAllChecked" parameterType="User_infoDTO">
+		DELETE FROM USER_INFO WHERE USER_NO IN
+		<foreach item="user_no" index="index" collection="allCheck"
+			open="(" separator="," close=")">#{user_no}</foreach>
+	</delete>
+	
+	<select id="userSearch" resultType="User_infoDTO" parameterType="User_InfoDTO">
+		SELECT 
+			USER_NO,
+		    EMAIL,
+		    PASSWORD,
+		    USER_NAME,
+		    BELONG,
+		    AUTH,
+		    PHONE,
+		    DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT,
+		    REG_USER_NO,
+		    CHG_DT,
+		    CHG_USER_NO
+		FROM USER_INFO WHERE EMAIL LIKE CONCAT('%', #{email}, '%') OR
+		USER_NAME LIKE CONCAT('%', #{user_name}, '%')
+	</select>
+	
+</mapper>

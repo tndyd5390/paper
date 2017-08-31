@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>
+    	<!-- 사용할 DTO 등록  -->
+		<typeAlias type="com.paper.dto.Notice_infoDTO" alias="Notice_infoDTO"/>
+		<typeAlias type="com.paper.dto.Paper_infoDTO" alias="Paper_infoDTO"/>
+		<typeAlias type="com.paper.dto.User_infoDTO" alias="User_infoDTO"/>
+		<typeAlias type="com.paper.dto.Writer_infoDTO" alias="Writer_infoDTO"/>
+    </typeAliases>
+</configuration>
