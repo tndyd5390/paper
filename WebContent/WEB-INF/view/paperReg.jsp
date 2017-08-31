@@ -104,25 +104,45 @@
 	}
     function pressNotKor(obj)
     {
+    	var text = obj.value;
+    	var deny_char = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+    	
+    	if(event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39
+    		      || event.keyCode == 46 ) return;
+    	console.log(text);
+    	if(text != ""){
+    		if(deny_char.test(text)){
+    			alert("한글은 입력 불가능합니다.");
+    			obj.value = "";
+    			obj.focus();
+    			return false;
+    		}else{
+    			return true;
+    		}
+    		
         //좌우 방향키, 백스페이스, 딜리트, 탭키에 대한 예외
-        if(event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39
-        || event.keyCode == 46 ) return;
+      
         //obj.value = obj.value.replace(/[\a-zㄱ-ㅎㅏ-ㅣ가-힣]/g, '');
-        obj.value = obj.value.replace(/[\ㄱ-ㅎㅏ-ㅣ가-힣]/g, '');
-        alert("한글입력 불가능합니다.");
     }
-    function pressKor(objtext1) {
-    	  var inText = objtext1.value;
-    	  var deny_char = /^[ㄱ-ㅎ|가-힣|0-9|\*]+$/
-
-    	  if (deny_pattern.test(inText)) {
-    	    alert("한글,숫자만을 입력하세요");
-    	    objtext1.value = "";
-    	    objtext1.focus();
-    	    return false;
+    }
+    function pressKor(obj1) {
+     	var text = obj1.value;
+    	var deny_char = /^[A-za-z]/g;
+    	
+    	if(event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39
+    		      || event.keyCode == 46 ) return;
+    	console.log(text);
+    	if(text != ""){
+    		if(deny_char.test(text)){
+    			alert("영문은 입력 불가능합니다.");
+    			obj1.value = "";
+    			obj1.focus();
+    			return false;
+    		}else{
+    			return true;
+    		}
     	  }
-    	  return true;
-    	} 
+    }
 </script>
 <title>공고 등록</title>
 </head>
@@ -148,11 +168,11 @@
 				공고 제출 </header>
 				<div class="panel-body">
 					<div class="form-group">
-						<label>한글 제목 <a>*</a></label> <input type="text" class="form-control Sub-Txt" name="korName" required="required" onkeydown="pressKor(this);">
+						<label>한글 제목 <a>*</a></label> <input type="text" class="form-control Sub-Txt" name="korName" required="required" onkeyup="pressKor(this);">
 						<hr>
 					</div>
 					<div class="form-group">
-						<label>영문 제목 <a>*</a> </label> <input type="text" class="form-control Sub-Txt" name="engName" required="required" onkeydown="pressNotKor(this);">
+						<label>영문 제목 <a>*</a> </label> <input type="text" class="form-control Sub-Txt" name="engName" required="required" onkeyup="pressNotKor(this);">
 						<hr>
 					</div>
 					<div class="form-group">

@@ -11,22 +11,44 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>소라네 컵밥 회원 정보 찾기</title>
 </head>
-
+<script type="text/javascript">
+function findCheck() {
+	var email = $('#email');
+	var name = $('#name');
+	var phone = $('#phone');
+	
+	if(email.val() ==""){
+		alert("이메일을 입력하세요.");
+		email.focus();
+		return false;
+	}else if(name.val()==""){
+		alert("이름을 입력하세요.");
+		password.focus();
+		return false;
+	}else if(phone.val()==""){
+		alert("핸드폰 번호를 입력하세요.");
+		phone.focus();
+		return false;
+	}else{
+		return true
+	}
+}
+</script>
 <body>
 	<div class="col-sm-12" align=center>
-		<form class="login-form" action="userFindPw.do" method="post" name="password1">
+		<form class="login-form" action="userFindPw.do" method="post" name="password1" onsubmit="return findCheck();">
 			<div class="login-wrap">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="icon_mail_alt"></i></span>
-					<input type="text" name="email" class="form-control" placeholder="이메일">
+					<input type="email" name="email" class="form-control" placeholder="이메일" id="email">
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="icon_profile"></i></span>
-					<input type="text" name="user_name" class="form-control" placeholder="이름">
+					<input type="text" name="user_name" class="form-control" placeholder="이름" id="name">
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="icon_calendar"></i></span>
-					<input type="text" name="phone" class="form-control"	placeholder="전화번호 ex)01012341234" onkeyup="return filterNumber(this);">
+					<input type="text" name="phone" class="form-control"	placeholder="전화번호 ex)01012341234" onkeyup="return filterNumber(this);" id="phone">
 				</div>
 				<button class="btn btn-primary btn-lg btn-block" type="submit">비밀번호 찾기</button>
 			</div>

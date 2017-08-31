@@ -60,6 +60,22 @@ function getCookie(cookieName) {
     return unescape(cookieValue);
 }
 
+function signUpCheck() {
+	var email = $('#email');
+	var password = $('#password');
+	
+	if(email.val() ==""){
+		alert("이메일을 입력하세요.");
+		email.focus();
+		return false;
+	}else if(password.val()==""){
+		alert("비밀번호를 입력하세요.");
+		password.focus();
+		return false;
+	}else{
+		return true
+	}
+}
 
 </script>
 <script>
@@ -73,18 +89,18 @@ function doJoin(){
 </head>
 <body class="">
 	<div class="container">
-		<form class="login-form" action="userLoginProc.do" method="post">
+		<form class="login-form" action="userLoginProc.do" method="post" onsubmit="return signUpCheck();">
 			<div class="login-wrap">
 				<p class="login-img">
 					<i class="icon_lock_alt"></i>
 				</p>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="icon_profile"></i></span>
-					<input type="text" class="form-control" placeholder="이메일" autofocus name="email">
+					<input type="email" class="form-control" placeholder="이메일" autofocus name="email" id="email">
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="icon_key_alt"></i></span>
-					<input type="password" class="form-control" placeholder="비밀번호" name="password">
+					<input type="password" class="form-control" placeholder="비밀번호" name="password" id="password">
 				</div>
 				<label class="checkbox"> <input type="checkbox" id="idSaveCheck"
 					value="remember-me"> 아이디기억하기 <span class="pull-right">
