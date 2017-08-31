@@ -28,8 +28,10 @@ public class DownloadView extends AbstractView{
 	        
 	        if(ie){
 	            fileOrgName = URLEncoder.encode(fileOrgName, "utf-8");
+	            System.out.println(fileOrgName);
 	        } else {
-	            fileOrgName = new String(fileOrgName.getBytes("utf-8"));
+	            fileOrgName = new String(fileOrgName.getBytes("UTF-8"), "ISO-8859-1");;
+	            System.out.println(fileOrgName);
 	        }// end if;
 	        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileOrgName + "\";");
 	        response.setHeader("Content-Transfer-Encoding", "binary");
