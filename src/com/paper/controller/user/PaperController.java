@@ -259,4 +259,11 @@ public class PaperController {
 		upCheck=null;
 		return url;
 	}
+	@RequestMapping(value="filetest")
+	public String fileTest(HttpServletRequest req, HttpServletResponse resp, Model model, HttpSession session) throws Exception{
+		log.info(this.getClass() + ".filetest start!!!");
+		
+		log.info(this.getClass() + ".filetest end!!!");
+		return "fileDownloadTest";
+	}
 }
