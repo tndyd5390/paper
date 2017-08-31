@@ -59,7 +59,7 @@ function doSubmit(f){
 					<form action="download.do" method="post">
 						<input type="hidden" name="path" value="<%=CmmUtil.nvl(nDTO.getFile_path())%>">
 						<input type="hidden" name="fileName" value="<%=CmmUtil.nvl(nDTO.getFile_name())%>">
-						<input type="hidden" name="fileOrgName" value="<%=CmmUtil.nvl(nDTO.getNotice_title() + ".docx") %>">
+						<input type="hidden" name="fileOrgName" value="<%=CmmUtil.nvl(nDTO.getNotice_title().replace(" ", "") + ".docx") %>">
 						<input type="submit" class="btn btn-info btn-merge" value="다운로드">
 					</form>
 					<%}%>
