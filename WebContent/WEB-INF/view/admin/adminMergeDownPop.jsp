@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="com.paper.dto.Notice_infoDTO" %>
 <%@ page import="com.paper.util.CmmUtil" %>
 <%
@@ -26,7 +26,7 @@
 
 <script>
 function doSubmit(f){
-	if(confirm("╨╢гу го╫ц╟з╫ю╢о╠Н?")){
+	if(confirm("КЁ▒М∙╘ М∙≤Л▀°Й╡═Л┼╣К▀┬Й╧▄?")){
 		f.submit();
 		window.close;
 		return true;
@@ -36,8 +36,8 @@ function doSubmit(f){
 }
 </script>
 <%@include file="/include/head.jsp"%>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>╨╢гуфдюо ╢ы©Н╥н╣Е</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>КЁ▒М∙╘М▄▄Л²╪ К▀╓Л ╢К║°К⌠°</title>
 </head>
 <body>
 	<div class="row">
@@ -51,22 +51,22 @@ function doSubmit(f){
 				</div>
 				<!-- <form name="f" action="mergeDocxProc.do" method="post" onsubmit='return doSubmit(this)'> -->
 				<div class="panel-body">
-					╢ы©Н╥н╣Е ╣И╬Н╟ё╢ы
+					К▀╓Л ╢К║°К⌠° К⌠╓Л√╢Й╟└К▀╓
 										<br>
 					<%if(nDTO.getFile_name().equals("")){%>
-						<strong>╨╢гу╣х фдюоюл ╬Ь╫ю╢о╢ы.</strong>
+						<strong>КЁ▒М∙╘К░° М▄▄Л²╪Л²╢ Л≈├Л┼╣К▀┬К▀╓.</strong>
 					<% }else{%>
 					<form action="download.do" method="post">
 						<input type="hidden" name="path" value="<%=CmmUtil.nvl(nDTO.getFile_path())%>">
 						<input type="hidden" name="fileName" value="<%=CmmUtil.nvl(nDTO.getFile_name())%>">
-						<input type="hidden" name="fileOrgName" value="<%=CmmUtil.nvl(nDTO.getNotice_title()) %>">
-						<input type="submit" class="btn btn-info btn-merge" value="╢ы©Н╥н╣Е">
+						<input type="hidden" name="fileOrgName" value="<%=CmmUtil.nvl(nDTO.getNotice_title().replace(" ", "") + ".docx") %>">
+						<input type="submit" class="btn btn-info btn-merge" value="К▀╓Л ╢К║°К⌠°">
 					</form>
 					<%}%>
 					
 					<div class="widget-foot">
 						<center>
-						<!-- <button type="submit" class="btn btn-info btn-merge">╨╢гу</button> -->
+						<!-- <button type="submit" class="btn btn-info btn-merge">КЁ▒М∙╘</button> -->
 						</center>
 					</div>
 				</div>
