@@ -9,8 +9,8 @@
 <head>
 <%@include file="/include/head.jsp"%>
 <script>
-var ad = "S";
-var n = "N";
+var ad = "S";	// 셀렉트박스 기본 값
+var n = "N";	// ajax List뷰 기본 값
 function adFunc(a){
 	ad = a;
 }
