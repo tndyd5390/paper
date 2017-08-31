@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.tree.ExpandVetoException;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -239,5 +240,23 @@ public class PaperController {
 		
 		log.info(this.getClass().getName() + " mergeDocxProc End!!");
 		return "admin/userAlert";
+	}
+	@RequestMapping(value="updatePaperAdCheck")
+	public String updatePaperAdCheck(HttpServletRequest req)throws Exception{
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		String ad = CmmUtil.nvl(req.getParameter("allupAd"));
+		String[] upCheck = CmmUtil.nvlArr(req.getParameterValues("upCheck"));
+		String url = "redirect:adminNoticeDetail.do?nNo="+nNo;
+		Paper_infoDTO pDTO = new Paper_infoDTO();
+		pDTO.setNotice_no(nNo);
+		pDTO.setPaper_ad(ad);
+		pDTO.setAllCheck(upCheck);
+		paperService.updateCheckAd(pDTO);
+		
+		pDTO=null;
+		nNo=null;
+		ad=null;
+		upCheck=null;
+		return url;
 	}
 }

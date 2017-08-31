@@ -29,6 +29,7 @@ function paperList(n){
 			var contents = "";
 			$.each(data, function(key,value){
 				contents += "<li>";
+				contents += "<input type='checkbox' name='upCheck' value='"+value.paper_no+"'>";
 				contents += "<div class='act-time' style='background-color:white;'>";
 				contents += "<div class='activity-body act-in'>";
 				contents += "<div class='text' style='height:150px;'>";
@@ -109,6 +110,7 @@ function updateAd(pNo, nNo){
 					var contents = "";
 					$.each(data, function(key,value){
 						contents += "<li>";
+						contents += "<input type='checkbox' name='upCheck' value='"+value.paper_no+"'>";
 						contents += "<div class='act-time' style='background-color:white;'>";
 						contents += "<div class='activity-body act-in'>";
 						contents += "<div class='text' style='height:150px;'>";
@@ -163,6 +165,38 @@ function mergeDocxPage(){
 	var popOption = "width=370,height=500, resizeble=yes, status=no;";
 	window.open(popUrl,"",popOption);
 }
+function check() {
+	var f = document.getElementById("f");
+	var cbox = f.upCheck;
+	if (cbox.length) {
+		for (var i = 0; i < cbox.length; i++) {
+			cbox[i].checked = f.all.checked;
+		}
+	} else {
+		cbox.checked = f.all.checked;
+	}
+}
+function paper_check() {
+	var checked = false;
+	var check = document.getElementsByName("upCheck");
+	var f = document.getElementById("f");
+	if (check.length) {
+		for (var i = 0; i < check.length; i++) {
+			if (check[i].checked) {
+				checked = true;
+				break;
+			}
+		}
+	}
+	if (checked) {
+		if (confirm("선택한 것들의 상태를 변경하시겠습니까?")) {
+			f.submit();
+		}
+	} else {
+		alert("하나도 선택된 것이 없습니다.");
+	}
+}
+
 
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -201,6 +235,18 @@ function mergeDocxPage(){
 							</tr>
 						</tbody>
 					</table>
+			<form name="f" id="f" action="updatePaperAdCheck.do">
+				<input type="hidden" name="nNo" value="<%=nDTO.getNotice_no()%>"> 
+				<input type="checkbox" name="all" onclick="check();"> 전체선택 
+				<button class="btn btn-primary" style='float:right; width:90px;' onclick="userdel_check()">확인</button>
+				<select class='form-control' style='width: 300px; display: inline; float:right;' name="allupAd">
+				<option value="S">선택하세요</option>
+				<option value="N">심사중</option>
+				<option value="A">합격</option>
+				<option value="D">불합격</option>
+				</select>
+				<br>
+				<br>
 	<!----------------------------------------------------- 공고 내용 종료----------------------------------------------->		
 				<div class="act-time">
 					<div class="activity-body act-in">
@@ -250,6 +296,7 @@ function mergeDocxPage(){
 	<ul id="paperList"  style="	list-style: none;margin:0px; padding:0px;">
 
 	</ul>
+	</form>
 				</div>
 			</div>
 			</section>
