@@ -27,7 +27,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.paper.dto.Notice_infoDTO;
 import com.paper.dto.Paper_infoDTO;
 import com.paper.dto.Writer_infoDTO;
+import com.paper.service.INoticeService;
 import com.paper.service.IPaperService;
+import com.paper.service.impl.NoticeService;
 import com.paper.util.CmmUtil;
 import com.paper.util.MergeUtil;
 
@@ -40,7 +42,9 @@ public class PaperController {
 	
 	@Resource(name="PaperService")
 	private IPaperService paperService;
-	
+	@Resource(name="NoticeService")
+	private INoticeService noticeService;
+
 	@RequestMapping(value="paperReg")
 	public String userPaperReg(HttpServletRequest req, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass().getName() + " userPaperReg Start!!");
@@ -202,25 +206,30 @@ public class PaperController {
 	}
 	
 	@RequestMapping(value="mergeDocxProc")
-	public String mergeDockProc(HttpServletRequest req) throws Exception{
+	public String mergeDockProc(HttpServletRequest req, Model model) throws Exception{
 		log.info(this.getClass().getName() + " mergeDocxProc Start!!");
-		String nNo = req.getParameter("nNo");
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
 		String fileNames[] = req.getParameterValues("fileName");
+		String outPath = "C:\\www\\";
+		String outFile = nNo + ".docx";
+		Notice_infoDTO nDTO = new Notice_infoDTO();
+		nDTO.setNotice_no(nNo);
+		nDTO.setFile_name(outFile);
+		nDTO.setFile_path(outPath);
+		noticeService.updateMergeFile(nDTO);
+
 		int count = 0;
 		for(String test : fileNames){
 			count ++;
 			System.out.println(count+"  :  "+test);
 		}
-		String outPath = "C:\\www\\"+nNo+".docx";
-		MergeUtil.mergeDocx(MergeUtil.inputFiles(fileNames), new FileOutputStream(new File(outPath)));
 		
 		
-		Notice_infoDTO nDTO = new Notice_infoDTO();
-		nDTO.setNotice_no(nNo);
-		nDTO.setFile_name(nNo);
-		nDTO.setFile_path(outPath);
+		model.addAttribute("url", "mergeDockPage.do");
+		model.addAttribute("msg", "병합완료");
 		
+		MergeUtil.mergeDocx(MergeUtil.inputFiles(fileNames), new FileOutputStream(new File(outPath+outFile)));
 		log.info(this.getClass().getName() + " mergeDocxProc End!!");
-		return "";
+		return "admin/userAlert";
 	}
 }

@@ -20,4 +20,6 @@ public interface NoticeMapper {
 
 	public Notice_infoDTO getNoticeDetail(Notice_infoDTO nDTO) throws Exception;
 
+	public void updateMergeFile(Notice_infoDTO nDTO) throws Exception;
+
 }
