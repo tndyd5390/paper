@@ -12,9 +12,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.tree.ExpandVetoException;
 
-import org.apache.http.HttpRequest;
-import org.apache.http.conn.HttpClientConnectionOperator;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +28,6 @@ import com.paper.dto.Paper_infoDTO;
 import com.paper.dto.Writer_infoDTO;
 import com.paper.service.INoticeService;
 import com.paper.service.IPaperService;
-import com.paper.service.impl.NoticeService;
 import com.paper.util.CmmUtil;
 import com.paper.util.MergeUtil;
 
@@ -173,14 +171,19 @@ public class PaperController {
 		log.info(this.getClass().getName() + " nNo : " + nNo);
 		log.info(this.getClass().getName() + " pNo : " + pNo);
 		log.info(this.getClass().getName() + " pAd : " + pAd);
+		// AD 상태 값을 UPDATE 날리기 위한 AD 값
 		log.info(this.getClass().getName() + " pAdV : " + pAdV);
-
+		// 현재 보고있는 페이지 뷰 AD값
+		
 		Paper_infoDTO pDTO = new Paper_infoDTO();
 		pDTO.setPaper_no(pNo);
 		pDTO.setNotice_no(nNo);
 		pDTO.setPaper_ad(pAd);
+		// UPDATE문 사용 DTO
 		pDTO.setPaper_adV(pAdV);
+		// SELECT문 사용 DTO
 		List<Paper_infoDTO> pList = paperService.getUpdatePaperList(pDTO);
+		// 서비스에서 UPDATE 후 SELECT 문 리턴 받음
 		
 		pDTO = null;
 		log.info(this.getClass().getName() + " paperAdUpdate End!!");
@@ -191,6 +194,7 @@ public class PaperController {
 		log.info(this.getClass().getName() + " mergeDocxPage Start!!");
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
 		String adV = CmmUtil.nvl(req.getParameter("adV"));
+		// 합격된 논문만 SELECT 할 수 있도록 adV값 설정
 		log.info(this.getClass().getName() + " nNo = "+nNo);
 		log.info(this.getClass().getName() + " adV = "+adV);
 		Paper_infoDTO pDTO = new Paper_infoDTO();
@@ -210,26 +214,56 @@ public class PaperController {
 		log.info(this.getClass().getName() + " mergeDocxProc Start!!");
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
 		String fileNames[] = req.getParameterValues("fileName");
+		// Values로 순서대로 fileName들을 배열로 받아 옴
 		String outPath = "C:\\www\\";
 		String outFile = nNo + ".docx";
+		// 저장해야 할 확장자는 .docx 
 		Notice_infoDTO nDTO = new Notice_infoDTO();
 		nDTO.setNotice_no(nNo);
 		nDTO.setFile_name(outFile);
 		nDTO.setFile_path(outPath);
 		noticeService.updateMergeFile(nDTO);
+		// NOTICE_INFO 테이블에 해당 공고의 병합된 파일 이름과 경로를 저장하기 위해 UPDATE문을 날림
+		
 
 		int count = 0;
 		for(String test : fileNames){
 			count ++;
 			System.out.println(count+"  :  "+test);
 		}
-		
+		MergeUtil.mergeDocx(MergeUtil.inputFiles(fileNames), new FileOutputStream(new File(outPath+outFile)));
+		// MergeUtil 속 mergeDocx 메소드로 fileNames에 저장된 경로의 논물들을 병합 함
+		// 위에서 설정 한 outPath와 outFile로 생성 될 파일의 이름과 경로를 지정해 줌
 		
 		model.addAttribute("url", "adminMergeDownPop.do?nNo="+nNo);
 		model.addAttribute("msg", "병합완료");
 		
-		MergeUtil.mergeDocx(MergeUtil.inputFiles(fileNames), new FileOutputStream(new File(outPath+outFile)));
 		log.info(this.getClass().getName() + " mergeDocxProc End!!");
 		return "admin/userAlert";
+	}
+	@RequestMapping(value="updatePaperAdCheck")
+	public String updatePaperAdCheck(HttpServletRequest req)throws Exception{
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		String ad = CmmUtil.nvl(req.getParameter("allupAd"));
+		String[] upCheck = CmmUtil.nvlArr(req.getParameterValues("upCheck"));
+		String url = "redirect:adminNoticeDetail.do?nNo="+nNo;
+		Paper_infoDTO pDTO = new Paper_infoDTO();
+		pDTO.setNotice_no(nNo);
+		pDTO.setPaper_ad(ad);
+		pDTO.setAllCheck(upCheck);
+		paperService.updateCheckAd(pDTO);
+		
+		pDTO=null;
+		nNo=null;
+		ad=null;
+		upCheck=null;
+		return url;
+	}
+	@RequestMapping(value="filetest")
+	public String fileTest(HttpServletRequest req, HttpServletResponse resp, Model model, HttpSession session) throws Exception{
+		log.info(this.getClass() + ".filetest start!!!");
+		
+		log.info(this.getClass() + ".filetest end!!!");
+		return "fileDownloadTest";
 	}
 }

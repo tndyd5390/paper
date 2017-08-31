@@ -12,5 +12,7 @@ public interface IPaperService {
 
 	public List<Paper_infoDTO> getUpdatePaperList(Paper_infoDTO pDTO) throws Exception;
 
+	public void updateCheckAd(Paper_infoDTO pDTO) throws Exception;
+
 
 }

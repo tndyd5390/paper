@@ -20,17 +20,40 @@
 
 <script>
 
-
 function doSubmit(f){
+	var title = $('#title');
+	var receptionDate = $('#reception_date');
+	var endDate = $('#end_date');
+	var exhibitionDate = $('#exhibition_date');
 	
-	if(confirm("제출하시겠습니까?")){
-		f.submit();
-		
-		return true;
-	}else{
+	if(title.val()==""){
+		alert("제목을 입력하세요.");
+		title.focus();
 		return false;
+	}else if(receptionDate.val()==""){
+		alert("접수시작일을 선택하세요.");
+		receptionDate.focus();
+		return false;
+	}else if(endDate.val()==""){
+		alert("접수마감일을 선택하세요.");
+		endDate.focus()
+		return false;
+	}else if(exhibitionDate.val()==""){
+		alert("개최일을 선택하세요.");
+		exhibitionDate.focus();
+		return false;
+	}else if(receptionDate.val()>=endDate.val()){
+		alert("접수마감일이 접수시작일보다 빠릅니다. 다시 선택하세요.");
+		endDate.focus();
+		return false;
+	}else{
+		if(confirm("제출하시겠습니까?")){
+			f.submit();
+			return true;
+		}else{
+			return false;
+		}
 	}
-	
 }
 
 </script>
@@ -58,22 +81,22 @@ function doSubmit(f){
 				공고 제출 </header>
 				<div class="panel-body">
 					<div class="form-group">
-						<label>제목 <a>*</a></label> <input type="text" class="form-control Sub-Txt" name="title">
+						<label>제목 <a>*</a></label> <input type="text" class="form-control Sub-Txt" name="title" id="title">
 						<hr>
 					</div>
 					<div class="form-group">
 						<label class="block">접수시작일 <a>*</a></label> <input type="date"
-							class="form-control subTxt Sub-Txt" name="reception_date">
+							class="form-control subTxt Sub-Txt" name="reception_date" id="reception_date">
 						<hr>
 					</div>
 					<div class="form-group">
 						<label class="block">접수마감일 <a>*</a></label> <input type="date"
-							class="form-control subTxt Sub-Txt" name="end_date">
+							class="form-control subTxt Sub-Txt" name="end_date" id="end_date">
 						<hr>
 					</div>
 					<div class="form-group">
 						<label class="block">개최일 <a>*</a></label> <input type="date"
-							class="form-control subTxt Sub-Txt" name="exhibition_date">
+							class="form-control subTxt Sub-Txt" name="exhibition_date" id="exhibition_date">
 						<hr>
 					</div>
 					
