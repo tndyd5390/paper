@@ -13,6 +13,7 @@
 <form action="download.do" mehtod="post">
 	<input type="hidden" name="path" value="C:\\Users\\Data8311-06\\git\\paper\\WebContent\\papers\\">
 	<input type="hidden" name="fileName" value="aaa.docx">
+	<input type="hidden" name="fileOrgName" value="orgName.docx">
 	<input type="submit" value="´Ù¿î">
 </form>
 </body>

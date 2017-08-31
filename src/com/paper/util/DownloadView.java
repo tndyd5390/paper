@@ -13,26 +13,27 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
 public class DownloadView extends AbstractView{
-	
 	public void Download(){
 		setContentType("application/download; utf-8");
 	}
-	
 	 @Override
 	    protected void renderMergedOutputModel(Map<String, Object> model,
 	            HttpServletRequest request, HttpServletResponse response) throws Exception {
 	        File file = (File)model.get("downloadFile");
+	        String fileOrgName = CmmUtil.nvl((String)model.get("fileOrgName"));
 	        response.setContentType(getContentType());
 	        response.setContentLength((int)file.length());
 	        String userAgent = request.getHeader("User-Agent");
 	        boolean ie = userAgent.indexOf("MSIE") > -1;
-	        String fileName = null;
+	        
 	        if(ie){
-	            fileName = URLEncoder.encode(file.getName(), "utf-8");
+	            fileOrgName = URLEncoder.encode(fileOrgName, "utf-8");
+	            System.out.println(fileOrgName);
 	        } else {
-	            fileName = new String(file.getName().getBytes("utf-8"));
+	            fileOrgName = new String(fileOrgName.getBytes("UTF-8"), "ISO-8859-1");;
+	            System.out.println(fileOrgName);
 	        }// end if;
-	        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
+	        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileOrgName + "\";");
 	        response.setHeader("Content-Transfer-Encoding", "binary");
 	        OutputStream out = response.getOutputStream();
 	        FileInputStream fis = null;
