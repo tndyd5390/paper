@@ -142,4 +142,18 @@ public class NoticeController {
 		log.info(this.getClass().getName() + " adminNoticeDetail End!!");
 		return "admin/adminNoticeDetail";
 	}
+	@RequestMapping(value="adminMergeDownPop")
+	public String adminMergeDownPop(HttpServletRequest req, Model model) throws Exception{
+		log.info(this.getClass().getName() + " adminMergeDownPop Start!!");
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		
+		Notice_infoDTO nDTO = new Notice_infoDTO();
+		nDTO.setNotice_no(nNo);
+		nDTO = noticeService.getFileDown(nDTO);
+		model.addAttribute("nDTO", nDTO);
+		nDTO=null;
+		log.info(this.getClass().getName() + " adminMergeDownPop End!!");
+		return "admin/adminMergeDownPop";
+	}
+
 }

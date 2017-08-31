@@ -81,4 +81,8 @@
 	<update id="updateMergeFile" parameterType="Notice_infoDTO">
 		UPDATE NOTICE_INFO SET FILE_NAME=#{file_name} , FILE_PATH=#{file_path} WHERE NOTICE_NO = #{notice_no}
 	</update>
+	
+	<select id="getFileDown" parameterType="Notice_infoDTO" resultType="Notice_infoDTO">
+		SELECT NOTICE_TITLE,FILE_NAME, FILE_PATH FROM NOTICE_INFO WHERE NOTICE_NO = #{notice_no}
+	</select>
 </mapper>

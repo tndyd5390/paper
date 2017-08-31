@@ -22,4 +22,6 @@ public interface NoticeMapper {
 
 	public void updateMergeFile(Notice_infoDTO nDTO) throws Exception;
 
+	public Notice_infoDTO getFileDown(Notice_infoDTO nDTO);
+
 }

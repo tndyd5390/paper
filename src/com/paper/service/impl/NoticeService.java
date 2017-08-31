@@ -55,5 +55,10 @@ public class NoticeService implements INoticeService{
 		 noticeMapper.updateMergeFile(nDTO);
 	}
 
+	@Override
+	public Notice_infoDTO getFileDown(Notice_infoDTO nDTO) {
+		return noticeMapper.getFileDown(nDTO);
+	}
+
 
 }
