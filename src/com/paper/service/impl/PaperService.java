@@ -44,4 +44,9 @@ public class PaperService implements IPaperService{
 		return paperMapper.getPaperList(pDTO);
 	}
 
+	@Override
+	public void updateCheckAd(Paper_infoDTO pDTO) throws Exception {
+		paperMapper.updateCheckAd(pDTO);
+	}
+
 }

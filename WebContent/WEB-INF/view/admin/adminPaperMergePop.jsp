@@ -21,6 +21,15 @@
 	function close() {
 		self.close(); //자기자신창을 닫습니다.
 	}
+	function doSubmit(f){
+		if(confirm("병합 하시겠습니까?")){
+			f.submit();
+			window.close;
+			return true;
+		}else{
+			return false;
+		}
+	}
 </script>
 
 <style>
@@ -51,7 +60,7 @@
 						<i class="fa fa-flag-o red"></i><strong>논문 병합</strong>
 					</h2>
 				</div>
-				<form name="f" action="mergeDocxProc.do" method="post">
+				<form name="f" action="mergeDocxProc.do" method="post" onsubmit='return doSubmit(this)'>
 				<input type="hidden" name="nNo" value="<%=pList.get(0).getNotice_no()%>">
 				<div class="panel-body">
 					<ul class="chats" id="paperList">

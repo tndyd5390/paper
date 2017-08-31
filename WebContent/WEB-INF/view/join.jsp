@@ -20,36 +20,42 @@
 		var user_name = $('#user_name');
 		var password = $('#password');
 		var confirmPassword = $('#confirm_password');
-		var birthday = $('#birthday');
+		var belong = $('#belong');
+		var phone = $('#phone');
 
 		if (email.val() == "") {
 			alert("이메일을 입력하세요")
 			email.focus();
 			return false;
 		} else if (user_name.val() == "") {
-			alert("성명을 입력하세요");
+			alert("성명을 입력하세요.");
 			user_name.focus();
 			return false;
 		} else if (password.val() == "") {
-			alert("비밀번호를 입력하세요");
+			alert("비밀번호를 입력하세요.");
 			password.focus();
 			return false;
 		} else if (confirmPassword.val() == "") {
-			alert("비밀번호 재확인을 입력하세요");
+			alert("비밀번호 재확인을 입력하세요.");
 			confirmPassword.focus();
 			return false;
 		} else if (password.val() != confirmPassword.val()) {
-			alert("비밀번호가 일치하지 않습니다");
+			alert("비밀번호가 일치하지 않습니다.");
 			confirmPassword.focus();
 			return false;
-		} else if (birthday.val() == "") {
-			alert("생년월일을 입력하세요");
-			birthday.focus();
+		} else if (belong.val() == "") {
+			alert("소속을 입력하세요.");
+			belong.focus();
 			return false;
 		} else if (ovlapE == false) {
-			alert("아이디 중복확인이 필요합니다")
+			alert("아이디 중복확인이 필요합니다.")
+			email.focus();
 			return false;
-		} else {
+		} else if(phone.val()==""){
+			alert("연락처를 입력하세요.");
+			phone.focus();
+			return false;
+		}else {
 			if (confirm("가입하시겠습니까?")) {
 				return true;
 			} else {

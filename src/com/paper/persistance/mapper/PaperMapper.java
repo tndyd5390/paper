@@ -16,4 +16,6 @@ public interface PaperMapper {
 
 	public void updatePaperAd(Paper_infoDTO pDTO) throws Exception;
 
+	public void updateCheckAd(Paper_infoDTO pDTO) throws Exception;
+
 }

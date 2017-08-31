@@ -45,7 +45,6 @@
 					 	contents += value.notice_title + "<br>";
 					 	contents +=	"접수시작일 : " + value.reception_date +"<br>";
 					 	contents +=	"접수종료일 : " + value.end_date+"<br>";
-					 	contents +=	"개최일 : " + value.exhibition_date;
 					 	contents +=	"개최일 : " + value.exhibition_date+"<br>";
 					 	contents +=	"상태 : " + value.stat;
 					})

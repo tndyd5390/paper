@@ -47,10 +47,8 @@ public class MergeUtil {
                  addPageBreak(target);
               }
                 saver = new SaveToZipFile(target);
-                System.out.println(i);
           }
           saver.save(os);   
-             return;
        }else{
            WordprocessingMLPackage target = WordprocessingMLPackage.load(s1[0]);
            factory = Context.getWmlObjectFactory();

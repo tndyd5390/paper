@@ -17,6 +17,7 @@ public class Paper_infoDTO {
 	private String reg_user_no;
 	private String chg_dt;
 	private String cht_user_no;
+	private String[] allCheck;
 	
 	public String getFile_org_name() {
 		return file_org_name;
@@ -123,5 +124,13 @@ public class Paper_infoDTO {
 
 	public void setPaper_adV(String paper_adV) {
 		this.paper_adV = paper_adV;
+	}
+
+	public String[] getAllCheck() {
+		return allCheck;
+	}
+
+	public void setAllCheck(String[] allCheck) {
+		this.allCheck = allCheck;
 	}
 }

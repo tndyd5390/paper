@@ -66,5 +66,11 @@
 	<update id="updatePaperAd">
 		UPDATE PAPER_INFO SET PAPER_AD = #{paper_ad} WHERE PAPER_NO = #{paper_no}
 	</update>
+	<update id="updateCheckAd" parameterType="Paper_infoDTO">
+		UPDATE PAPER_INFO SET PAPER_AD = #{paper_ad} WHERE PAPER_NO IN
+		<foreach item="paper_no" index="index" collection="allCheck" open="(" separator="," close=")">
+			#{paper_no}
+		</foreach>
+	</update>
 	
 </mapper>
