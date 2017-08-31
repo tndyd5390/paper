@@ -3,6 +3,10 @@
 <%@ page import="com.paper.dto.Notice_infoDTO" %>
 <%
 	Notice_infoDTO nDTO = (Notice_infoDTO) request.getAttribute("nDTO");
+	String userNo = (String)session.getAttribute("ss_user_no");
+	if(CmmUtil.nvl(userNo).equals("")){
+		response.sendRedirect("userLogin.do");
+	}
 %>
 <html>
 <head>

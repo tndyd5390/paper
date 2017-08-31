@@ -3,6 +3,10 @@
 
 <%
 	String nNo = (String) request.getAttribute("nNo");
+	String userNo = (String)session.getAttribute("ss_user_no");
+	if(CmmUtil.nvl(userNo).equals("")){
+		response.sendRedirect("userLogin.do");
+	}
 %>
 <html>
 <head>
