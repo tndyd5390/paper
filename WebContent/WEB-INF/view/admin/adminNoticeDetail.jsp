@@ -193,12 +193,7 @@ function paper_check() {
 		if (confirm("선택한 것들의 상태를 변경하시겠습니까?")) {
 			f.submit();
 		}
-	}else if(allupAd=="S"){
-		alert("상태를 선택하세요");
-		return false;
 	}else{
-
-		alert("하나도 선택된 것이 없습니다.");
 		return false;
 	}
 	}
