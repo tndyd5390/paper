@@ -73,15 +73,17 @@ public class DownloadView extends AbstractView{
 		String header = request.getHeader("User-Agent"); 
 		String returnString = "";
 		if (header.indexOf("MSIE") > -1) { 
-			return "MSIE"; 
+			returnString ="MSIE"; 
 		} else if (header.indexOf("Chrome") > -1) { 
-			return "Chrome";
+			returnString ="Chrome";
 		} else if (header.indexOf("Opera") > -1) { 
-			return "Opera"; 
+			returnString ="Opera"; 
 		} else if (header.indexOf("Trident") > -1) {   // IE11 ¹®ÀÚ¿­ ±úÁü ¹æÁö
-            return "Trident";
+            returnString ="Trident";
+		}else{
+			returnString ="FireFox";
 		}
-		return "FireFox";
+		return returnString;
 	}
 
 	}
