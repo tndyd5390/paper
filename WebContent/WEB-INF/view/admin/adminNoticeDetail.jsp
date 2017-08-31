@@ -180,6 +180,7 @@ function paper_check() {
 	var checked = false;
 	var check = document.getElementsByName("upCheck");
 	var f = document.getElementById("f");
+	var allupAd = $('#allupAd').val();
 	if (check.length) {
 		for (var i = 0; i < check.length; i++) {
 			if (check[i].checked) {
@@ -192,10 +193,15 @@ function paper_check() {
 		if (confirm("선택한 것들의 상태를 변경하시겠습니까?")) {
 			f.submit();
 		}
-	} else {
+	}else if(allupAd=="S"){
+		alert("상태를 선택하세요");
+		return false;
+	}else{
+
 		alert("하나도 선택된 것이 없습니다.");
+		return false;
 	}
-}
+	}
 
 
 </script>
@@ -235,11 +241,11 @@ function paper_check() {
 							</tr>
 						</tbody>
 					</table>
-			<form name="f" id="f" action="updatePaperAdCheck.do">
+			<form name="f" id="f" action="updatePaperAdCheck.do" method="post" onsubmit="return paper_check()">
 				<input type="hidden" name="nNo" value="<%=nDTO.getNotice_no()%>"> 
 				<input type="checkbox" name="all" onclick="check();"> 전체선택 
-				<button class="btn btn-primary" style='float:right; width:90px;' onclick="userdel_check()">확인</button>
-				<select class='form-control' style='width: 300px; display: inline; float:right;' name="allupAd">
+				<button class="btn btn-primary" style='float:right; width:90px;'>확인</button>
+				<select class='form-control' style='width: 300px; display: inline; float:right;' name="allupAd" id="allupAd">
 				<option value="S">선택하세요</option>
 				<option value="N">심사중</option>
 				<option value="A">합격</option>
