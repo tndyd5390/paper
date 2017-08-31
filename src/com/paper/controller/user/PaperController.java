@@ -27,7 +27,6 @@ import com.paper.dto.Paper_infoDTO;
 import com.paper.dto.Writer_infoDTO;
 import com.paper.service.INoticeService;
 import com.paper.service.IPaperService;
-import com.paper.service.impl.NoticeService;
 import com.paper.util.CmmUtil;
 import com.paper.util.MergeUtil;
 
