@@ -16,6 +16,15 @@ function adFunc(a){
 $(function(){
   	ad="S";
  	nothingList();
+ 	
+ 	$('#all').click(function(){	// All 체크
+ 		if($('#all').prop("checked")){
+ 			$("input[name=upCheck]").prop("checked",true);
+ 		}else{
+ 			$("input[name=upCheck]").prop("checked",false);
+ 		}
+ 	})
+
 })
 function paperList(n){
 	$.ajax({
@@ -44,7 +53,7 @@ function paperList(n){
 				contents += "<input type='hidden' name='path' value='" + value.file_path + "'>"
 				contents += "<input type='hidden' name='fileName' value='" + value.file_name + "'>"
 				contents += "<input type='hidden' name='fileOrgName' value='" + value.file_org_name + "'>"
-				contents += "<input type='submit' class='btn btn-primary' value='다운로드'>"
+				contents += "<input type='submit' class='btn btn-primary' value='다운로드' style='width:90px;'>"
 				//contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
 				contents += "</form>"
 				contents += "</div>";
@@ -130,7 +139,7 @@ function updateAd(pNo, nNo){
 						contents += "<input type='hidden' name='path' value='" + value.file_path + "'>"
 						contents += "<input type='hidden' name='fileName' value='" + value.file_name + "'>"
 						contents += "<input type='hidden' name='fileOrgName' value='" + value.file_org_name + "'>"
-						contents += "<input type='submit' class='btn btn-primary' value='다운로드'>"
+						contents += "<input type='submit' class='btn btn-primary' value='다운로드' >"
 						//contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
 						contents += "</form>"
 						contents += "</div>";
@@ -175,20 +184,10 @@ function mergeDocxPage(){
 	var popOption = "width=370,height=500, resizeble=yes, status=no;";
 	window.open(popUrl,"",popOption);
 }
-function check() {
-	var f = document.getElementById("f");
-	var cbox = f.upCheck;
-	if (cbox.length) {
-		for (var i = 0; i < cbox.length; i++) {
-			cbox[i].checked = f.all.checked;
-		}
-	} else {
-		cbox.checked = f.all.checked;
-	}
-}
+
 function paper_check() {
 	var checked = false;
-	var check = document.getElementsByName("upCheck");
+	var check = $("input[name=upCheck]").val();
 	var f = document.getElementById("f");
 	var allupAd = $('#allupAd').val();
 	if (check.length) {
@@ -209,7 +208,7 @@ function paper_check() {
 	}
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공고 asdfasdfasd상세</title>
+<title>공고 상세</title>
 </head>
 <body>
 <%@include file="/include/naviBarAndasideBar.jsp"%>
@@ -251,7 +250,7 @@ function paper_check() {
 					</table>
 			<form name="f" id="f" action="updatePaperAdCheck.do" method="post" onsubmit="return paper_check()">
 				<input type="hidden" name="nNo" value="<%=nDTO.getNotice_no()%>"> 
-				<input type="checkbox" name="all" onclick="check();"> 전체선택 
+				<input type="checkbox" name="all" id="all"> 전체선택 
 				<button class="btn btn-primary" style='float:right; width:90px;'>확인</button>
 				<select class='form-control' style='width: 300px; display: inline; float:right;' name="allupAd" id="allupAd">
 				<option value="S">선택하세요</option>

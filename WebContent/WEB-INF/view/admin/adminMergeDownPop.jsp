@@ -44,7 +44,7 @@ function doSubmit(f){
 
 		<div class="col-lg-9 col-md-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">
+				<div class="panel-heading" style='height:34px;'>
 					<h2>
 						<i class="fa fa-flag-o red"></i><strong><%=nDTO.getNotice_title() %></strong>
 					</h2>
