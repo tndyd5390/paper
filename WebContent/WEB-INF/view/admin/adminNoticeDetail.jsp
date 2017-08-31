@@ -70,7 +70,7 @@ function paperList(n){
 				}
 			}else{
 			if(n=="A"){
-				contents += "<button class='btn btn-primary' onclick='mergeDocxPage();'>병합</button>"
+				contents += "<input type='button' class='btn btn-primary' onclick='mergeDocxPage();' value='병합'>"
 			}
 			$('#paperList').html(contents);
 			}
@@ -151,7 +151,7 @@ function updateAd(pNo, nNo){
 							}
 					}else{
 						if(n=="A"){
-							contents += "<button class='btn btn-primary' onclick='mergeDocxPage();'>병합</button>"
+							contents += "<input type='button' class='btn btn-primary' onclick='mergeDocxPage();' value='병합'>"
 						}
 					$('#paperList').html(contents);
 					}
