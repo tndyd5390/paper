@@ -34,7 +34,7 @@ public class FileDownloadController{
 		String fileOrgName = CmmUtil.nvl(req.getParameter("fileOrgName"));
 		log.info(this.getClass() + " fileOrgName");
 		
-		File file = new File(path + "\\" + fileName);
+		File file = new File(path + fileName);
 		
 		ModelAndView mav = new ModelAndView("download", "downloadFile", file);
 		mav.addObject("fileOrgName", fileOrgName);
