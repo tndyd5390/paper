@@ -46,14 +46,14 @@ function paperList(n){
 				contents += "<div class='activity-body act-in'>";
 				contents += "<div class='text' style='height:150px;'>";
 				contents += "<p class='attribution'>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
-				contents += "<div>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_kor+"</p>";
 				contents += "<br>";
+				contents += "<div>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_eng+"</p>";
 				contents += "<br>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_type+"</p>";
 				contents += "<div style='display : inline; float:right';>";
-				contents += "<form action='download.do' method='post'>"
+				contents += "<form action='download.do' method='post' style='display:inline;'>"
 				contents += "<input type='hidden' name='path' value='" + value.file_path + "'>"
 				contents += "<input type='hidden' name='fileName' value='" + value.file_name + "'>"
 				contents += "<input type='hidden' name='fileOrgName' value='" + value.file_org_name + "'>"
@@ -139,7 +139,7 @@ function updateAd(pNo, nNo){
 						contents += "<br>";
 						contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_type+"</p>";
 						contents += "<div style='display : inline; float:right';>";
-						contents += "<form action='download.do' method='post'>"
+						contents += "<form action='download.do' method='post' style='display:inline;'>"
 						contents += "<input type='hidden' name='path' value='" + value.file_path + "'>"
 						contents += "<input type='hidden' name='fileName' value='" + value.file_name + "'>"
 						contents += "<input type='hidden' name='fileOrgName' value='" + value.file_org_name + "'>"
@@ -276,7 +276,7 @@ function paper_check() {
 					</div>
 				</div>
 	<!----------------------------------------------------- 접수 내역 시작 ----------------------------------------------->
-			<!-- 	<div class="act-time">
+				<div class="act-time">
 					<div class="activity-body act-in">
 						<div class="text" style="height: 150px;">
 							<p class="attribution">
@@ -309,7 +309,7 @@ function paper_check() {
 						</div>
 						<br/>
 					</div>
-				</div> -->
+				</div> 
 	<!----------------------------------------------------- 접수 내역 종료 ----------------------------------------------->
 	<ul id="paperList"  style="	list-style: none;margin:0px; padding:0px;">
 	</ul>
