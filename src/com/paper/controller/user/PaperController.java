@@ -119,7 +119,7 @@ public class PaperController {
 		pDTO.setPaper_ad("N");
 		pDTO.setReg_user_no(userNo);
 		
-		List<Writer_infoDTO> wList = new ArrayList<>();
+		List<Writer_infoDTO> wList = new ArrayList<Writer_infoDTO>();
 		if(writerNames.length == writerEmails.length && writerEmails.length == writerBelongs.length 
 				&& writerNames.length == writerBelongs.length){
 			for(int i = 0; i< writerNames.length;i++){
