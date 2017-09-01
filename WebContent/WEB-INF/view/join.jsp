@@ -158,14 +158,14 @@
 								class="required">*</span>
 							</label>
 							<div class="col-lg-8">
-								<input class="form-control " id="email" name="email"
+								<input class="form-control" id="email" name="email"
 									type="email" placeholder="이메일을 입력해주세요." /> <label
 									id="checkEmail" class="control-label col-lg-4"></label>
 							</div>
 							<div class="col-lg-2">
 								<input class="btn btn-primary col-lg-4" type="button"
 									name="overLap" id="overLap" onclick="overlapEmail()"
-									value="중복체크"> <label class="A"></label>
+									value="중복체크" style="width:80px;"> <label class="A"></label>
 							</div>
 						</div>
 						<div class="form-group ">

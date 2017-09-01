@@ -36,7 +36,7 @@ import com.paper.util.MergeUtil;
 public class PaperController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
-	String savePath = "C:\\Users\\Data3811-32\\git\\paper\\WebContent\\papers\\";
+	String savePath = "/papers/originals/";
 	
 	@Resource(name="PaperService")
 	private IPaperService paperService;
@@ -215,7 +215,7 @@ public class PaperController {
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
 		String fileNames[] = req.getParameterValues("fileName");
 		// Values로 순서대로 fileName들을 배열로 받아 옴
-		String outPath = "C:\\www\\";
+		String outPath = "/papers/mergePapers/";
 		String outFile = nNo + ".docx";
 		// 저장해야 할 확장자는 .docx 
 		Notice_infoDTO nDTO = new Notice_infoDTO();

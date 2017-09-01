@@ -3,8 +3,11 @@
 <%@ page import="com.paper.dto.Notice_infoDTO" %>
 <%
 	Notice_infoDTO nDTO = (Notice_infoDTO) request.getAttribute("nDTO");
+	String userNo = (String)session.getAttribute("ss_user_no");
+	if(CmmUtil.nvl(userNo).equals("")){
+		response.sendRedirect("userLogin.do");
+	}
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@include file="/include/head.jsp"%>
@@ -17,6 +20,15 @@ function adFunc(a){
 $(function(){
   	ad="S";
  	nothingList();
+ 	
+ 	$('#all').click(function(){	// All 체크
+ 		if($('#all').prop("checked")){
+ 			$("input[name=upCheck]").prop("checked",true);
+ 		}else{
+ 			$("input[name=upCheck]").prop("checked",false);
+ 		}
+ 	})
+
 })
 function paperList(n){
 	$.ajax({
@@ -34,14 +46,20 @@ function paperList(n){
 				contents += "<div class='activity-body act-in'>";
 				contents += "<div class='text' style='height:150px;'>";
 				contents += "<p class='attribution'>"+"<a href='#'>"+value.user_name+"</a>"+value.reg_dt +"</p>";
-				contents += "<div>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_kor+"</p>";
 				contents += "<br>";
+				contents += "<div>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_eng+"</p>";
 				contents += "<br>";
 				contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_type+"</p>";
 				contents += "<div style='display : inline; float:right';>";
-				contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
+				contents += "<form action='download.do' method='post' style='display:inline;'>"
+				contents += "<input type='hidden' name='path' value='" + value.file_path + "'>"
+				contents += "<input type='hidden' name='fileName' value='" + value.file_name + "'>"
+				contents += "<input type='hidden' name='fileOrgName' value='" + value.file_org_name + "'>"
+				contents += "<input type='submit' class='btn btn-primary' value='다운로드' style='width:90px;'>"
+				//contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
+				contents += "</form>"
 				contents += "</div>";
 				contents += "</div>";
 				contents += "</br>";
@@ -90,7 +108,6 @@ function acceptList(){
 	n = "A";
 	paperList(n);
 }
-
 function updateAd(pNo, nNo){
 	if(ad=="S"){
 		alert("상태를 선택하세요");
@@ -122,7 +139,13 @@ function updateAd(pNo, nNo){
 						contents += "<br>";
 						contents += "<p class='attribution' style='display: inline; font-size:15px;'>"+value.paper_type+"</p>";
 						contents += "<div style='display : inline; float:right';>";
-						contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
+						contents += "<form action='download.do' method='post' style='display:inline;'>"
+						contents += "<input type='hidden' name='path' value='" + value.file_path + "'>"
+						contents += "<input type='hidden' name='fileName' value='" + value.file_name + "'>"
+						contents += "<input type='hidden' name='fileOrgName' value='" + value.file_org_name + "'>"
+						contents += "<input type='submit' class='btn btn-primary' value='다운로드' >"
+						//contents += "<button class='btn btn-primary' style='width:90px;'>다운로드</button>";
+						contents += "</form>"
 						contents += "</div>";
 						contents += "</div>";
 						contents += "</br>";
@@ -165,20 +188,10 @@ function mergeDocxPage(){
 	var popOption = "width=370,height=500, resizeble=yes, status=no;";
 	window.open(popUrl,"",popOption);
 }
-function check() {
-	var f = document.getElementById("f");
-	var cbox = f.upCheck;
-	if (cbox.length) {
-		for (var i = 0; i < cbox.length; i++) {
-			cbox[i].checked = f.all.checked;
-		}
-	} else {
-		cbox.checked = f.all.checked;
-	}
-}
+
 function paper_check() {
 	var checked = false;
-	var check = document.getElementsByName("upCheck");
+	var check = $("input[name=upCheck]").val();
 	var f = document.getElementById("f");
 	var allupAd = $('#allupAd').val();
 	if (check.length) {
@@ -197,8 +210,6 @@ function paper_check() {
 		return false;
 	}
 	}
-
-
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공고 상세</title>
@@ -207,6 +218,11 @@ function paper_check() {
 <%@include file="/include/naviBarAndasideBar.jsp"%>
 	<!-- 회원가입 폼 시작-->
 	<!--main content start-->
+	<form action="download.do" method="post">
+		<input type="hidden" name="path">
+		<input type="hidden" name="fileName">
+		<input type="hidden" name="fileOrgName">
+	</form>
 	<section id="main-content"> <section class="wrapper">
 	<div class="row">
 		<div class="col-lg-12">
@@ -238,7 +254,7 @@ function paper_check() {
 					</table>
 			<form name="f" id="f" action="updatePaperAdCheck.do" method="post" onsubmit="return paper_check()">
 				<input type="hidden" name="nNo" value="<%=nDTO.getNotice_no()%>"> 
-				<input type="checkbox" name="all" onclick="check();"> 전체선택 
+				<input type="checkbox" name="all" id="all"> 전체선택 
 				<button class="btn btn-primary" style='float:right; width:90px;'>확인</button>
 				<select class='form-control' style='width: 300px; display: inline; float:right;' name="allupAd" id="allupAd">
 				<option value="S">선택하세요</option>
@@ -246,6 +262,7 @@ function paper_check() {
 				<option value="A">합격</option>
 				<option value="D">불합격</option>
 				</select>
+			</form>
 				<br>
 				<br>
 	<!----------------------------------------------------- 공고 내용 종료----------------------------------------------->		
@@ -259,7 +276,7 @@ function paper_check() {
 					</div>
 				</div>
 	<!----------------------------------------------------- 접수 내역 시작 ----------------------------------------------->
-			<!-- 	<div class="act-time">
+				<div class="act-time">
 					<div class="activity-body act-in">
 						<div class="text" style="height: 150px;">
 							<p class="attribution">
@@ -292,19 +309,16 @@ function paper_check() {
 						</div>
 						<br/>
 					</div>
-				</div> -->
+				</div> 
 	<!----------------------------------------------------- 접수 내역 종료 ----------------------------------------------->
 	<ul id="paperList"  style="	list-style: none;margin:0px; padding:0px;">
-
 	</ul>
-	</form>
 				</div>
 			</div>
 			</section>
 		</div>
 	</div>
 	</section> </section>
-
 	<%@include file="/include/bottomJavaScript.jsp"%>
 </body>
 </html>

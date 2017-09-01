@@ -31,10 +31,14 @@ public class FileDownloadController{
 		log.info(this.getClass() + " path : " + path);
 		String fileName = CmmUtil.nvl(req.getParameter("fileName"));
 		log.info(this.getClass() + " fileName : " + fileName);
-		String realFileName = CmmUtil.nvl(req.getParameter("realFileName"));
-		File fileBeforeRenaming = new File(path + "\\" + fileName);
-		log.info(this.getClass() + "error");
+		String fileOrgName = CmmUtil.nvl(req.getParameter("fileOrgName"));
+		log.info(this.getClass() + " fileOrgName");
+		
+		File file = new File(path + fileName);
+		
+		ModelAndView mav = new ModelAndView("download", "downloadFile", file);
+		mav.addObject("fileOrgName", fileOrgName);
 		log.info(this.getClass() + ".fileDownLoad end!!!");
-		return new ModelAndView("download", "downloadFile", fileBeforeRenaming);
+		return mav;
 	}	
 }
