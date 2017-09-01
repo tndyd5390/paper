@@ -68,12 +68,17 @@ public class UserController {
 			
 			if(uDTO.getAuth().equals("A")){
 				uDTO = null;
+				email=null;
+				password=null;
 				
 				log.info(this.getClass().getName() + " adminLoginProc End!! ");
 				return "redirect:adminNoticeList.do";
 			}else{
 			
 			uDTO=null;
+			email=null;
+			password=null;
+			
 			log.info(this.getClass().getName() + " userLoginProc End!! ");
 			return "redirect:noticeList.do";
 			}
@@ -84,7 +89,6 @@ public class UserController {
 			throws Exception {
 		log.info(this.getClass().getName() + " [ajax] overlapEmail start");
 		String email = CmmUtil.nvl(req.getParameter("email"));
-		System.out.println(email);
 		User_infoDTO uDTO = new User_infoDTO();
 		uDTO.setEmail(email);
 		int check = userService.overlapEmail(uDTO);
@@ -92,6 +96,7 @@ public class UserController {
 		resp.getWriter().flush();
 		resp.getWriter().close();
 		uDTO = null;
+		email = null;
 		log.info(this.getClass().getName() + " [ajax] overlapEmail end");
 	}
 
@@ -114,6 +119,11 @@ public class UserController {
 		userService.insertUser(uDTO);
 		
 		uDTO = null;
+		email=null;
+		password=null;
+		user_name=null;
+		belong=null;
+		phone=null;
 		log.info(this.getClass().getName() + " userSignInProc End! ");
 		return "redirect:userLogin.do";
 	}
@@ -158,7 +168,9 @@ public class UserController {
 			emailSender.SendEmail(sandEmail);
 			
 			uDTO = null;
-			
+			email=null;
+			user_name=null;
+			phone=null;
 		}
 		
 		log.info(this.getClass().getName() + " adminUserInfo end");
@@ -226,7 +238,6 @@ public class UserController {
 			User_infoDTO uDTO = new User_infoDTO();
 			uDTO.setEmail(word);
 			uDTO.setUser_name(word);
-			System.out.println(word);
 			
 			List<User_infoDTO> userList = userService.userSearch(uDTO);
 
@@ -235,6 +246,9 @@ public class UserController {
 			}
 			
 			log.info(this.getClass().getName()+ " userSearch end");
+			userList=null;
+			uDTO=null;
+			word=null;
 			
 			return userList;
 		}

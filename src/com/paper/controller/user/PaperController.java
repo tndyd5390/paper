@@ -143,6 +143,18 @@ public class PaperController {
 			url = "paperReg.do?nNo=" + nNo;
 			returnUrl = "alert";
 		}
+		wList=null;
+		writerBelongs=null;
+		writerEmails=null;
+		writerNames=null;
+		nNo=null;
+		userNo=null;
+		fileOrgName=null;
+		paperEng=null;
+		paperKor=null;
+		extended=null;
+		pType=null;
+		
 		log.info(this.getClass().getName()+ " .paperRegProc End!!");
 		return "alert";
 	}
@@ -160,6 +172,8 @@ public class PaperController {
 		
 		
 		pDTO = null;
+		nNo=null;
+		pAd=null;
 		log.info(this.getClass().getName() + " paperList End!!");
 		return pList;
 	}
@@ -186,6 +200,10 @@ public class PaperController {
 		// 서비스에서 UPDATE 후 SELECT 문 리턴 받음
 		
 		pDTO = null;
+		nNo=null;
+		pNo=null;
+		pAd=null;
+		pAdV=null;
 		log.info(this.getClass().getName() + " paperAdUpdate End!!");
 		return pList;
 	}
@@ -205,6 +223,8 @@ public class PaperController {
 		
 		model.addAttribute("pList", pList);
 		pList=null;
+		nNo=null;
+		adV=null;
 		log.info(this.getClass().getName() + " mergeDocxPage End!!");
 		return "admin/adminPaperMergePop";
 	}

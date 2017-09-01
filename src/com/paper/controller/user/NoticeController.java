@@ -54,7 +54,7 @@ public class NoticeController {
 		log.info(nDTO.getEnd_date());
 		
 		log.info(this.getClass().getName() + "selectNotice end!!" );
-		
+		nNo=null;
 		return nDTO;
 	}
 	
@@ -106,7 +106,11 @@ public class NoticeController {
 		noticeService.insertNotice(nDTO);
 		
 		nDTO = null;
-		
+		noticeTitle=null;
+		receptionDate=null;
+		endDate=null;
+		exhibitionDate=null;
+		userNo=null;
 		log.info(this.getClass().getName() + " noticeRegProc End!!");
 		return "redirect:adminNoticeList.do";
 	}
@@ -139,6 +143,7 @@ public class NoticeController {
 		model.addAttribute("nDTO", nDTO);
 		
 		nDTO = null;
+		nNo=null;
 		log.info(this.getClass().getName() + " adminNoticeDetail End!!");
 		return "admin/adminNoticeDetail";
 	}
@@ -152,6 +157,7 @@ public class NoticeController {
 		nDTO = noticeService.getFileDown(nDTO);
 		model.addAttribute("nDTO", nDTO);
 		nDTO=null;
+		nNo=null;
 		log.info(this.getClass().getName() + " adminMergeDownPop End!!");
 		return "admin/adminMergeDownPop";
 	}

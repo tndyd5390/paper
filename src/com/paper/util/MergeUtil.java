@@ -1,6 +1,5 @@
 package com.paper.util;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,7 +34,6 @@ public class MergeUtil {
     }
     
     public static void mergeDocx(FileInputStream s1[], FileOutputStream os) throws Exception {
-       System.out.println(s1.length);
        if(s1.length>2){
           WordprocessingMLPackage target = WordprocessingMLPackage.load(s1[0]);
             factory = Context.getWmlObjectFactory();
