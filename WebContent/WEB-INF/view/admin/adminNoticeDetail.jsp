@@ -276,7 +276,7 @@ function paper_check() {
 					</div>
 				</div>
 	<!----------------------------------------------------- 접수 내역 시작 ----------------------------------------------->
-				<div class="act-time">
+			<!-- 	<div class="act-time">
 					<div class="activity-body act-in">
 						<div class="text" style="height: 150px;">
 							<p class="attribution">
@@ -309,7 +309,7 @@ function paper_check() {
 						</div>
 						<br/>
 					</div>
-				</div> 
+				</div>  -->
 	<!----------------------------------------------------- 접수 내역 종료 ----------------------------------------------->
 	<ul id="paperList"  style="	list-style: none;margin:0px; padding:0px;">
 	</ul>
