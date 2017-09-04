@@ -21,6 +21,7 @@ import com.paper.service.IUserService;
 import com.paper.util.CmmUtil;
 import com.paper.util.Email;
 import com.paper.util.EmailSender;
+import com.paper.util.WgetUtil;
 
 @Controller
 public class UserController {
@@ -252,6 +253,21 @@ public class UserController {
 			
 			return userList;
 		}
+	}
+	@RequestMapping(value="downTest")
+	public String downTest(HttpServletRequest req) throws Exception{
+		String file = "http://www.cupbobs.com/papers/2017090112385772.docx";
+		String outPath = "C:\\www\\";
+		
+		WgetUtil.wget(file,outPath);
+		
+		
+		return "redirect:userLogin.do";
+	}
+	@RequestMapping(value="testTest")
+	public String testTest() throws Exception{
+		
+		return "test";
 	}
 
 }
