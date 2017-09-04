@@ -21,9 +21,11 @@
 			<i class="icon_menu"></i>
 		</div>
 	</div>
-
-	<!--logo start--> <a href="noticeList.do" class="logo">논<span
-		class="lite">문</span></a> <!--logo end-->
+	<%if(ss_user_auth=="A"){ %>
+	 		<a href="adminNoticeList.do" class="logo">논<spanclass="lite">문</span></a> 
+	<%}else{ %>
+		 	<a href="noticeList.do" class="logo">논<spanclass="lite">문</span></a> 
+	<%} %>
 
 	<div class="nav search-row" id="top_menu">
 		<!--  search form start -->
