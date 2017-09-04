@@ -248,12 +248,8 @@ public class PaperController {
 		mkDir.mkdirs();
 		
 		for(String fileName : fileNames){
-			System.out.println(inputUrl+fileName);
-			System.out.println(outputPath);
 			WgetUtil.wget(inputUrl+fileName, outputPath);
-			
 		}
-		
 		log.info(this.getClass().getName()+ "downloadDocx End!!");
 		
 		return "Success";
@@ -281,11 +277,6 @@ public class PaperController {
 		}
 		mkDir.mkdirs();
 
-		int count = 0;
-		for(String test : fileNames){
-			count ++;
-			System.out.println(count+"  :  "+test);
-		}
 		MergeUtil.mergeDocx(MergeUtil.inputFiles(fileNames), new FileOutputStream(new File(outPath+outFile)));
 		// MergeUtil 속 mergeDocx 메소드로 fileNames에 저장된 경로의 논물들을 병합 함
 		// 위에서 설정 한 outPath와 outFile로 생성 될 파일의 이름과 경로를 지정해 줌
