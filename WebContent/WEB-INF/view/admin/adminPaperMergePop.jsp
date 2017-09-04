@@ -93,7 +93,7 @@ var chk = false;
 								<div class="chat-meta"><%=pDTO.getPaper_kor() %></div>
 								<%=pDTO.getUser_name() %>
 								<div class="clearfix"><b><%=pDTO.getPaper_type() %></b></div>
-								<input type="hidden" name="fileName" value="C:\\www\\<%=pList.get(0).getNotice_no()%>\\<%=pDTO.getFile_name()%>">
+								<input type="hidden" name="fileName" value="/www/papers/<%=pList.get(0).getNotice_no()%>/<%=pDTO.getFile_name()%>">
 								<input type="hidden" name="downFileName" value="<%=pDTO.getFile_name()%>">
 							</div>
 						</li>
