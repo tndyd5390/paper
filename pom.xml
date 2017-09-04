@@ -175,6 +175,12 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.github.axet</groupId>
+			<artifactId>wget</artifactId>
+			<version>1.2.7</version>
+		</dependency>
+
 	</dependencies>
 	<repositories>
 		<repository>
