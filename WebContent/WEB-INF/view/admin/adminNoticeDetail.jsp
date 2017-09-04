@@ -41,7 +41,7 @@ function paperList(n){
 			var contents = "";
 			$.each(data, function(key,value){
 				contents += "<li>";
-				contents += "<input type='checkbox' name='upCheck' value='"+value.paper_no+"'>";
+				contents += "<input type='checkbox' id='upCheck' name='upCheck' value='"+value.paper_no+"'>";
 				contents += "<div class='act-time' style='background-color:white;'>";
 				contents += "<div class='activity-body act-in'>";
 				contents += "<div class='text' style='height:150px;'>";
@@ -114,6 +114,8 @@ function updateAd(pNo, nNo){
 		paperList(n);
 		return false;
 	}else{
+		
+	var formData = $('#f').serialize();
 	$.ajax({
 		url : "paperAdUpdate.do",
 		method : "post",
@@ -121,13 +123,13 @@ function updateAd(pNo, nNo){
 		data : {'nNo' : nNo,
 				'pNo' : pNo,
 				'pAd' : ad,
-				'pAdV' : n
+				'pAdV' : n,
 				},
 				success:function(data){
 					var contents = "";
 					$.each(data, function(key,value){
 						contents += "<li>";
-						contents += "<input type='checkbox' name='upCheck' value='"+value.paper_no+"'>";
+						contents += "<input type='checkbox' id='upCheck' name='upCheck' value='"+value.paper_no+"'>";
 						contents += "<div class='act-time' style='background-color:white;'>";
 						contents += "<div class='activity-body act-in'>";
 						contents += "<div class='text' style='height:150px;'>";
@@ -183,11 +185,33 @@ function updateAd(pNo, nNo){
 	})
 }
 }
+
+function updateCheck(nNo){
+	var arr = new Array();
+	var allupAd = $('#allupAd').val();
+	$('#upCheck:checked').each(function(){
+		arr.push($(this).val());
+	})
+	$.ajax({
+		url : 'updatePaperAdCheck.do',
+		method : 'post',
+		data : {'nNo' : nNo,
+				'allupAd' : allupAd,
+				'upCheck' : arr },
+		success : function(data){
+			$('#all').attr("checked",false);
+			paperList(n);
+		}
+	})
+}
+
+
 function mergeDocxPage(){
 	var popUrl ="mergeDocxPage.do?nNo="+<%=nDTO.getNotice_no()%>+"&adV="+n;
 	var popOption = "width=370,height=500, resizeble=yes, status=no;";
 	window.open(popUrl,"",popOption);
 }
+
 
 function paper_check() {
 	var checked = false;
@@ -218,11 +242,6 @@ function paper_check() {
 <%@include file="/include/naviBarAndasideBar.jsp"%>
 	<!-- 회원가입 폼 시작-->
 	<!--main content start-->
-	<form action="download.do" method="post">
-		<input type="hidden" name="path">
-		<input type="hidden" name="fileName">
-		<input type="hidden" name="fileOrgName">
-	</form>
 	<section id="main-content"> <section class="wrapper">
 	<div class="row">
 		<div class="col-lg-12">
@@ -252,17 +271,15 @@ function paper_check() {
 							</tr>
 						</tbody>
 					</table>
-			<form name="f" id="f" action="updatePaperAdCheck.do" method="post" onsubmit="return paper_check()">
 				<input type="hidden" name="nNo" value="<%=nDTO.getNotice_no()%>"> 
 				<input type="checkbox" name="all" id="all"> 전체선택 
-				<button class="btn btn-primary" style='float:right; width:90px;'>확인</button>
+				<button class="btn btn-primary" style='float:right; width:90px;' onclick='updateCheck(<%=nDTO.getNotice_no()%>)'>확인</button>
 				<select class='form-control' style='width: 300px; display: inline; float:right;' name="allupAd" id="allupAd">
 				<option value="S">선택하세요</option>
 				<option value="N">심사중</option>
 				<option value="A">합격</option>
 				<option value="D">불합격</option>
 				</select>
-			</form>
 				<br>
 				<br>
 	<!----------------------------------------------------- 공고 내용 종료----------------------------------------------->		

@@ -288,22 +288,26 @@ public class PaperController {
 		return "admin/userAlert";
 	}
 	@RequestMapping(value="updatePaperAdCheck")
-	public String updatePaperAdCheck(HttpServletRequest req)throws Exception{
-		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
-		String ad = CmmUtil.nvl(req.getParameter("allupAd"));
-		String[] upCheck = CmmUtil.nvlArr(req.getParameterValues("upCheck"));
-		String url = "redirect:adminNoticeDetail.do?nNo="+nNo;
+	public @ResponseBody String updatePaperAdCheck(@RequestParam(value="nNo") String nNo, @RequestParam(value="allupAd") String allupAd, @RequestParam(value="upCheck[]") String[] upCheck)throws Exception{
+		log.info(this.getClass().getName()+ " updatePaperAdCheck Start!!");
+		
 		Paper_infoDTO pDTO = new Paper_infoDTO();
 		pDTO.setNotice_no(nNo);
-		pDTO.setPaper_ad(ad);
+		pDTO.setPaper_ad(allupAd);
 		pDTO.setAllCheck(upCheck);
+		System.out.println(nNo);
+		System.out.println(allupAd);
+		for (String s : upCheck){
+			System.out.println(s);
+		}
+		
 		paperService.updateCheckAd(pDTO);
 		
 		pDTO=null;
 		nNo=null;
-		ad=null;
 		upCheck=null;
-		return url;
+		log.info(this.getClass().getName()+ " updatePaperAdCheck End!!");
+		return "Success";
 	}
 	@RequestMapping(value="filetest")
 	public String fileTest(HttpServletRequest req, HttpServletResponse resp, Model model, HttpSession session) throws Exception{
