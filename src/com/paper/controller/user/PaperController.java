@@ -237,7 +237,7 @@ public class PaperController {
 		String fileNames[] = req.getParameterValues("downFileName");
 		// Values로 순서대로 fileName들을 배열로 받아 옴
 		String inputUrl = "http://www.cupbobs.com/papers/";
-		String outputPath = "/www/papers/originals"+nNo;
+		String outputPath = "/www/papers/originals/"+nNo;
 //		String outputPath = "C:\\www\\"+nNo;
 		File mkDir = new File(outputPath);
 		
@@ -248,7 +248,7 @@ public class PaperController {
 		mkDir.mkdirs();
 		
 		for(String fileName : fileNames){
-			System.out.println(inputUrl+fileName+".docx");
+			System.out.println(inputUrl+fileName);
 			System.out.println(outputPath);
 			WgetUtil.wget(inputUrl+fileName, outputPath);
 			
