@@ -230,7 +230,7 @@ public class PaperController {
 		return "admin/adminPaperMergePop";
 	}
 	@RequestMapping(value="downloadDocx")
-	public void downloadDocx(HttpServletRequest req, Model model) throws Exception{
+	public @ResponseBody String downloadDocx(HttpServletRequest req, Model model) throws Exception{
 		log.info(this.getClass().getName()+ "downloadDocx Start!!");
 		
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
@@ -255,6 +255,8 @@ public class PaperController {
 		}
 		
 		log.info(this.getClass().getName()+ "downloadDocx End!!");
+		
+		return "Success";
 	}
 	
 	@RequestMapping(value="mergeDocxProc")

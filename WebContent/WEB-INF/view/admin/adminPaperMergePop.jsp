@@ -44,7 +44,7 @@ var chk = false;
 			url : "downloadDocx.do",
 			method : "post",
 			data : formData,
-			success : function(){
+			success : function(data){
 				alert("다운로드 성공");
 				chk = true;
 			}
