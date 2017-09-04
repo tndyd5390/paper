@@ -55,8 +55,6 @@ function doSubmit(f){
 				</div>
 				<!-- <form name="f" action="mergeDocxProc.do" method="post" onsubmit='return doSubmit(this)'> -->
 				<div class="panel-body">
-					다운로드 들어간다
-										<br>
 					<%if(nDTO.getFile_name().equals("")){%>
 						<strong>병합된 파일이 없습니다.</strong>
 					<% }else{%>
