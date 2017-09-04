@@ -138,10 +138,14 @@ public class PaperController {
 		if(result){
 			msg = "등록 성공했습니다.";
 			url = "noticeList.do";
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
 			returnUrl  = "alert";
 		}else{
 			msg = "등록 실패 했습니다.";
 			url = "paperReg.do?nNo=" + nNo;
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
 			returnUrl = "alert";
 		}
 		wList=null;
