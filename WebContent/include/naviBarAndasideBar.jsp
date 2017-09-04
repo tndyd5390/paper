@@ -21,7 +21,7 @@
 			<i class="icon_menu"></i>
 		</div>
 	</div>
-	<%if(ss_user_auth=="A"){ %>
+	<%if(ss_user_auth.equals("A")){ %>
 	 		<a href="adminNoticeList.do" class="logo">논<spanclass="lite">문</span></a> 
 	<%}else{ %>
 		 	<a href="noticeList.do" class="logo">논<spanclass="lite">문</span></a> 
