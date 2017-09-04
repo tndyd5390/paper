@@ -30,6 +30,7 @@ import com.paper.service.INoticeService;
 import com.paper.service.IPaperService;
 import com.paper.util.CmmUtil;
 import com.paper.util.MergeUtil;
+import com.paper.util.WgetUtil;
 
 
 @Controller
@@ -208,6 +209,33 @@ public class PaperController {
 		log.info(this.getClass().getName() + " mergeDocxPage End!!");
 		return "admin/adminPaperMergePop";
 	}
+	@RequestMapping(value="downloadDocx")
+	public void downloadDocx(HttpServletRequest req, Model model) throws Exception{
+		log.info(this.getClass().getName()+ "downloadDocx Start!!");
+		
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		String fileNames[] = req.getParameterValues("downFileName");
+		// Values로 순서대로 fileName들을 배열로 받아 옴
+		String inputUrl = "http://www.cupbobs.com/papers/";
+		String outputPath = "/www/papers/originals"+nNo;
+//		String outputPath = "C:\\www\\"+nNo;
+		File mkDir = new File(outputPath);
+		
+		if(mkDir.exists()){
+			WgetUtil.delFile(outputPath);
+		}
+		
+		mkDir.mkdirs();
+		
+		for(String fileName : fileNames){
+			System.out.println(inputUrl+fileName+".docx");
+			System.out.println(outputPath);
+			WgetUtil.wget(inputUrl+fileName, outputPath);
+			
+		}
+		
+		log.info(this.getClass().getName()+ "downloadDocx End!!");
+	}
 	
 	@RequestMapping(value="mergeDocxProc")
 	public String mergeDockProc(HttpServletRequest req, Model model) throws Exception{
@@ -215,7 +243,8 @@ public class PaperController {
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
 		String fileNames[] = req.getParameterValues("fileName");
 		// Values로 순서대로 fileName들을 배열로 받아 옴
-		String outPath = "/papers/mergePapers/";
+		String outPath = "/www/papers/"+nNo+"/merged/";
+//		String outPath = "C:\\www\\"+nNo+"\\merged\\";
 		String outFile = nNo + ".docx";
 		// 저장해야 할 확장자는 .docx 
 		Notice_infoDTO nDTO = new Notice_infoDTO();
@@ -224,7 +253,12 @@ public class PaperController {
 		nDTO.setFile_path(outPath);
 		noticeService.updateMergeFile(nDTO);
 		// NOTICE_INFO 테이블에 해당 공고의 병합된 파일 이름과 경로를 저장하기 위해 UPDATE문을 날림
+		File mkDir = new File(outPath);
 		
+		if(mkDir.exists()){
+			WgetUtil.delFile(outPath);
+		}
+		mkDir.mkdirs();
 
 		int count = 0;
 		for(String test : fileNames){

@@ -12,6 +12,8 @@
 <%@include file="/include/head.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
+var chk = false;
+
 	$(function(){
 		  $( "#paperList" ).sortable();
 		  $( "#paperList" ).disableSelection();
@@ -22,6 +24,7 @@
 		self.close(); //자기자신창을 닫습니다.
 	}
 	function doSubmit(f){
+	if(!chk==false){
 		if(confirm("병합 하시겠습니까?")){
 			f.submit();
 			window.close;
@@ -29,6 +32,24 @@
 		}else{
 			return false;
 		}
+
+	}else{
+		alert("먼저 다운로드 버튼을 누르세요");
+		return false;
+	}
+	}
+	function downFiles(){
+		var formData = $('#f').serialize();
+		$.ajax({
+			url : "downloadDocx.do",
+			method : "post",
+			data : formData,
+			success : function(){
+				alert("다운로드 성공");
+				chk = true;
+			}
+		})
+		
 	}
 </script>
 
@@ -60,7 +81,7 @@
 						<i class="fa fa-flag-o red"></i><strong>논문 병합</strong>
 					</h2>
 				</div>
-				<form name="f" action="mergeDocxProc.do" method="post" onsubmit='return doSubmit(this)'>
+				<form name="f" id="f" action="mergeDocxProc.do" method="post" onsubmit='return doSubmit(this)'>
 				<input type="hidden" name="nNo" value="<%=pList.get(0).getNotice_no()%>">
 				<div class="panel-body">
 					<ul class="chats" id="paperList">
@@ -72,7 +93,8 @@
 								<div class="chat-meta"><%=pDTO.getPaper_kor() %></div>
 								<%=pDTO.getUser_name() %>
 								<div class="clearfix"><b><%=pDTO.getPaper_type() %></b></div>
-								<input type="hidden" name="fileName" value="<%=pDTO.getFile_path()%><%=pDTO.getFile_name()%>">
+								<input type="hidden" name="fileName" value="C:\\www\\<%=pList.get(0).getNotice_no()%>\\<%=pDTO.getFile_name()%>">
+								<input type="hidden" name="downFileName" value="<%=pDTO.getFile_name()%>">
 							</div>
 						</li>
 						<%
@@ -82,6 +104,7 @@
 					
 					<div class="widget-foot">
 						<center>
+							<input type="button" class="btn btn0-info btn-merge" value="다운로드" onclick="downFiles()">
 							<button type="submit" class="btn btn-info btn-merge">병합</button>
 						</center>
 					</div>

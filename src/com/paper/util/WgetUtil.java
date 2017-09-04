@@ -13,9 +13,25 @@ public class WgetUtil {
 			File output = new File(outPath);
 			WGet w = new WGet(url, output);
 			w.download();
-			
-		}catch(MalformedURLException e){
+
+		} catch (MalformedURLException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static void delFile(String path) {
+		File file = new File(path);
+		File[] tempFile = file.listFiles();
+		if (tempFile.length > 0) {
+			for (int i = 0; i < tempFile.length; i++) {
+				if (tempFile[i].isFile()) {
+					tempFile[i].delete();
+				} else {
+					delFile(tempFile[i].getPath());
+				}
+				tempFile[i].delete();
+			}
+			file.delete();
 		}
 	}
 }
