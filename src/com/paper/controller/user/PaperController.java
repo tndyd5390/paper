@@ -12,7 +12,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.tree.ExpandVetoException;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -25,9 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.paper.dto.Notice_infoDTO;
 import com.paper.dto.Paper_infoDTO;
+import com.paper.dto.User_infoDTO;
 import com.paper.dto.Writer_infoDTO;
 import com.paper.service.INoticeService;
 import com.paper.service.IPaperService;
+import com.paper.service.IUserService;
 import com.paper.util.CmmUtil;
 import com.paper.util.MergeUtil;
 import com.paper.util.WgetUtil;
@@ -43,18 +44,30 @@ public class PaperController {
 	private IPaperService paperService;
 	@Resource(name="NoticeService")
 	private INoticeService noticeService;
+	@Resource(name="UserService")
+	private IUserService userService;
 
 	@RequestMapping(value="paperReg")
 	public String userPaperReg(HttpServletRequest req, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass().getName() + " userPaperReg Start!!");
 		
 		String nNo = CmmUtil.nvl(req.getParameter("noticeNo"));
+		String userNo = CmmUtil.nvl((String)session.getAttribute("ss_user_no"));
 		
-		log.info(this.getClass() + " nNo = "+ nNo);
+		
+		User_infoDTO uDTO = new User_infoDTO();
+		uDTO.setUser_no(userNo);
+		uDTO = userService.getUserDetail(uDTO);
+		
+		
+		log.info(this.getClass().getName() + " nNo = "+ nNo);
+		log.info(this.getClass().getName() + " userNo = "+userNo);
 		
 		model.addAttribute("nNo",nNo);
+		model.addAttribute("uDTO", uDTO);
 		
 		nNo = null;
+		uDTO = null;
 		log.info(this.getClass().getName() + " userPaperReg End!!");
 		return "paperReg";
 	}

@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import = "com.paper.dto.User_infoDTO" %>
+<%@ page import = "com.paper.util.CmmUtil" %>
 
 <%
 	String nNo = (String) request.getAttribute("nNo");
 	String userNo = (String)session.getAttribute("ss_user_no");
+	User_infoDTO uDTO = (User_infoDTO) request.getAttribute("uDTO");
+	
 	if(CmmUtil.nvl(userNo).equals("")){
 		response.sendRedirect("userLogin.do");
 	}
@@ -193,9 +197,9 @@
 					<div id="writerGroup">
 						<div class="form-group" id="form1">
 							<label>저자 정보 <a>*</a></label> 
-							<input type="text" placeholder="이름 입력" class="form-control Sub-Txt" name="name" id='name' required="required">
-							<input type="text" placeholder="이메일 입력" class="form-control Sub-Txt" name="email" id='email' required="required">
-							<input type="text" placeholder="소속 입력" class="form-control Sub-Txt" name="belong" id='belong' required="required">
+							<input type="text" placeholder="이름 입력" class="form-control Sub-Txt" name="name" id='name' required="required" value="<%=CmmUtil.nvl(uDTO.getUser_name())%>">
+							<input type="text" placeholder="이메일 입력" class="form-control Sub-Txt" name="email" id='email' required="required" value="<%=CmmUtil.nvl(uDTO.getEmail())%>">
+							<input type="text" placeholder="소속 입력" class="form-control Sub-Txt" name="belong" id='belong' required="required" value="<%=CmmUtil.nvl(uDTO.getBelong())%>">
 							<hr>
 						</div>
 					</div>

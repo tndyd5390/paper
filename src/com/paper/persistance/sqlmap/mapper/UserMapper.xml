@@ -86,4 +86,15 @@
 		USER_NAME LIKE CONCAT('%', #{user_name}, '%')
 	</select>
 	
+	<select id="getUserDetail" resultType="User_infoDTO" parameterType="User_infoDTO">
+		SELECT
+			USER_NO,
+			EMAIL,
+			USER_NAME,
+			BELONG,
+			PHONE
+		FROM USER_INFO 
+		WHERE USER_NO=#{user_no}
+	</select>
+	
 </mapper>

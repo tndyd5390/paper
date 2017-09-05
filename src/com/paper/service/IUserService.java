@@ -18,4 +18,6 @@ public interface IUserService {
 	public boolean deleteUserAllChecked(User_infoDTO uDTO) throws Exception;
 
 	public List<User_infoDTO> userSearch(User_infoDTO uDTO) throws Exception;
+
+	public User_infoDTO getUserDetail(User_infoDTO uDTO) throws Exception;
 }
