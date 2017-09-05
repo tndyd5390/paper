@@ -238,21 +238,26 @@ public class PaperController {
 		log.info(this.getClass().getName()+ "downloadDocx Start!!");
 		
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
-		String fileNames[] = req.getParameterValues("downFileName");
+		String fileNames[] = CmmUtil.nvlArr(req.getParameterValues("downFileName"));
 		// Values로 순서대로 fileName들을 배열로 받아 옴
 		String inputUrl = "http://www.cupbobs.com/papers/";
 		String outputPath = "/www/papers/"+nNo;
-//		String outputPath = "C:\\www\\"+nNo;
+	  //String outputPath = "C:\\www\\"+nNo;
 		File mkDir = new File(outputPath);
+		//다운 받을 디렉토리를 생성 하기위해 파일 객체 만듦
 		
 		if(mkDir.exists()){
+			// mkDir에 해당하는 디렉토리가 있을 때
 			WgetUtil.delFile(outputPath);
+			// WgetUtil의 delFile 메소드로 해당 디렉토리를 삭제 함
 		}
 		
 		mkDir.mkdirs();
+		// mkdir() 메소드로 mkDir에 해당하는 디렉토리 생성
 		
 		for(String fileName : fileNames){
 			WgetUtil.wget(inputUrl+fileName, outputPath);
+			// fileNames에 저장 되어있는 파일들을 WgetUtil의 wget 메소드로 다운받음
 		}
 		log.info(this.getClass().getName()+ "downloadDocx End!!");
 		
@@ -268,6 +273,13 @@ public class PaperController {
 		String outPath = "/www/papers/"+nNo+"/merged/";
 		String outFile = nNo + ".docx";
 		// 저장해야 할 확장자는 .docx 
+		log.info(this.getClass().getName()+ " nNo = " +nNo);
+		for(String fileName : fileNames){
+			log.info(this.getClass().getName()+ " fileName = " +fileName);
+		}
+		log.info(this.getClass().getName()+ " outPath = " +outPath);
+		log.info(this.getClass().getName()+ " outFile = " +outFile);
+		
 		Notice_infoDTO nDTO = new Notice_infoDTO();
 		nDTO.setNotice_no(nNo);
 		nDTO.setFile_name(outFile);
@@ -275,11 +287,14 @@ public class PaperController {
 		noticeService.updateMergeFile(nDTO);
 		// NOTICE_INFO 테이블에 해당 공고의 병합된 파일 이름과 경로를 저장하기 위해 UPDATE문을 날림
 		File mkDir = new File(outPath);
-		
+		// 병합될 파일이 저장될 디렉토리를 만들기 위해 File 객체를 선언 함
 		if(mkDir.exists()){
+			// mkDir에 해당하는 디렉토리가 있을 때
 			WgetUtil.delFile(outPath);
+			// WgetUtil의 delFile 메소드로 해당 디렉토리를 삭제 함
 		}
 		mkDir.mkdirs();
+		// mkdirs 메소드를 사용하여 mkDir에 해당하는 디렉토리 생성
 
 		MergeUtil.mergeDocx(MergeUtil.inputFiles(fileNames), new FileOutputStream(new File(outPath+outFile)));
 		// MergeUtil 속 mergeDocx 메소드로 fileNames에 저장된 경로의 논물들을 병합 함
@@ -299,10 +314,10 @@ public class PaperController {
 		pDTO.setNotice_no(nNo);
 		pDTO.setPaper_ad(allupAd);
 		pDTO.setAllCheck(upCheck);
-		System.out.println(nNo);
-		System.out.println(allupAd);
+		log.info(this.getClass().getName()+ " nNo = "+ nNo);
+		log.info(this.getClass().getName()+ " allupAd = "+ allupAd);
 		for (String s : upCheck){
-			System.out.println(s);
+			log.info(this.getClass().getName()+ " upCheckPno = "+ s);
 		}
 		
 		paperService.updateCheckAd(pDTO);
