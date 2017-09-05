@@ -140,13 +140,13 @@ public class PaperController {
 			url = "noticeList.do";
 			model.addAttribute("msg", msg);
 			model.addAttribute("url", url);
-			returnUrl  = "alert";
+			returnUrl  = "admin/userAlert";
 		}else{
 			msg = "등록 실패 했습니다.";
 			url = "paperReg.do?nNo=" + nNo;
 			model.addAttribute("msg", msg);
 			model.addAttribute("url", url);
-			returnUrl = "alert";
+			returnUrl = "admin/userAlert";
 		}
 		wList=null;
 		writerBelongs=null;
@@ -161,7 +161,7 @@ public class PaperController {
 		pType=null;
 		
 		log.info(this.getClass().getName()+ " .paperRegProc End!!");
-		return "alert";
+		return returnUrl;
 	}
 	@RequestMapping(value="paperList")
 	public @ResponseBody List<Paper_infoDTO> paperList(@RequestParam(value="nNo") String nNo, @RequestParam(value="pAd") String pAd) throws Exception{
