@@ -56,8 +56,13 @@ public class NoticeService implements INoticeService{
 	}
 
 	@Override
-	public Notice_infoDTO getFileDown(Notice_infoDTO nDTO) {
+	public Notice_infoDTO getFileDown(Notice_infoDTO nDTO) throws Exception {
 		return noticeMapper.getFileDown(nDTO);
+	}
+
+	@Override
+	public void updateNoticeDetail(Notice_infoDTO nDTO) throws Exception {
+		noticeMapper.updateNoticeDetail(nDTO);
 	}
 
 

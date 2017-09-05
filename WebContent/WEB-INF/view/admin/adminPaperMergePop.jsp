@@ -104,7 +104,7 @@ var chk = false;
 					
 					<div class="widget-foot">
 						<center>
-							<input type="button" class="btn btn0-info btn-merge" value="다운로드" onclick="downFiles()">
+							<input type="button" class="btn btn-info btn-merge" value="다운로드" onclick="downFiles()">
 							<button type="submit" class="btn btn-info btn-merge">병합</button>
 						</center>
 					</div>

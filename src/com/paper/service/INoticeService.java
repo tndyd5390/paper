@@ -20,6 +20,8 @@ public interface INoticeService {
 
 	public void updateMergeFile(Notice_infoDTO nDTO) throws Exception;
 
-	public Notice_infoDTO getFileDown(Notice_infoDTO nDTO);
+	public Notice_infoDTO getFileDown(Notice_infoDTO nDTO) throws Exception;
+
+	public void updateNoticeDetail(Notice_infoDTO nDTO) throws Exception;
 
 }

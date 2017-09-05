@@ -85,4 +85,14 @@
 	<select id="getFileDown" parameterType="Notice_infoDTO" resultType="Notice_infoDTO">
 		SELECT NOTICE_TITLE,FILE_NAME, FILE_PATH FROM NOTICE_INFO WHERE NOTICE_NO = #{notice_no}
 	</select>
+	
+	<update id="updateNoticeDetail" parameterType="Notice_infoDTO">
+		UPDATE NOTICE_INFO SET
+			NOTICE_TITLE = #{notice_title},
+			RECEPTION_DATE = #{reception_date},
+			END_DATE = #{end_date},
+			EXHIBITION_DATE = #{exhibition_date}	
+		WHERE NOTICE_NO = #{notice_no}
+	</update>
+	
 </mapper>

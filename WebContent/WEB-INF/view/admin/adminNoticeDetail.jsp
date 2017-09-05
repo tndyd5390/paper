@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.paper.dto.Notice_infoDTO" %>
+<%@ page import="com.paper.util.CmmUtil" %>
 <%
 	Notice_infoDTO nDTO = (Notice_infoDTO) request.getAttribute("nDTO");
 	String userNo = (String)session.getAttribute("ss_user_no");
@@ -207,7 +208,13 @@ function updateCheck(nNo){
 
 
 function mergeDocxPage(){
-	var popUrl ="mergeDocxPage.do?nNo="+<%=nDTO.getNotice_no()%>+"&adV="+n;
+	var popUrl ="mergeDocxPage.do?nNo="+<%=CmmUtil.nvl(nDTO.getNotice_no())%>+"&adV="+n;
+	var popOption = "width=370,height=500, resizeble=yes, status=no;";
+	window.open(popUrl,"",popOption);
+}
+
+function mergeDownPage(){
+	var popUrl = "adminMergeDownPop.do?nNo="+<%=CmmUtil.nvl(nDTO.getNotice_no())%>
 	var popOption = "width=370,height=500, resizeble=yes, status=no;";
 	window.open(popUrl,"",popOption);
 }
@@ -234,6 +241,10 @@ function paper_check() {
 		return false;
 	}
 	}
+function goUpdate(nNo){
+	var url = "adminNoticeUpdate.do?nNo="+nNo;
+	$(location).attr('href',url);	
+}
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공고 상세</title>
@@ -263,17 +274,18 @@ function paper_check() {
 						<tbody>
 							<tr>
 								<th width="10%"><center>제목</center></th>
-								<th width="50%"><center><%=nDTO.getNotice_title() %></center></th>
+								<th width="50%"><center><%=CmmUtil.nvl(nDTO.getNotice_title()) %></center></th>
 								<th width="10%"><center>접수일</center></th>
-								<th width="10%"><center><%=nDTO.getReception_date() %></center></th>
+								<th width="10%"><center><%=CmmUtil.nvl(nDTO.getReception_date()) %></center></th>
 								<th width="10%"><center>종료일</center></th>
-								<th width="10%"><center><%=nDTO.getEnd_date() %></center></th>
+								<th width="10%"><center><%=CmmUtil.nvl(nDTO.getEnd_date()) %></center></th>
 							</tr>
 						</tbody>
 					</table>
-				<input type="hidden" name="nNo" value="<%=nDTO.getNotice_no()%>"> 
+				<input type="hidden" name="nNo" value="<%=CmmUtil.nvl(nDTO.getNotice_no())%>"> 
 				<input type="checkbox" name="all" id="all"> 전체선택 
-				<button class="btn btn-primary" style='float:right; width:90px;' onclick='updateCheck(<%=nDTO.getNotice_no()%>)'>확인</button>
+				<button class="btn btn-info" style='float:right; width:90px; margin-left:20px;' onclick='mergeDownPage()'>병합파일</button>
+				<button class="btn btn-primary" style='float:right; width:90px;' onclick='updateCheck(<%=CmmUtil.nvl(nDTO.getNotice_no())%>)'>확인</button>
 				<select class='form-control' style='width: 300px; display: inline; float:right;' name="allupAd" id="allupAd">
 				<option value="S">선택하세요</option>
 				<option value="N">심사중</option>
@@ -330,12 +342,12 @@ function paper_check() {
 	<!----------------------------------------------------- 접수 내역 종료 ----------------------------------------------->
 	<ul id="paperList"  style="	list-style: none;margin:0px; padding:0px;">
 	</ul>
+			<input type="button" class='btn btn-submit' value="수정" onclick='goUpdate(<%=CmmUtil.nvl(nDTO.getNotice_no())%>)'>
 				</div>
 			</div>
 			</section>
 		</div>
-	</div>
-	</section> </section>
+		
 	<%@include file="/include/bottomJavaScript.jsp"%>
 </body>
 </html>

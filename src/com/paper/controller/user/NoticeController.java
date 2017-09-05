@@ -1,5 +1,7 @@
 package com.paper.controller.user;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -152,6 +154,7 @@ public class NoticeController {
 		log.info(this.getClass().getName() + " adminMergeDownPop Start!!");
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
 		
+		log.info(this.getClass().getName() + " nNo = "+nNo);
 		Notice_infoDTO nDTO = new Notice_infoDTO();
 		nDTO.setNotice_no(nNo);
 		nDTO = noticeService.getFileDown(nDTO);
@@ -161,5 +164,57 @@ public class NoticeController {
 		log.info(this.getClass().getName() + " adminMergeDownPop End!!");
 		return "admin/adminMergeDownPop";
 	}
-
+	
+	@RequestMapping(value="adminNoticeUpdate")
+	public String adminNoticeUpdate(HttpServletRequest req, Model model) throws Exception{
+		log.info(this.getClass().getName() + " adminNoticeUpdate Start!!");
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		log.info(this.getClass().getName() + " nNo = " +nNo);
+		
+		Notice_infoDTO nDTO = new Notice_infoDTO();
+		nDTO.setNotice_no(nNo);
+		nDTO = noticeService.getNoticeDetail(nDTO);
+		
+		model.addAttribute("nDTO", nDTO);
+		nDTO = null;
+		nNo = null;
+		
+		log.info(this.getClass().getName() + " adminNoticeUpdate End!!");
+		return "admin/adminNoticeUpdate";
+	}
+	
+	@RequestMapping(value="adminNoticeUpdateProc")
+	public String adminNoticeUpdateProc(HttpServletRequest req) throws Exception{
+		log.info(this.getClass().getName() + " adminNoticeUpdateProc Start!!");
+		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
+		String returnUrl = "redirect:adminNoticeDetail.do?nNo="+nNo;
+		String title = CmmUtil.nvl(req.getParameter("title"));
+		String receptionDate = CmmUtil.nvl(req.getParameter("reception_date"));
+		String endDate = CmmUtil.nvl(req.getParameter("end_date"));
+		String exhibitionDate = CmmUtil.nvl(req.getParameter("exhibition_date"));
+		
+		log.info(this.getClass().getName() + " nNo = "+nNo);
+		log.info(this.getClass().getName() + " title = "+title);
+		log.info(this.getClass().getName() + " receptionDate = "+receptionDate);
+		log.info(this.getClass().getName() + " endDate = "+endDate);
+		log.info(this.getClass().getName() + " exhibitionDate = "+exhibitionDate);
+		
+		Notice_infoDTO nDTO = new Notice_infoDTO();
+		nDTO.setNotice_no(nNo);
+		nDTO.setNotice_title(title);
+		nDTO.setReception_date(receptionDate);
+		nDTO.setEnd_date(endDate);
+		nDTO.setExhibition_date(exhibitionDate);
+		
+		noticeService.updateNoticeDetail(nDTO);
+		
+		nDTO = null;
+		nNo = null;
+		title = null;
+		receptionDate = null;
+		endDate = null;
+		exhibitionDate = null;
+		log.info(this.getClass().getName() + " adminNoticeUpdateProc End!!");
+		return returnUrl;
+	}
 }
