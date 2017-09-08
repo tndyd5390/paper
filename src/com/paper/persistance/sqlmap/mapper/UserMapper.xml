@@ -15,11 +15,11 @@
 		    CHG_DT,
 		    CHG_USER_NO
 		FROM
-			USER_INFO
+			PUSER_INFO
 		ORDER BY USER_NO DESC
 	</select>
 	<insert id="insertUser" parameterType="User_infoDTO">
-		INSERT INTO USER_INFO (
+		INSERT INTO PUSER_INFO (
 			EMAIL,
 			USER_NAME,
 			PASSWORD,
@@ -40,20 +40,20 @@
 			)
 	</insert>
 	<update id="updateRegUser" parameterType="User_infoDTO">
-		UPDATE USER_INFO SET REG_USER_NO =
-		(SELECT * FROM (SELECT USER_NO FROM USER_INFO WHERE EMAIL=#{email}) AS s) WHERE EMAIL = #{email}
+		UPDATE PUSER_INFO SET REG_USER_NO =
+		(SELECT * FROM (SELECT USER_NO FROM PUSER_INFO WHERE EMAIL=#{email}) AS s) WHERE EMAIL = #{email}
 	</update>
 	
 	<select id="getLoginInfo" parameterType="User_infoDTO" resultType="User_infoDTO">
-		SELECT USER_NO, USER_NAME, AUTH, EMAIL, BELONG FROM USER_INFO WHERE EMAIL=#{email} AND PASSWORD = PASSWORD(#{password})
+		SELECT USER_NO, USER_NAME, AUTH, EMAIL, BELONG FROM PUSER_INFO WHERE EMAIL=#{email} AND PASSWORD = PASSWORD(#{password})
 	</select>
 	
 	<select id="overLapEmail" parameterType="User_infoDTO" resultType="int">
-		SELECT COUNT(*) FROM USER_INFO WHERE EMAIL = #{email}
+		SELECT COUNT(*) FROM PUSER_INFO WHERE EMAIL = #{email}
 	</select>
 	
 	<select id="userFindPw" resultType="User_infoDTO" parameterType="User_InfoDTO">
-		SELECT PASSWORD FROM USER_INFO WHERE EMAIL = #{email} AND
+		SELECT PASSWORD FROM PUSER_INFO WHERE EMAIL = #{email} AND
 		USER_NAME=#{user_name} AND PHONE=#{phone}
 	</select>
 	
