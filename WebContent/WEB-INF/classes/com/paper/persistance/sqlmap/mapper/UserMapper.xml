@@ -58,13 +58,13 @@
 	</select>
 	
 	<update id="updateTempPw" parameterType="User_infoDTO">
-		UPDATE USER_INFO SET
+		UPDATE PUSER_INFO SET
 		PASSWORD=PASSWORD(#{temp_pw}) WHERE USER_NAME=#{user_name} AND
 		EMAIL=#{email} AND PHONE = #{phone}
 	</update>
 	
 	<delete id="deleteUserAllChecked" parameterType="User_infoDTO">
-		DELETE FROM USER_INFO WHERE USER_NO IN
+		DELETE FROM PUSER_INFO WHERE USER_NO IN
 		<foreach item="user_no" index="index" collection="allCheck"
 			open="(" separator="," close=")">#{user_no}</foreach>
 	</delete>
@@ -82,7 +82,7 @@
 		    REG_USER_NO,
 		    CHG_DT,
 		    CHG_USER_NO
-		FROM USER_INFO WHERE EMAIL LIKE CONCAT('%', #{email}, '%') OR
+		FROM PUSER_INFO WHERE EMAIL LIKE CONCAT('%', #{email}, '%') OR
 		USER_NAME LIKE CONCAT('%', #{user_name}, '%')
 	</select>
 	
@@ -93,7 +93,7 @@
 			USER_NAME,
 			BELONG,
 			PHONE
-		FROM USER_INFO 
+		FROM PUSER_INFO 
 		WHERE USER_NO=#{user_no}
 	</select>
 	
