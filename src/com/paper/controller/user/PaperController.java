@@ -38,7 +38,7 @@ import com.paper.util.WgetUtil;
 public class PaperController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
-	String savePath = "/www/cupbobs_com/papers/originals/";
+	String savePath = "/home/paper/papers/originals";
 	
 	@Resource(name="PaperService")
 	private IPaperService paperService;
@@ -253,8 +253,8 @@ public class PaperController {
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
 		String fileNames[] = CmmUtil.nvlArr(req.getParameterValues("downFileName"));
 		// Values로 순서대로 fileName들을 배열로 받아 옴
-		String inputUrl = "http://www.cupbobs.com/papers/";
-		String outputPath = "/www/papers/"+nNo;
+		String inputUrl = "http://116.124.128.185:8084/papers/";
+		String outputPath = "/home/paper/papers/"+nNo;
 	  //String outputPath = "C:\\www\\"+nNo;
 		File mkDir = new File(outputPath);
 		//다운 받을 디렉토리를 생성 하기위해 파일 객체 만듦
@@ -283,7 +283,7 @@ public class PaperController {
 		String nNo = CmmUtil.nvl(req.getParameter("nNo"));
 		String fileNames[] = req.getParameterValues("fileName");
 		// Values로 순서대로 fileName들을 배열로 받아 옴
-		String outPath = "/www/papers/"+nNo+"/merged/";
+		String outPath = "/home/paper/papers/"+nNo+"/merged/";
 		String outFile = nNo + ".docx";
 		// 저장해야 할 확장자는 .docx 
 		log.info(this.getClass().getName()+ " nNo = " +nNo);

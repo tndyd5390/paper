@@ -9,7 +9,7 @@
         class="org.springframework.jdbc.datasource.DriverManagerDataSource"
         lazy-init="false">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://db.cupbobs.com:3306/dbkangseokopo?useSSL=false&amp;serverTimezone=Asia/Seoul" />
+        <property name="url" value="jdbc:mysql://116.124.128.185:3306/dbkangseokopo?useSSL=false&amp;serverTimezone=Asia/Seoul" />
         <property name="username" value="kangseokopo" />
         <property name="password" value="kopokangseo1234" />
     </bean>
