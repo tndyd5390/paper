@@ -24,7 +24,6 @@ var chk = false;
 		self.close(); //자기자신창을 닫습니다.
 	}
 	function doSubmit(f){
-	if(!chk==false){
 		if(confirm("병합 하시겠습니까?")){
 			f.submit();
 			window.close;
@@ -32,11 +31,7 @@ var chk = false;
 		}else{
 			return false;
 		}
-
-	}else{
-		alert("먼저 다운로드 버튼을 누르세요");
-		return false;
-	}
+	
 	}
 	function downFiles(){
 		var formData = $('#f').serialize();

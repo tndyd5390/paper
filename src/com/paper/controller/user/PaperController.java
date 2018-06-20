@@ -38,7 +38,7 @@ import com.paper.util.WgetUtil;
 public class PaperController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
-	String savePath = "/home/paper/papers/originals";
+	String savePath = "/home/paper/papers/originals/";
 	
 	@Resource(name="PaperService")
 	private IPaperService paperService;
